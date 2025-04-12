@@ -67,7 +67,7 @@
 7. 
 # Yasin Maow
 
-1. 
+1. A Online Clothing site will need to be constanly updated with new stock and different designs that why I belive we need to use a Constantly changing model like the Agile method. Agile medel is perfect for web based software and can be used quickly to update and is also fast-evolving. 
 
 2. 
 
