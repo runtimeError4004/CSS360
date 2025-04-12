@@ -18,7 +18,7 @@
 
 # Caeden Statia
 
-1. 
+1. We should use an Agile approach to develop the website. Implementation and configuration can be used to re-purpose the Java template interpreter, while an iterative Agile lifecycle can be used for the rest of the website as needed. Software updates can be deployed quick and easily through cloud infrastructure.
 
 2. 
 
