@@ -73,7 +73,7 @@
 
 3. A Nuclear power point is extremely risky and if the software that monitors it fails extreme destruction may follow so I belive we should use the spiral model. with this model you can Identify the risks early and at every phase. it can involve multiple rounds of planning, development, testing, and evaluation so the software can succeed.
 
-4. 
+4. I Think for this project we can use the waterfall model since all the requiremtns and have been detailed and sent to use with proper documentation. With similar work expirence in this type of software going back to eariler phases is not needed.
 
 5. 
 
