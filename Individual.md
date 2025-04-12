@@ -35,13 +35,13 @@
 
 # Shivangi Mittal
 
-1. 
+1. I would say using the **agile** model would be best because the platform requires frequent updates and it is going to be online. Knowing that there are teams of different people in the project, each member has their own skills set which could be put in to provide deliverables. 
 
-2. 
+2. This project is wholly online but the requirements of the project stays the same throughout the time like scheduling appointment and stuff. Because of these requirements are fixed I would say **waterfall** model would be best approach as it is a plan-driven model where design, implementation, testing and more are done in a linear sequence.
 
-3. 
+3. I would say this could be done through **spiral** model. As the project requires the monitoring of the status of the new nuclear power plant, there could be risks involved and be done with one thing after the other.
 
-4. 
+4. I would say using **iterative** process would be best approach. The project requires multiple detailed specifications which might result is some sort of mistake in between. This approach allows early feedback from the users which would in turn allows improvement throughout the process.
 
 5. 
 
