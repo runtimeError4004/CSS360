@@ -45,9 +45,11 @@
 
 5. Given the description of our company, we are already familiar with developing the embedded systems using waterfall method. Knowing that we have created proprietary hardware solutions in the past, we would like to move on with **waterfall** method to work with. 
 
-6. 
+6. I would say working with **incremental** model would be best. The project requires us to work in small teams and the evolving set of requirements. 
 
-7. 
+7. I would go for **agile** model for this project. We might need to make changes throughout to ensure positive impact as it might give the chance to our company for further grants based on these results.
+
+   
 # Gerson Jimenez
 
 1. 
