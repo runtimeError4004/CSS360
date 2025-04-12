@@ -77,6 +77,6 @@
 
 5. Since a traffic system is an embedded software I belive a waterfall model can be used. Since the team is already familar with the approach system relibility and safety become the main points.
 
-6. 
+6. For a video Game I belive an agile method like scrum is the best. With ever changing requirements and constanly needed feedback from the players it need ot be updating quickly where scrum comes to effect.
 
 7. 
