@@ -43,7 +43,7 @@
 
 4. I would say using **iterative** process would be best approach. The project requires multiple detailed specifications which might result is some sort of mistake in between. This approach allows early feedback from the users which would in turn allows improvement throughout the process.
 
-5. 
+5. Given the description of our company, we are already familiar with developing the embedded systems using waterfall method. Knowing that we have created proprietary hardware solutions in the past, we would like to move on with **waterfall** method to work with. 
 
 6. 
 
