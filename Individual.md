@@ -26,7 +26,7 @@
 
 4. The specifications and requirements are already laid out by the Department of Transportation, and our company already has experienced staff who has worked in similar software. Thus, we can get away with using an Agile approach to speed up our development times, referring to the DoT's specifications as much as possible while making efficient use of our staff.
 
-5. 
+5. Given the context of our company, we may already be familiar with the Waterfall method to develop embedded systems. Considering we are likely goign to use embedded or proprietary hardware, we should keep to what is known and continue to use the Waterfall lifecycle.
 
 6. 
 
