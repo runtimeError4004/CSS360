@@ -20,7 +20,7 @@
 
 1. We should use an Agile approach to develop the website. Implementation and configuration can be used to re-purpose the Java template interpreter, while an iterative Agile lifecycle can be used for the rest of the website as needed. Software updates can be deployed quick and easily through cloud infrastructure.
 
-2. 
+2. The requirements for the clinic website are simple enough that we should once again use an interative lifecycle. There is no safety or security-critical components that require significant design and requirement documentation ahead of time to consider a waterfall approach.
 
 3. 
 
