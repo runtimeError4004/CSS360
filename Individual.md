@@ -71,7 +71,7 @@
 
 2. I Think for a dental office site we can once again use agile. since the requirements and procedures may grow over time like adding different functions, appointment making and rescheduling the agile method can give the flexibility it needs to thrive.
 
-3. 
+3. A Nuclear power point is extremely risky and if the software that monitors it fails extreme destruction may follow so I belive we should use the spiral model. with this model you can Identify the risks early and at every phase. it can involve multiple rounds of planning, development, testing, and evaluation so the software can succeed.
 
 4. 
 
