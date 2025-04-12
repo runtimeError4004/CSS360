@@ -30,7 +30,7 @@
 
 6. Our team is small enough, and requirements evolving enough, that it makes the most sense to use an Agile approach such as scrum. We need to be able to develop our games with requirements that change on a dime, and be able to quickly deliver our games to our customers.
 
-7. 
+7. Considering the vast amounts of legal implications of working with health, it would be best to be safe and use a waterfall approach despite the small size of our team.
 
 
 # Shivangi Mittal
