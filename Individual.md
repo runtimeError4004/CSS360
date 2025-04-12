@@ -24,7 +24,7 @@
 
 3. Considering the financial and medical implications of a failed nuclear power plant, this is a project that should be done right the first time. Thus, we should use a waterfall approach to ensure that our nuclear power plant software is safe, dependable, and secure.
 
-4. 
+4. The specifications and requirements are already laid out by the Department of Transportation, and our company already has experienced staff who has worked in similar software. Thus, we can get away with using an Agile approach to speed up our development times, referring to the DoT's specifications as much as possible while making efficient use of our staff.
 
 5. 
 
