@@ -75,7 +75,7 @@
 
 4. I Think for this project we can use the waterfall model since all the requiremtns and have been detailed and sent to use with proper documentation. With similar work expirence in this type of software going back to eariler phases is not needed.
 
-5. 
+5. Since a traffic system is an embedded software I belive a waterfall model can be used. Since the team is already familar with the approach system relibility and safety become the main points.
 
 6. 
 
