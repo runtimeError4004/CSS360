@@ -79,4 +79,4 @@
 
 6. For a video Game I belive an agile method like scrum is the best. With ever changing requirements and constanly needed feedback from the players it need ot be updating quickly where scrum comes to effect.
 
-7. 
+7. For a healthcare system in another country the risk can be quite dangerous so i belive the spiral method can be used here. Identifyjng the major risks ealier on could be a game changer.
