@@ -69,7 +69,7 @@
 
 1. A Online Clothing site will need to be constanly updated with new stock and different designs that why I belive we need to use a Constantly changing model like the Agile method. Agile medel is perfect for web based software and can be used quickly to update and is also fast-evolving. 
 
-2. 
+2. I Think for a dental office site we can once again use agile. since the requirements and procedures may grow over time like adding different functions, appointment making and rescheduling the agile method can give the flexibility it needs to thrive.
 
 3. 
 
