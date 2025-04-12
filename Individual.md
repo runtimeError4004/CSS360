@@ -18,19 +18,19 @@
 
 # Caeden Statia
 
-1. 
+1. We should use an Agile approach to develop the website. Implementation and configuration can be used to re-purpose the Java template interpreter, while an iterative Agile lifecycle can be used for the rest of the website as needed. Software updates can be deployed quick and easily through cloud infrastructure.
 
-2. 
+2. The requirements for the clinic website are simple enough that we should once again use an interative lifecycle. There is no safety or security-critical components that require significant design and requirement documentation ahead of time to consider a waterfall approach.
 
-3. 
+3. Considering the financial and medical implications of a failed nuclear power plant, this is a project that should be done right the first time. Thus, we should use a waterfall approach to ensure that our nuclear power plant software is safe, dependable, and secure.
 
-4. 
+4. The specifications and requirements are already laid out by the Department of Transportation, and our company already has experienced staff who has worked in similar software. Thus, we can get away with using an Agile approach to speed up our development times, referring to the DoT's specifications as much as possible while making efficient use of our staff.
 
-5. 
+5. Given the context of our company, we may already be familiar with the Waterfall method to develop embedded systems. Considering we are likely goign to use embedded or proprietary hardware, we should keep to what is known and continue to use the Waterfall lifecycle.
 
-6. 
+6. Our team is small enough, and requirements evolving enough, that it makes the most sense to use an Agile approach such as scrum. We need to be able to develop our games with requirements that change on a dime, and be able to quickly deliver our games to our customers.
 
-7. 
+7. Considering the vast amounts of legal implications of working with health, it would be best to be safe and use a waterfall approach despite the small size of our team.
 
 
 # Shivangi Mittal
