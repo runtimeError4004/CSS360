@@ -22,7 +22,7 @@
 
 2. The requirements for the clinic website are simple enough that we should once again use an interative lifecycle. There is no safety or security-critical components that require significant design and requirement documentation ahead of time to consider a waterfall approach.
 
-3. 
+3. Considering the financial and medical implications of a failed nuclear power plant, this is a project that should be done right the first time. Thus, we should use a waterfall approach to ensure that our nuclear power plant software is safe, dependable, and secure.
 
 4. 
 
