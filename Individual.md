@@ -28,7 +28,7 @@
 
 5. Given the context of our company, we may already be familiar with the Waterfall method to develop embedded systems. Considering we are likely goign to use embedded or proprietary hardware, we should keep to what is known and continue to use the Waterfall lifecycle.
 
-6. 
+6. Our team is small enough, and requirements evolving enough, that it makes the most sense to use an Agile approach such as scrum. We need to be able to develop our games with requirements that change on a dime, and be able to quickly deliver our games to our customers.
 
 7. 
 
