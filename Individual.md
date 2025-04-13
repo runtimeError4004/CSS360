@@ -54,7 +54,7 @@
 
 1. I think using an agile model would be ideal in an e-Commerce platform. Since this is done online, the agile method would help manage coordination between teams and allows continuous feedback from team members.
 
-2. 
+2. For a dental office site, my way to go would be taking an incremental approach. This dental site can be developed in different phases or steps, and new features can slowly be added step by step, allowing flexibility.
 
 3. 
 
