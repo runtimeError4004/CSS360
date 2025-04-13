@@ -27,6 +27,7 @@
 # 3: Nuclear Power Plant
 ## The final team’s answer/SDLC choice
 The Waterfall method was selected
+
 ## Thorough justification for why this model was selected for this project (i.e., What makes it a good fit? How can this SDLC help with developing this project?)
 > Because of news of previous power plant failures... you want to make sure that the software you are designing will be robust, is able to deal with hardware failure, and can fail safely. 
 > The software is expected to last for a long time (at least 10 years). 
@@ -40,8 +41,9 @@ The Waterfall method was selected
 
 Waterfall was preferred because the other two were far too prone to mistakes over a longer period of time.
 ## The 1-2 key aspects of the project that were most important to your final SDLC decision.  Explain why these aspects are critical to this decision. 
-   1. 
-   2. 
+   1. High Reliability and Safety Requirements
+
+   2. Long-Term Maintenance and Longevity
 
 
 
