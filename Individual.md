@@ -52,7 +52,7 @@
    
 # Gerson Jimenez
 
-1. 
+1. I think using an agile model would be ideal in an e-Commerce platform. Since this is done online, the agile method would help manage coordination between teams and allows continuous feedback from team members.
 
 2. 
 
