@@ -58,7 +58,7 @@
 
 3. When looking at the potentinal risks of a nuclear powwer plant, it would be best to go with the spiral model. The spiral model would allow us to identify risk and validation at early development stages.
 
-4. 
+4. We are given a 100 page specifications with defined requirements. Therefore, I would go with the waterfall method, as it would allow a structured and predicable development cycle. 
 
 5. 
 
