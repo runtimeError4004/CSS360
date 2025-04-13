@@ -13,8 +13,8 @@ The **Agile** method was selected
 
 
 ## The 1-2 key aspects of the project that were most important to your final SDLC decision.  Explain why these aspects are critical to this decision. 
-   1. 
-   2. 
+   1. The platform is hosted online with a rotating selection of products, so it will need frequent updates and re-deployments. An Agile approach will allow us to meet these frequency demands.
+   2. Our team members are proficient in different parts of the development, so we need a lifecycle that allows developers to play to their strengths. Agile allows us to divide work among developers to play into strengths.
 
 # 2: Dental office site
 ## The final team’s answer/SDLC choice
@@ -29,8 +29,8 @@ The **Waterfall** method was selected
 
 
 ## The 1-2 key aspects of the project that were most important to your final SDLC decision.  Explain why these aspects are critical to this decision. 
-   1. 
-   2. 
+   1. The website is not going to be updated frequently, and the details of those updates are known ahead of time. As such, the specification phase for Waterfall will be rather short.
+   2. Considering the context of a dental clinic, the systems we developed need to be well-tested and reliable. The Waterfall approach will allow us to verify that developed systems for the dental clinic will be reliable for any end customer.
 
 
 # 3: Nuclear Power Plant
