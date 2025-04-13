@@ -56,15 +56,16 @@
 
 2. For a dental office site, my way to go would be taking an incremental approach. This dental site can be developed in different phases or steps, and new features can slowly be added step by step, allowing flexibility.
 
-3. 
+3. When looking at the potentinal risks of a nuclear powwer plant, it would be best to go with the spiral model. The spiral model would allow us to identify risk and validation at early development stages.
 
-4. 
+4. We are given a 100 page specifications with defined requirements. Therefore, I would go with the waterfall method, as it would allow a structured and predicable development cycle. 
 
-5. 
+5. I would go with a spiral model in this situation. The projects complexity and integration of hardware and software lets us know that a spiral model would be ideal.
 
-6. 
+6. I would say that going with an Agile method would probably be the best choice here. This would be a good fit for a small team with constant feedback, development, and updates needed.
 
-7. 
+7. Again, I would go with an agile method. It would allow this small team to quickly adapt to user feedback, iterate rapidly, and deliver usable features early.
+   
 # Yasin Maow
 
 1. A Online Clothing site will need to be constanly updated with new stock and different designs that why I belive we need to use a Constantly changing model like the Agile method. Agile medel is perfect for web based software and can be used quickly to update and is also fast-evolving. 
