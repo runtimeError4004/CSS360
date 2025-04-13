@@ -117,6 +117,7 @@ The **Iterative** method was selected
 | Waterfall  | Clear structure, well-documented               | hard to go back to previous stages      | // replace whichever one you dont use
 | agile      | Allows gradual improvements, early testing     | Not easy to document, still regulated   |
 
+Iteration is better than the Waterfall method for the educational game because it allows the team to quickly adapt to changing requirements.
 
 ## The 1-2 key aspects of the project that were most important to your final SDLC decision.  Explain why these aspects are critical to this decision. 
    1. Delivers a usable model of the software early on
@@ -134,14 +135,32 @@ The **Agile** method was selected
 
 ## Thorough justification for why this model was selected for this project (i.e., What makes it a good fit? How can this SDLC help with developing this project?)
 
+> since the project’s success depends on demonstrating a significant positive impact, Agile allows your team to make continuous changes and improvements based on feedback and results. 
+
+> Agile’s iterative nature supports ongoing experimentation and feature development. With no fixed targets yet, the team can keep the project scope open.
+
+1.Encourages collaboration with stakeholders and users.
+
+2.Enables continuous testing and real-world feedback.
+
+3.Ever evolving goals can be supported much easier compared to other models like the waterfall.
+
+
 ## 1-2 other models that were considered, and why the final selection won out over them.  
 | Method     | Pros                                           | Cons                                    |
 | ---------- | ---------------------------------------------- |-----------------------------------------|
 |            |                                                |                                         |
 | Waterfall  | Clear structure, well-documented               | hard to go back to previous stages      |
 
-
+Agile allows for continuous changes and improvements, while Waterfall locks in requirements early 
 
 ## The 1-2 key aspects of the project that were most important to your final SDLC decision.  Explain why these aspects are critical to this decision. 
-   1. 
-   2. 
+   1. Unclear targets and ever evolving requiremnts,
+      The project does not have strict goals at the beginning, and its direction depends on how well the software performs in real-world settings. Agile supports this uncertainty by allowing 
+      flexibility in planning and development.
+
+
+     
+   2. Continuous Testing and Improvement,
+      The success of the software—and the chance for future grants—depends on how well it performs in real use. Agile supports continuous testing, allowing the team to identify issues early, 
+      gather user feedback.
