@@ -38,8 +38,8 @@ The **Waterfall** method was selected
 The **Spiral** method was selected
 
 ## Thorough justification for why this model was selected for this project (i.e., What makes it a good fit? How can this SDLC help with developing this project?)
->"Because of news of previous power plant failures... you want to make sure that the software you are designing will be robust, is able to deal with hardware failure, and can fail safely. 
-> The software is expected to last for a long time (at least 10 years)."
+>"Because of news of previous power plant failures... you want to make sure that the software you are designing will be robust, is able to deal with hardware failure, and can fail safely."
+> "The software is expected to last for a long time (at least 10 years)."
 Spiral was preferred because it allows the programmers to continuously apply risk management and quality tests as they go on with development [for three reasons.](https://teachingagile.com/sdlc/models/spiral)
 1. It allows for multiple phases of development and tracking of safety measures
 2. It allows for the experimentation of products and functions that limit risk,
@@ -55,9 +55,11 @@ The Spiral model combines the structured, sequential approach of Waterfall with 
 
 ## The 1-2 key aspects of the project that were most important to your final SDLC decision.  Explain why these aspects are critical to this decision. 
 1. High Reliability and Safety Requirements
-It was crucial that we choose a SDLC that allows us to develop and track our systems of systems. 
+It was crucial that we choose a SDLC that allows us to develop and track our systems of systems. The company that owns the powerplant has allowed us to get third party involvement in our solutions.
+We should hire consulting teams to receive guidance on concerns that allow us to make multiple rounds of assessments as progress moves forward.
 2. Long-Term Maintenance and Longevity
-By having the requirement that it must be *"able to deal with hardware failure, and can fail safely"* means that part of our testing is *making* the plant crash intentionally and in a controlled manner. Since we cannot prepare for every single possible indefinitely through the first shot at a solution, Spiral SDLC allows us to come up with new safety concerns and solutions continuously.
+By having the requirement that it must be *"able to deal with hardware failure, and can fail safely"* means that part of our testing is *making* the plant crash intentionally and in a controlled manner. 
+Since we cannot prepare for every single possible indefinitely through the first shot at a solution, Spiral SDLC allows us to come up with new safety concerns and solutions continuously.
 
 
 # 4: Department of Transportation
@@ -119,7 +121,7 @@ The **Agile** method was selected
 ## 1-2 other models that were considered, and why the final selection won out over them.  
 | Method     | Pros                                           | Cons                                    |
 | ---------- | ---------------------------------------------- |-----------------------------------------|
-| Spiral     |                                                |                                         |
+|            |                                                |                                         |
 | Waterfall  | Clear structure, well-documented               | hard to go back to previous stages      |
 
 
