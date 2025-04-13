@@ -56,7 +56,7 @@
 
 2. For a dental office site, my way to go would be taking an incremental approach. This dental site can be developed in different phases or steps, and new features can slowly be added step by step, allowing flexibility.
 
-3. 
+3. When looking at the potentinal risks of a nuclear powwer plant, it would be best to go with the spiral model. The spiral model would allow us to identify risk and validation at early development stages.
 
 4. 
 
