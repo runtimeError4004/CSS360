@@ -60,7 +60,7 @@
 
 4. We are given a 100 page specifications with defined requirements. Therefore, I would go with the waterfall method, as it would allow a structured and predicable development cycle. 
 
-5. 
+5. I would go with a spiral model in this situation. The projects complexity and integration of hardware and software lets us know that a spiral model would be ideal.
 
 6. 
 
