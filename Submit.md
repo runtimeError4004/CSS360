@@ -38,12 +38,12 @@ The **Waterfall** method was selected
 The **Spiral** method was selected
 
 ## Thorough justification for why this model was selected for this project (i.e., What makes it a good fit? How can this SDLC help with developing this project?)
-> Because of news of previous power plant failures... you want to make sure that the software you are designing will be robust, is able to deal with hardware failure, and can fail safely. 
-> The software is expected to last for a long time (at least 10 years). 
-
-The Spiral model combines the structured, sequential approach of Waterfall with the flexibility and risk-reduction strategies of iterative development. We chose the Spiral method because
-   1. 
-
+>"Because of news of previous power plant failures... you want to make sure that the software you are designing will be robust, is able to deal with hardware failure, and can fail safely. 
+> The software is expected to last for a long time (at least 10 years)."
+Spiral was preferred because it allows the programmers to continuously apply risk management and quality tests as they go on with development [for three reasons.](https://teachingagile.com/sdlc/models/spiral)
+1. It allows for multiple phases of development and tracking of safety measures
+2. It allows for the experimentation of products and functions that limit risk,
+3. It allows for the result to be flexible with changing guidance and rules.
     
 ## 1-2 other models that were considered, and why the final selection won out over them.  
 | Method     | Pros                                           | Cons                                    |
@@ -51,12 +51,13 @@ The Spiral model combines the structured, sequential approach of Waterfall with 
 | Iterative  | Allows gradual improvements, early testing     | Not easy to document, still regulated   |
 | Waterfall  | Clear structure, well-documented               | hard to go back to previous stages      |
 
-Spiral was preferred because 
+The Spiral model combines the structured, sequential approach of Waterfall with the flexibility and risk-reduction strategies of iterative development.
+
 ## The 1-2 key aspects of the project that were most important to your final SDLC decision.  Explain why these aspects are critical to this decision. 
-   1. High Reliability and Safety Requirements
-
-   2. Long-Term Maintenance and Longevity
-
+1. High Reliability and Safety Requirements
+It was crucial that we choose a SDLC that allows us to develop and track our systems of systems. 
+2. Long-Term Maintenance and Longevity
+By having the requirement that it must be *"able to deal with hardware failure, and can fail safely"* means that part of our testing is *making* the plant crash intentionally and in a controlled manner. Since we cannot prepare for every single possible indefinitely through the first shot at a solution, Spiral SDLC allows us to come up with new safety concerns and solutions continuously.
 
 
 # 4: Department of Transportation
@@ -67,7 +68,7 @@ The **(WATERFALL OR ITERATIVE)** method was selected
 ## 1-2 other models that were considered, and why the final selection won out over them.  
 | Method     | Pros                                           | Cons                                    |
 | ---------- | ---------------------------------------------- |-----------------------------------------|
-| Iterative  | Allows gradual improvements, early testing     | Not easy to document, still regulated   | // replace whichever one you dont use, 
+| Iterative  | Allows gradual improvements, early testing     | Not easy to document, still regulated   | // replace whichever one you dont use
 | Waterfall  | Clear structure, well-documented               | hard to go back to previous stages      |
 ## The 1-2 key aspects of the project that were most important to your final SDLC decision.  Explain why these aspects are critical to this decision. 
    1. 
@@ -100,7 +101,7 @@ The **(WATERFALL OR ITERATIVE)** method was selected
 ## 1-2 other models that were considered, and why the final selection won out over them.  
 | Method     | Pros                                           | Cons                                    |
 | ---------- | ---------------------------------------------- |-----------------------------------------|
-|            |                                                |                                         |
+| Waterfall  | Clear structure, well-documented               | hard to go back to previous stages      | // replace whichever one you dont use
 | Iterative  | Allows gradual improvements, early testing     | Not easy to document, still regulated   |
 
 
