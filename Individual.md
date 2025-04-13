@@ -64,7 +64,8 @@
 
 6. I would say that going with an Agile method would probably be the best choice here. This would be a good fit for a small team with constant feedback, development, and updates needed.
 
-7. 
+7. Again, I would go with an agile method. It would allow this small team to quickly adapt to user feedback, iterate rapidly, and deliver usable features early.
+   
 # Yasin Maow
 
 1. A Online Clothing site will need to be constanly updated with new stock and different designs that why I belive we need to use a Constantly changing model like the Agile method. Agile medel is perfect for web based software and can be used quickly to update and is also fast-evolving. 
