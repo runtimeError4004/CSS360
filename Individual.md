@@ -62,7 +62,7 @@
 
 5. I would go with a spiral model in this situation. The projects complexity and integration of hardware and software lets us know that a spiral model would be ideal.
 
-6. 
+6. I would say that going with an Agile method would probably be the best choice here. This would be a good fit for a small team with constant feedback, development, and updates needed.
 
 7. 
 # Yasin Maow
