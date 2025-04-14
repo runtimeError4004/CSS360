@@ -38,11 +38,11 @@ The **Waterfall** method was selected
 The **Spiral** method was selected
 
 ## Thorough justification for why this model was selected for this project (i.e., What makes it a good fit? How can this SDLC help with developing this project?)
->"Because of news of previous power plant failures... you want to make sure that the software you are designing will be robust, is able to deal with hardware failure, and can fail safely."
+> "Because of news of previous power plant failures... you want to make sure that the software you are designing will be robust, is able to deal with hardware failure, and can fail safely."
 > "The software is expected to last for a long time (at least 10 years)."
 Spiral was preferred because it allows the programmers to continuously apply risk management and quality tests as they go on with development [for three reasons.](https://teachingagile.com/sdlc/models/spiral)
 1. It allows for multiple phases of development and tracking of safety measures
-2. It allows for the experimentation of products and functions that limit risk,
+2. It allows for the experimentation of prototypes that are intended to limit risk,
 3. It allows for the result to be flexible with changing guidance and rules.
     
 ## 1-2 other models that were considered, and why the final selection won out over them.  
@@ -61,7 +61,7 @@ We should hire consulting teams to receive guidance on concerns that allow us to
 By having the requirement that it must be *"able to deal with hardware failure, and can fail safely"* means that part of our testing is *making* the plant crash intentionally and in a controlled manner. 
 Since we cannot prepare for every single possible indefinitely through the first shot at a solution, Spiral SDLC allows us to come up with new safety concerns and solutions continuously.
 
-
+---
 # 4: Department of Transportation
 ## The final team’s answer/SDLC choice
 The **(WATERFALL OR ITERATIVE)** method was selected
