@@ -3,7 +3,7 @@
 ## The final team’s answer/SDLC choice
 The **Agile** method was selected
 ## Thorough justification for why this model was selected for this project (i.e., What makes it a good fit? How can this SDLC help with developing this project?)
-> "Becaause the site requires frequrnt updates, customer-focused features, and a highly interactive design process with a team of people with mixed levels of experience."
+> "Because the site requires frequrnt updates, customer-focused features, and a highly interactive design process with a team of people with mixed levels of experience."
 > "The software requires a coordination with a group of maintaining Java interpreter."
 Agile method was preferred because of the following:
 1. It allows for an incremental development.
