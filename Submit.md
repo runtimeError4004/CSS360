@@ -108,6 +108,7 @@ The **Waterfall** method was selected
 | Spiral     | Manages risks and integrates prototypes early  | Too complex in this situation           |
 | Iterative  | Allows gradual improvements, early testing     | Not easy to document, still regulated   |
 
+The waterfall model was the final selection because the project involves hardware requirements that are defined and stages that also align with the teams experience with embedded systems and C++.
 
 ## The 1-2 key aspects of the project that were most important to your final SDLC decision.  Explain why these aspects are critical to this decision. 
    1. Clear and fixed requirements,
