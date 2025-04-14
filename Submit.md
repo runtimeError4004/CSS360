@@ -25,6 +25,7 @@ Agile method helps in collaborative approach to the development focusing on smal
 ## The final team’s answer/SDLC choice
 The **Waterfall** method was selected
 ## Thorough justification for why this model was selected for this project (i.e., What makes it a good fit? How can this SDLC help with developing this project?)
+The waterfall method was selected because the dentist has already outlined precisely what they want out of the software in the present, and what they will require from us in the future. As such, the specification phase will be fairly short and minimal as we'd just need to confirm design details with the client. Ensuring our website and appointment system are well-tested ahead of time would mean clients are able to reliably use our software from day 1.
 
 ## 1-2 other models that were considered, and why the final selection won out over them.  
 | Method     | Pros                                           | Cons                                    |
