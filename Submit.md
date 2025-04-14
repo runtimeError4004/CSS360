@@ -92,16 +92,18 @@ The **Waterfall** method was selected
 
 ## Thorough justification for why this model was selected for this project (i.e., What makes it a good fit? How can this SDLC help with developing this project?)
 
+> The waterfall method was selected as it allows a stuctured and organized approach. The project has clear goals from the start, so the waterfall method will work well here. Our team is also experienced in building embedded systems using C++, which is supported by the waterfall model, and allows us through this method to focus one phase at a time.
+
 ## 1-2 other models that were considered, and why the final selection won out over them.  
 | Method     | Pros                                           | Cons                                    |
 | ---------- | ---------------------------------------------- |-----------------------------------------|
-| Spiral     |                                                |                                         |
+| Spiral     | Manages risks and integrates prototypes early  | Too complex in this situation           |
 | Iterative  | Allows gradual improvements, early testing     | Not easy to document, still regulated   |
 
 
 ## The 1-2 key aspects of the project that were most important to your final SDLC decision.  Explain why these aspects are critical to this decision. 
-   1. 
-   2. 
+   1. Clear and fixed requirements,
+      The project has a very clear goal to track cars and monitor traffic, while also showing real time updates. In this situation, we already know what the system has to do, therefore we shouldn't expect the requirements to really change, which is why the waterfall mehtod is preffered.
 
 # 6: Educational game
 ## The final team’s answer/SDLC choice
