@@ -79,6 +79,8 @@ Waterfall method was preferred because it allows programmers to do the following
 | Iterative  | Allows gradual improvements, early testing     | Not easy to document, still regulated   | // replace whichever one you dont use
 | Waterfall  | Clear structure, well-documented               | hard to go back to previous stages      |
 
+The Waterfall method helps with a well-defined documentation with clear structure and a phase-by-phase development which ensures accountability. 
+
 ## The 1-2 key aspects of the project that were most important to your final SDLC decision.  Explain why these aspects are critical to this decision. 
    1. **Detailed and Fixed requirements**
       The project has a comprehensive 100-page requirement document. The Waterfall model was best approach when the scope is known from the start, hence minimizing the risk. 
