@@ -66,15 +66,24 @@ Since we cannot prepare for every single possible indefinitely through the first
 ## The final team’s answer/SDLC choice
 The **(WATERFALL OR ITERATIVE)** method was selected
 ## Thorough justification for why this model was selected for this project (i.e., What makes it a good fit? How can this SDLC help with developing this project?)
+> "Because the Department of Transportation provided a 100-page, detailed, and fixed specification document and the requirements are structured and unlikely to be changed, requires phase-by-phase development to ensure accountability and quality."
+> "Given an experienced team in this domain and 18-month timeline with 10 software engineers."
+Waterfall method was preferred because it allows programmers to do the following:
+1. Comprehensive documnetation
+2. Phase-by-phase development to ensure accountability and quality assurance requirements.
+3. Structure needed to complete project within scope, time.  
 
 ## 1-2 other models that were considered, and why the final selection won out over them.  
 | Method     | Pros                                           | Cons                                    |
 | ---------- | ---------------------------------------------- |-----------------------------------------|
 | Iterative  | Allows gradual improvements, early testing     | Not easy to document, still regulated   | // replace whichever one you dont use
 | Waterfall  | Clear structure, well-documented               | hard to go back to previous stages      |
+
 ## The 1-2 key aspects of the project that were most important to your final SDLC decision.  Explain why these aspects are critical to this decision. 
-   1. 
-   2. 
+   1. **Detailed and Fixed requirements**
+      The project has a comprehensive 100-page requirement document. The Waterfall model was best approach when the scope is known from the start, hence minimizing the risk. 
+   2. **Experienced Team**
+      With a defined team of 10 engineers with a timeline of 18 months, Waterfall method allows us to execute the project in a step-by-step (phase-by-phase), directed manner. Prior domain experience further makes it clear for us to use this structured model. 
 
 
 # 5: Reducing Traffic
