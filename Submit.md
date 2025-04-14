@@ -1,15 +1,21 @@
 
 # 1: New e-Commerce site
 ## The final team’s answer/SDLC choice
-
-## Thorough justification for why this model was selected for this project (i.e., What makes it a good fit? How can this SDLC help with developing this project?)
 The **Agile** method was selected
+## Thorough justification for why this model was selected for this project (i.e., What makes it a good fit? How can this SDLC help with developing this project?)
+> "Becaause the site requires frequrnt updates, customer-focused features, and a highly interactive design process with a team of people with mixed levels of experience."
+> "The software requires a coordination with a group of maintaining Java interpreter."
+Agile method was preferred because of the following:
+1. It allows for an incremental development.
+2. Early/continuous feedback from users.
+3. It is felexible and adaptive (changes in the requirements). 
 ## 1-2 other models that were considered, and why the final selection won out over them.  
 | Method     | Pros                                           | Cons                                    |
 | ---------- | ---------------------------------------------- |-----------------------------------------|
 | Iterative  | Allows gradual improvements, early testing     | Not easy to document, still regulated   |
 | Waterfall  | Clear structure, well-documented               | hard to go back to previous stages      |
 
+Agile method helps in collaborative approach to the development focusing on small deliverables and working in short cycles like sprints. It is also a good approach because teams gather feedback from their customers. 
 
 ## The 1-2 key aspects of the project that were most important to your final SDLC decision.  Explain why these aspects are critical to this decision. 
    1. The platform is hosted online with a rotating selection of products, so it will need frequent updates and re-deployments. An Agile approach will allow us to meet these frequency demands.
@@ -67,7 +73,7 @@ The **Waterfall** method was selected
 ## Thorough justification for why this model was selected for this project (i.e., What makes it a good fit? How can this SDLC help with developing this project?)
 > "Because the Department of Transportation provided a 100-page, detailed, and fixed specification document and the requirements are structured and unlikely to be changed, requires phase-by-phase development to ensure accountability and quality."
 > "Given an experienced team in this domain and 18-month timeline with 10 software engineers."
-Waterfall method was preferred because it allows programmers to do the following:
+Waterfall model was preferred because it allows programmers to do the following:
 1. Comprehensive documnetation
 2. Phase-by-phase development to ensure accountability and quality assurance requirements.
 3. Structure needed to complete project within scope, time.  
@@ -78,7 +84,7 @@ Waterfall method was preferred because it allows programmers to do the following
 | Iterative  | Allows gradual improvements, early testing     | Not easy to document, still regulated   | // replace whichever one you dont use
 | Waterfall  | Clear structure, well-documented               | hard to go back to previous stages      |
 
-The Waterfall method helps with a well-defined documentation with clear structure and a phase-by-phase development which ensures accountability. 
+The Waterfall model helps with a well-defined documentation with clear structure and a phase-by-phase development which ensures accountability. 
 
 ## The 1-2 key aspects of the project that were most important to your final SDLC decision.  Explain why these aspects are critical to this decision. 
    1. **Detailed and Fixed requirements**
