@@ -64,7 +64,7 @@ Since we cannot prepare for every single possible indefinitely through the first
 ---
 # 4: Department of Transportation
 ## The final team’s answer/SDLC choice
-The **(WATERFALL OR ITERATIVE)** method was selected
+The **WATERFALL** method was selected
 ## Thorough justification for why this model was selected for this project (i.e., What makes it a good fit? How can this SDLC help with developing this project?)
 > "Because the Department of Transportation provided a 100-page, detailed, and fixed specification document and the requirements are structured and unlikely to be changed, requires phase-by-phase development to ensure accountability and quality."
 > "Given an experienced team in this domain and 18-month timeline with 10 software engineers."
