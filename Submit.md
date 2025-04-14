@@ -7,7 +7,6 @@ The **Agile** method was selected
 ## 1-2 other models that were considered, and why the final selection won out over them.  
 | Method     | Pros                                           | Cons                                    |
 | ---------- | ---------------------------------------------- |-----------------------------------------|
-| Agile      | Rapid development                              | Not useful for strict, regulated domain |
 | Iterative  | Allows gradual improvements, early testing     | Not easy to document, still regulated   |
 | Waterfall  | Clear structure, well-documented               | hard to go back to previous stages      |
 
