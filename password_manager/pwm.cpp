@@ -39,8 +39,6 @@ void validateInsertVault(string website, string username, string password){
     }
 }
 
-
-
 /*
     Encrypts/decrypts the input data using AES-256.
     
