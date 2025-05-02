@@ -1,11 +1,38 @@
 #include <iostream>
 using namespace std;
 
+// need an encryption library
+// need a SQL library https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
+// need a random library
+
+
+/*
+// ==================================================================================================
+// 
+// Project:     {name}
+// Date:        May 2nd, 2025
+// Brief:       {desc}
+//              
+//              
+//              
+//    
+// Creators:    Justin Chambers
+//              Caeden
+//              Yasin
+//              Shagufta
+//              Abel
+// 
+// 
+// ==================================================================================================
+*/
+
+
+
 // whats the best way to store the masterPassword? SQL DB or plain text in this cpp file as I have written?
 string masterPassword = "0000";
 
 /*
-    support function
+    @brief creates a header for every mode that is entered into
 */
 void headerFunction(string text){
     cout<<"- - - - - - - - - - - - - - - - - -\n";
@@ -14,34 +41,53 @@ void headerFunction(string text){
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
- * @brief Encrypts the input data using AES-256.
- *
- * @param data The plaintext input to encrypt.
- * @param key A 256-bit key used for encryption.
- * @return A base64-encoded encrypted string.
+    @brief
+    
+    @param 
+    @param 
+
+    @return 
 */
 void validateInsertVault(string website, string username, string password){
     char valid;
     
     headerFunction("Confirm Login Info");
-    cout<<"Username: ", username;
-    cout<<"Website:  ", website;
-    cout<<"Password: ", password;
+    cout<<"Username: ", username;       // [ 1 ]
+    cout<<"Website:  ", website;        // [ 2 ]
+    cout<<"Password: ", password;       // [ 3 ]
     cout<<"\n Is this valid? [ Y ] / [ N ]";
     cin>>valid;
     if (valid == 'y' || valid == 'Y'){
-        // DO SQL INSERT HERE
+        SQL_vaultWriter(website, username, password);
     } else if (valid == 'n' || valid == 'N'){
-        
+        // Create a menu here to ask the user which of the three they want to update
+        cout << "update [ 1 ],[ 2 ],[ 3 ]";
+        cout << "[ 1 ]  \n";
+        cout << "[ 2 ]  \n";
+        cout << "[ 3 ]  \n";
+
+        cin>> valid;
+        if ('1'){
+            //website 
+
+        } else if ('2'){
+            //username 
+
+        } else if ('2'){
+            //password 
+
+        } else {
+            // what happens if they enter something that isnt 1,2,3
+
+        }
     } else {
         cout<<"Invalid response\n";
-        cout<<"Invalid response\n";
-
+        validateInsertVault(website, username, password);
     }
 }
 
 /*
-    Encrypts/decrypts the input data using AES-256.
+    @brief Encrypts/decrypts the input data using AES-256.
     
     @param bool for whether the text should be encrypted (true) or decrypted (false).
     @param string The text input to encrypt or decrypt.
@@ -59,11 +105,14 @@ string aes256(bool encrypt, string password){
 }
 
 /*
-    support function for creating a new login
-    1) ask user for password length
-    2) pull random characters from charArray
-    3) 
-    4) 
+    @brief support function for creating a new login
+        1) ask user for password length
+        2) pull random characters from charArray
+        3) 
+        4) 
+
+    @return the randomly generated password
+
 */
 string createNewPassword(){
     // https://www.w3schools.com/cpp/cpp_howto_random_number.asp
@@ -90,79 +139,115 @@ string createNewPassword(){
 
 /*
 
-SQL Data template
+Only TWO SQL database tables needed
 
 LOGIN
 -----
-+ int pwID
-+ string website
-+ string username
-+ string password
++ int pwID // is it needed?
++ string Website
++ string Username
++ string Password
+
+
+VAULT ENTRY
+-----
++ int pwID // is it needed?
++ string Date
++ string Time
++ bool Valid
 
 */
 
 /*
-    support function for creating a new login
-    1) 
-    2) 
-    3) 
-    4) 
+    @brief writes the user's website, username and password to the SQL database
+    
+    @param string website name
+    @param string username
+    @param string password
+
 */
-void SQLVaultWriter(string website, string username, string password){
+void SQL_vaultWriter(string website, string username, string password){
 
 }
 /*
-    support function for creating a new login
-    1) 
-    2) 
-    3) 
-    4) 
+    @brief reads the password vault database
+    
 */
-void SQLVaultReader(){
+void SQL_vaultReader(){
 
 }
+/*
+    @brief inserts date, time, and valid entry for every attempt to enter the vault
+    
+    @param bool on whether the masterpassword enetered was valid
 
+    @return null
+*/
+void SQL_attemptWriter(bool validEntry){
+    string date;
+    string time;
+    // database funct
+}
+/*
+    @brief reads the list of all vault master password attempts
+    
+    @param 
+    @param 
+
+    @return 
+*/
+void SQL_attemptReader(){
+
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
-    primary function for creating a new login
-    1) insert website name
-    2) insert profle name / email
-    3) insert createNewPassword()
-    4) store to password vault through sqlVaultWriter()
+    @brief primary function for creating a new login
+        1) insert website name
+        2) insert profle name / email
+        3) insert createNewPassword()
+        4) store to password vault through SQL_vaultWriter()
 */
 void createNewLogin(){
     headerFunction("Create New Login");
     string website = "";
-
+    // cout
+    cin >> website;
     string username = "";
-
+    // cout
+    cin >> username;
     string password = createNewPassword();
+    // cout
+    // cin
+
+
 
     validateInsertVault(website, username, password);
 }
 
-
-
 /*
-    primary function for opening the password vault
-    1) ask user to confirm their master password
-    2) if true, open vault -- if false, re call readPasswordVault -- Q to quit
-    3) 
-    4) 
+    @brief primary function for opening the password vault
+        1) ask user to confirm their master password
+        2) if true, open vault -- if false, re call readPasswordVault -- Q to quit
+        3) 
+        4) 
 */
-void readPasswordVault(){
+bool loginVault(){
     headerFunction("Password Vault");
     string enteredMasterPassword = "";
     cout<< "Enter master password or quit [ Q ]:\n";
+    cout<< "[default password is '0000']:\n";
     cin >> enteredMasterPassword;
     if(enteredMasterPassword == masterPassword){
-        SQLVaultReader();
+        cout<< "Answer accepted.\n";
+        SQL_attemptWriter(true);
+        return true;
     } else if (enteredMasterPassword == "q" || enteredMasterPassword == "Q") {
-        // todo -- supposed to go back to the main
+        // todo -- quit program
 
     } else {
-        cout<< "Enter master password:\n";
-        readPasswordVault();
+        cout<< "Answer rejected.\n";
+        SQL_attemptWriter(false);
+        return false;
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -172,12 +257,18 @@ void readPasswordVault(){
 int main() {
 
     int option = 0;
+
+    if (!loginVault()){
+        loginVault();
+    }
     headerFunction("Main Menu");
 
-    cout<<"Select from options below:\n";
+    cout<<"Select from options below:\n\n";
     cout<<"[ 1 ] Create New Login\n";
     cout<<"[ 2 ] Create New Password\n";
     cout<<"[ 3 ] Unlock Vault\n\n";
+    cout<<"[ 4 ] View Access Log\n\n";
+
 
     cin>>option;
 
@@ -186,11 +277,12 @@ int main() {
     } else if (option == 2){
         createNewPassword();
     } else if (option == 3){
-        readPasswordVault();
+        SQL_vaultReader();
+    } else if (option == 4){
+        SQL_attemptReader();
     } else {
         cout<<"Response rejected.\n";
     }
-
 
     return 0;
 };
