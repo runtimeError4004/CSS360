@@ -43,7 +43,7 @@ string createNewPassword(){
 
     for (int i = 0; i<passwordLen; i++){
         // to do -- use a RANDOM library
-        genPassword += i;
+        genPassword += i; // update this with randomChar
     }
 
     return genPassword;
@@ -129,10 +129,7 @@ void headerFunction(string text){
 */
 int main() {
 
-
     int option = 0;
-
-
     
     cout<<"Main Menu\n";
     cout<<"Select from options below:\n";
@@ -143,13 +140,11 @@ int main() {
     cin>>option;
 
     if (option == 1){
-        
-    } else if (option == 1){
-        
+        createNewLogin();
     } else if (option == 2){
-        
+        createNewPassword();
     } else if (option == 3){
-        
+        readPasswordVault();
     } else {
         cout<<"Response rejected.";
         main();
