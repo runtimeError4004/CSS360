@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+// whats the best way to store the masterPassword? SQL DB or plain text in this cpp file as I have written?
 string masterPassword = "0000";
 
 /*
