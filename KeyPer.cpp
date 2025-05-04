@@ -6,30 +6,8 @@ using namespace std;
 // need a random library
 
 
-/*
-// ==================================================================================================
-// 
-// Project:     {name}
-// Date:        May 2nd, 2025
-// Brief:       {desc}
-//              
-//              
-//              
-//    
-// Creators:    Justin Chambers
-//              Caeden
-//              Yasin
-//              Shagufta
-//              Abel
-// 
-// 
-// ==================================================================================================
-*/
-
-
-
 // whats the best way to store the masterPassword? SQL DB or plain text in this cpp file as I have written?
-string masterPassword = "0000";
+string masterPassword = "000";
 
 /*
     @brief creates a header for every mode that is entered into
@@ -39,12 +17,81 @@ void headerFunction(string text){
     cout<<"\t"<< text<< "\n";
     cout<<"- - - - - - - - - - - - - - - - - -\n";
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// SQL stuff https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
+
+/*
+
+Only TWO SQL database tables needed
+
+LOGIN
+-----
++ int pwID // is it needed?
++ string Website
++ string Username
++ string Password
+
+
+VAULT ENTRY
+-----
++ int pwID // is it needed?
++ string Date
++ string Time
++ bool Valid
+
+*/
+
+/*
+    @brief writes the user's website, username and password to the SQL database
+    
+    @param string website name
+    @param string username
+    @param string password
+
+*/
+void SQL_vaultWriter(string website, string username, string password){
+
+}
+/*
+    @brief reads the password vault database
+    
+*/
+void SQL_vaultReader(){
+
+}
+/*
+    @brief inserts date, time, and valid entry for every attempt to enter the vault
+    
+    @param bool on whether the masterpassword enetered was valid
+
+    @return null
+*/
+void SQL_attemptWriter(bool accessGranted){
+    string date; // get date
+    string time; // get date
+
+    // database function. Insert date, time, accessGranted
+
+    cout<<"function incomplete";
+}
+/*
+    @brief reads the list of all vault master password attempts from SQL DB
+    
+*/
+void SQL_attemptReader(){
+
+
+    cout<<"function incomplete";
+
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
     @brief
     
-    @param 
-    @param 
+    @param string website 
+    @param string username 
+    @param string password
 
     @return 
 */
@@ -97,8 +144,11 @@ void validateInsertVault(string website, string username, string password){
 string aes256(bool encrypt, string password){
     string out;
     if (encrypt){
-
+        // use encrypt library
+        // encrypt the password
+        
     } else {
+        // reverse encrypt / decrypt the password
 
     }
     return out;
@@ -116,6 +166,7 @@ string aes256(bool encrypt, string password){
 */
 string createNewPassword(){
     // https://www.w3schools.com/cpp/cpp_howto_random_number.asp
+
     char charArray[]={
         '0','1','2','3','4','5','6','7','8','9',
         '!','@','#','$','%','^','&','*','(',')',
@@ -123,8 +174,9 @@ string createNewPassword(){
         'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
     };
     string genPassword= "";
-    int passwordLen;
+
     cout<<"How long should your password be?";
+    int passwordLen;
     cin>>passwordLen;
 
     for (int i = 0; i<passwordLen; i++){
@@ -132,73 +184,24 @@ string createNewPassword(){
         genPassword += i; // update this with randomChar
     }
 
+    cout<< "Generated password: "<< genPassword << "\nDo you want to copy to copy to clipboard? [ Y ] / [ N ]\n";
+    string option = "";
+    cin>>option;
+
+    while (option != "Y" || option != "y" || option != "N" || option != "n" ){
+        if(option == "Y" || option == "y" ){
+            // use copy to clipboard libary 
+        }
+        else if(option == "N" || option == "n" ){
+            
+        }
+        // please unit test 
+    }
+
+
     return genPassword;
 }
-////////////////////////////////////////////////////////////////////////////////
-// SQL stuff https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
 
-/*
-
-Only TWO SQL database tables needed
-
-LOGIN
------
-+ int pwID // is it needed?
-+ string Website
-+ string Username
-+ string Password
-
-
-VAULT ENTRY
------
-+ int pwID // is it needed?
-+ string Date
-+ string Time
-+ bool Valid
-
-*/
-
-/*
-    @brief writes the user's website, username and password to the SQL database
-    
-    @param string website name
-    @param string username
-    @param string password
-
-*/
-void SQL_vaultWriter(string website, string username, string password){
-
-}
-/*
-    @brief reads the password vault database
-    
-*/
-void SQL_vaultReader(){
-
-}
-/*
-    @brief inserts date, time, and valid entry for every attempt to enter the vault
-    
-    @param bool on whether the masterpassword enetered was valid
-
-    @return null
-*/
-void SQL_attemptWriter(bool validEntry){
-    string date;
-    string time;
-    // database funct
-}
-/*
-    @brief reads the list of all vault master password attempts
-    
-    @param 
-    @param 
-
-    @return 
-*/
-void SQL_attemptReader(){
-
-}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
     @brief primary function for creating a new login
@@ -232,57 +235,72 @@ void createNewLogin(){
         4) 
 */
 bool loginVault(){
-    headerFunction("Password Vault");
+    headerFunction("KeyPer - Password Manager");
     string enteredMasterPassword = "";
     cout<< "Enter master password or quit [ Q ]:\n";
-    cout<< "[default password is '0000']:\n";
+    cout<< "[default password is '000']:\n";
     cin >> enteredMasterPassword;
     if(enteredMasterPassword == masterPassword){
-        cout<< "Answer accepted.\n";
+        cout<< "\nAccess Granted.\n\n";
         SQL_attemptWriter(true);
         return true;
     } else if (enteredMasterPassword == "q" || enteredMasterPassword == "Q") {
         // todo -- quit program
-
+        SQL_attemptWriter(false);
     } else {
         cout<< "Answer rejected.\n";
         SQL_attemptWriter(false);
         return false;
     }
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-    main menu function
-*/
-int main() {
 
+/*
+    @brief function loops through all vault functions
+    
+    @param bool has previously correctly entered master password
+
+*/
+void vault(){
     int option = 0;
 
-    if (!loginVault()){
-        loginVault();
-    }
     headerFunction("Main Menu");
 
     cout<<"Select from options below:\n\n";
     cout<<"[ 1 ] Create New Login\n";
     cout<<"[ 2 ] Create New Password\n";
-    cout<<"[ 3 ] Unlock Vault\n\n";
-    cout<<"[ 4 ] View Access Log\n\n";
+    cout<<"[ 3 ] Unlock Vault\n";
+    cout<<"[ 4 ] View Access Log\n";
+    cout<<"\n";
 
     cin>>option;
 
     if (option == 1){
         createNewLogin();
+        vault();
     } else if (option == 2){
         createNewPassword();
+        vault();
     } else if (option == 3){
         SQL_vaultReader();
+        vault();
     } else if (option == 4){
         SQL_attemptReader();
+        vault();
     } else {
-        cout<<"Response rejected.\n";
+        cout<<"\nResponse rejected.\n\n";
+        vault();
     }
 
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+    main menu function
+*/
+int main() {
+    while (!loginVault()){
+        loginVault();
+    }
+    vault();
     return 0;
 };
 
