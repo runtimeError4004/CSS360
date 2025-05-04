@@ -23,8 +23,8 @@ Abel
 # Resources
 [Markdown Formatting](https://www.markdownguide.org/basic-syntax/) 
 
-[C++ SQL functions](https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/) 
+A) [C++ SQL functions](https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/) 
 
-[Random Number Generator](https://www.w3schools.com/cpp/cpp_howto_random_number.asp) 
+B) [Random Number Generator](https://www.w3schools.com/cpp/cpp_howto_random_number.asp) 
 
 
