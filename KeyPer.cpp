@@ -270,6 +270,8 @@ void vault(){
     cout<<"[ 2 ] Create New Password\n";
     cout<<"[ 3 ] Unlock Vault\n";
     cout<<"[ 4 ] View Access Log\n";
+    cout<<"[ 5 ] Update Login Info\n";
+
     cout<<"\n";
 
     cin>>option;
@@ -285,6 +287,9 @@ void vault(){
         vault();
     } else if (option == 4){
         SQL_attemptReader();
+        vault();
+    } else if (option == 5){
+        // SQL_attemptReader(); // if we choose to, we can have a master password login through the DB rather than plain text. Would be smart but not a P0
         vault();
     } else {
         cout<<"\nResponse rejected.\n\n";
