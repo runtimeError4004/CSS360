@@ -269,7 +269,6 @@ int main() {
     cout<<"[ 3 ] Unlock Vault\n\n";
     cout<<"[ 4 ] View Access Log\n\n";
 
-
     cin>>option;
 
     if (option == 1){

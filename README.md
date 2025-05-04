@@ -1,5 +1,5 @@
 # Project:     
-Password Manager Application {name}
+KeyPer - Password Manager 
 
 # Date:        
 May 2nd, 2025
