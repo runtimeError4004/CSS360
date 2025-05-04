@@ -5,7 +5,7 @@ KeyPer - Password Manager
 May 2nd, 2025
 
 # Brief:       
-{desc}
+KeyPer is a password manager application 
 
 
 # Creators:    
