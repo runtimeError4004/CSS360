@@ -1,4 +1,7 @@
 #include <iostream>
+#include <db_tables.cpp>
+#include <db_insert.cpp>
+
 using namespace std;
 
 // need an encryption library
@@ -23,68 +26,6 @@ void headerFunction(string text){
 
 /*
 
-Only TWO SQL database tables needed
-
-LOGIN
------
-+ int pwID // is it needed?
-+ string Website
-+ string Username
-+ string Password
-
-
-VAULT ENTRY
------
-+ int pwID // is it needed?
-+ string Date
-+ string Time
-+ bool Valid
-
-*/
-
-/*
-    @brief writes the user's website, username and password to the SQL database
-    
-    @param string website name
-    @param string username
-    @param string password
-
-*/
-void SQL_vaultWriter(string website, string username, string password){
-
-}
-/*
-    @brief reads the password vault database
-    
-*/
-void SQL_vaultReader(){
-
-}
-/*
-    @brief inserts date, time, and valid entry for every attempt to enter the vault
-    
-    @param bool on whether the masterpassword enetered was valid
-
-    @return null
-*/
-void SQL_attemptWriter(bool accessGranted){
-    string date; // get date
-    string time; // get date
-
-    // database function. Insert date, time, accessGranted
-
-    cout<<"function incomplete";
-}
-/*
-    @brief reads the list of all vault master password attempts from SQL DB
-    
-*/
-void SQL_attemptReader(){
-
-
-    cout<<"function incomplete";
-
-}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
     @brief
@@ -147,10 +88,12 @@ string aes256(bool encrypt, string password){
         // use encrypt library
         // encrypt the password
         
-    } else {
+    } else if (!encrypt) {
         // reverse encrypt / decrypt the password
 
     }
+    // update the out string to be the new password here
+    out = "";
     return out;
 }
 
@@ -213,16 +156,15 @@ string createNewPassword(){
 void createNewLogin(){
     headerFunction("Create New Login");
     string website = "";
-    // cout
+    cout << "";
     cin >> website;
     string username = "";
-    // cout
+    cout << "";
     cin >> username;
     string password = createNewPassword();
-    // cout
+    cout << "";
     // cin
-
-
+    string encrypted_pass = aes256(1, password);
 
     validateInsertVault(website, username, password);
 }
@@ -270,7 +212,7 @@ void vault(){
     cout<<"[ 2 ] Create New Password\n";
     cout<<"[ 3 ] Unlock Vault\n";
     cout<<"[ 4 ] View Access Log\n";
-    cout<<"[ 5 ] Update Login Info\n";
+    cout<<"[ 5 ] Factory Reset Vault\n";
 
     cout<<"\n";
 
@@ -289,7 +231,7 @@ void vault(){
         SQL_attemptReader();
         vault();
     } else if (option == 5){
-        // SQL_attemptReader(); // if we choose to, we can have a master password login through the DB rather than plain text. Would be smart but not a P0
+        // no function yet
         vault();
     } else {
         cout<<"\nResponse rejected.\n\n";
@@ -299,7 +241,7 @@ void vault(){
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
-    main menu function
+    main menu caller
 */
 int main() {
     while (!loginVault()){
