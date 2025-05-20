@@ -116,22 +116,33 @@ string createNewPassword(){
         'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
         'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
     };
+
     string genPassword= "";
+    int passwordLen;
 
     cout<<"How long should your password be?";
-    int passwordLen;
     cin>>passwordLen;
+
+    // If Invalid Length
+    if(passwordLen <= 0 || passwordLen >= 128) {
+        cout << "Invalid password length. Aborting.\n";
+        return "";
+    }
+
+    // Seed RNG
+    srand(time(0);
 
     for (int i = 0; i<passwordLen; i++){
         // to do -- use a RANDOM library
-        genPassword += i; // update this with randomChar
+        int randIndex = rand() % charArray.size();
+        genPassword += charArray[randIndex]; // update this with randomChar
     }
 
-    cout<< "Generated password: "<< genPassword << "\nDo you want to copy to copy to clipboard? [ Y ] / [ N ]\n";
+    cout << "Generated password: "<< genPassword << "\nDo you want to copy to copy to clipboard? [ Y ] / [ N ]\n";
     string option = "";
-    cin>>option;
+    cin >> option;
 
-    while (option != "Y" || option != "y" || option != "N" || option != "n" ){
+    while (option != "Y" && option != "y" && option != "N" && option != "n" ){
         if(option == "Y" || option == "y" ){
             // use copy to clipboard libary 
         }
@@ -155,18 +166,26 @@ string createNewPassword(){
 */
 void createNewLogin(){
     headerFunction("Create New Login");
+
     string website = "";
-    cout << "";
+    cout << "Enter website name";
     cin >> website;
+
     string username = "";
-    cout << "";
+    cout << "Enter user name";
     cin >> username;
+
     string password = createNewPassword();
-    cout << "";
-    // cin
+
+    // Check
+    if(password.empty()) {
+        cout << "Password generation failed. Aborting. \n"
+        return;
+    }
+
     string encrypted_pass = aes256(1, password);
 
-    validateInsertVault(website, username, password);
+    validateInsertVault(website, username, encrypted_pass); // Insert encrypted password
 }
 
 /*

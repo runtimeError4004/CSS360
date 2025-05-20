@@ -18,7 +18,7 @@ Yasin Maow
 
 Shagufta
 
-Abel
+Abel Alemayehu
 
 # Resources
 [Markdown Formatting](https://www.markdownguide.org/basic-syntax/) 
