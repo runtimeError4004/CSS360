@@ -1,6 +1,7 @@
 #include <iostream>
 #include <db_tables.cpp>
 #include <db_insert.cpp>
+#include <limits>
 
 using namespace std;
 
@@ -117,6 +118,9 @@ string createNewPassword(){
         'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
     };
 
+    // Calculate size of charArray manually
+    int charArraySize = sizeof(charArray) / sizeof(charArray[0]);
+
     string genPassword= "";
     int passwordLen;
 
@@ -124,34 +128,35 @@ string createNewPassword(){
     cin>>passwordLen;
 
     // If Invalid Length
-    if(passwordLen <= 0 || passwordLen >= 128) {
+    if(cin.fail() || passwordLen <= 0 || passwordLen > 128) {
         cout << "Invalid password length. Aborting.\n";
+        cin.clear(); // Clear fail state of cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         return "";
     }
 
     // Seed RNG
-    srand(time(0);
+    srand(static_cast<unsigned int>(time(0)));
 
     for (int i = 0; i<passwordLen; i++){
         // to do -- use a RANDOM library
-        int randIndex = rand() % charArray.size();
+        int randIndex = rand() % charArraySize;
         genPassword += charArray[randIndex]; // update this with randomChar
     }
 
-    cout << "Generated password: "<< genPassword << "\nDo you want to copy to copy to clipboard? [ Y ] / [ N ]\n";
-    string option = "";
+    cout << "Generated password: " << genPassword << "\nDo you want to copy to clipboard? [ Y ] / [ N ]: ";
+    string option;
     cin >> option;
 
     while (option != "Y" && option != "y" && option != "N" && option != "n" ){
-        if(option == "Y" || option == "y" ){
+        cout << "Please enter Y or N: ";
+        cin >> option;
             // use copy to clipboard libary 
-        }
-        else if(option == "N" || option == "n" ){
-            
-        }
-        // please unit test 
     }
-
+    if (option == "Y" || option == "y") {
+        cout << "[Clipboard functionality not implemented yet]\n";
+    }
+        // please unit test
 
     return genPassword;
 }
