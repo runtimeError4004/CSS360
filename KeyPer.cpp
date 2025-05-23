@@ -184,7 +184,7 @@ void createNewLogin(){
 
     // Check
     if(password.empty()) {
-        cout << "Password generation failed. Aborting. \n"
+        cout << "Password generation failed. Aborting. \n";
         return;
     }
 
