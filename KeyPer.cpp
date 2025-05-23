@@ -94,7 +94,7 @@ string aes256(bool encrypt, string password){
 
     }
     // update the out string to be the new password here
-    out = "";
+    out = password;
     return out;
 }
 
