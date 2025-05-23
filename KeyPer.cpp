@@ -1,7 +1,6 @@
 #include <iostream>
 #include "db_tables.cpp"
 #include "db_insert.cpp"
-#include "sqlite3.c"
 #include <limits>
 
 using namespace std;

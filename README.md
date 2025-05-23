@@ -27,4 +27,8 @@ A) [C++ SQL functions](https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/)
 
 B) [Random Number Generator](https://www.w3schools.com/cpp/cpp_howto_random_number.asp) 
 
+# Building
 
+KeyPer is currently Windows exclusive as it links with the precompiled Windows version of SQLite
+
+Any standard C++ compiler and development environment should be able to compile this program for Windows. Development team uses Visual Studio Code with the G++ compiler.
