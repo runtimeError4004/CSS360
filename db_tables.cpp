@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
-//#include <sqlite3.h>
+#include "sqlite3.h"
 
-int main()
+int create_tables()
 {
 
 

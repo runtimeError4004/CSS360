@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-#include <sqlite3.h>
+#include "sqlite3.h"
 
 /////////////
 
@@ -8,7 +8,7 @@ using namespace std;
 
     sqlite3* DB;
     char* ErrCode;
-    int exit = sqlite3_open("data.db", &DB);
+    int sqllite_error = sqlite3_open("data.db", &DB);
 
 /*
 TWO SQL database tables needed
