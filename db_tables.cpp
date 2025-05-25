@@ -5,7 +5,6 @@ using namespace std;
 int create_tables()
 {
 
-
     /*
     A lot of material came from:
     https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
@@ -69,3 +68,4 @@ int create_tables()
     sqlite3_close(DB);
     return (0);
 }
+

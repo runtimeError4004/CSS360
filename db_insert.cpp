@@ -6,9 +6,9 @@ using namespace std;
 
 //     Some functions source code from https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/ and will be given a citation at the 
 
-    sqlite3* DB;
+    sqlite3* db;
     char* ErrCode;
-    int sqllite_error = sqlite3_open("data.db", &DB);
+    int SQL_QUERY = sqlite3_open("data.db", &db);
 
 /*
 TWO SQL database tables needed
@@ -53,7 +53,8 @@ static int callback(void* data, int argc, char** argv, char** azColName)
 
 */
 void SQL_vaultWriter(string website, string username, string password){
-    cout<<"\n/////function incomplete/////\n";
+    // cout<<"\n/////function incomplete/////\n";
+
 }
 
 
@@ -63,8 +64,16 @@ void SQL_vaultWriter(string website, string username, string password){
 void SQL_vaultReader(){
     string query = "SELECT * FROM CREDENTIAL;";
 
-    sqlite3_exec(DB, query.c_str(), callback, NULL, NULL);
-    cout<<"\n/////function incomplete/////\n";
+    SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
+
+    if (SQL_QUERY != SQLITE_OK) {
+        std::cerr << "Error executing DELETE statement: " << sqlite3_errmsg(db) << std::endl;
+        sqlite3_close(db);
+    }
+    std::cout << "All records deleted from 'users' table." << std::endl;
+
+    sqlite3_exec(db, query.c_str(), callback, NULL, NULL);
+    // cout<<"\n/////function incomplete/////\n";
 
 }
 
@@ -95,4 +104,10 @@ void SQL_attemptReader(){
 
     cout<<"\n/////function incomplete/////\n";
 
+}
+
+bool deleteTables(){
+
+    
+    // DELETE FROM table_name;
 }

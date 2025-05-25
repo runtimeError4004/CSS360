@@ -39,41 +39,63 @@ void headerFunction(string text){
     @return 
 */
 void validateInsertVault(string website, string username, string password){
-    char valid;
     
-    headerFunction("Confirm Login Info");
-    cout<<"Username: ", username;       // [ 1 ]
-    cout<<"Website:  ", website;        // [ 2 ]
-    cout<<"Password: ", password;       // [ 3 ]
-    cout<<"\n Is this valid? [ Y ] / [ N ]";
-    cin>>valid;
-    if (valid == 'y' || valid == 'Y'){
-        SQL_vaultWriter(website, username, password);
-    } else if (valid == 'n' || valid == 'N'){
-        // Create a menu here to ask the user which of the three they want to update
-        cout << "update [ 1 ],[ 2 ],[ 3 ]";
-        cout << "[ 1 ]  \n";
-        cout << "[ 2 ]  \n";
-        cout << "[ 3 ]  \n";
+    // nested while loop, 
 
-        cin>> valid;
-        if ('1'){
-            //website 
+    while (true){
 
-        } else if ('2'){
-            //username 
+        // 
 
-        } else if ('2'){
-            //password 
+        
+        headerFunction("Confirm Login Info");
+        cout<<"\nUsername: ", username;       // [ 1 ]
+        cout<<"\nWebsite:  ", website;        // [ 2 ]
+        cout<<"\nPassword: ", password;       // [ 3 ]
+        cout<<"\n Is this valid? [ Y ] / [ N ]";
 
+        char valid;
+        cin>>valid;
+        if (valid == 'y' || valid == 'Y'){
+            SQL_vaultWriter(website, username, password);
+        } else if (valid == 'n' || valid == 'N'){
+            // Create a menu here to ask the user which of the three they want to update
+
+            
+            while (true){
+
+                // 
+
+                cout << "What text is invalid? [ 1 ], [ 2 ], or [ 3 ]";
+                cout << "[ 1 ] - "<< website;
+                cout << "[ 2 ] - "<< username;
+                cout << "[ 3 ] - "<< password;
+
+                cin>> valid;
+                if ('1'){
+                    // display the current website, and let them overwrite it
+
+                } else if ('2'){
+                    // display the current un, and let them overwrite it
+
+                } else if ('3'){
+                    // display the current password, and let them overwrite it
+
+                } else {
+                    // 
+                    
+                }
+            }
+
+            
+
+            validateInsertVault(website, username, password);
         } else {
-            // what happens if they enter something that isnt 1,2,3
-
+            cout<<"Invalid response\n";
+            validateInsertVault(website, username, password);
         }
-    } else {
-        cout<<"Invalid response\n";
-        validateInsertVault(website, username, password);
     }
+    
+    
 }
 
 /*
@@ -109,9 +131,10 @@ string aes256(bool encrypt, string password){
     @return the randomly generated password
 
 */
-string createNewPassword(){
+string createNewPassword(bool fromMenu){
     // https://www.w3schools.com/cpp/cpp_howto_random_number.asp
 
+    
     char charArray[]={
         '0','1','2','3','4','5','6','7','8','9',
         '!','@','#','$','%','^','&','*','(',')',
@@ -125,7 +148,7 @@ string createNewPassword(){
     string genPassword= "";
     int passwordLen;
 
-    cout<<"How long should your password be?";
+    cout<<"How long should your password be? ";
     cin>>passwordLen;
 
     // If Invalid Length
@@ -145,12 +168,13 @@ string createNewPassword(){
         genPassword += charArray[randIndex]; // update this with randomChar
     }
 
-    cout << "Generated password: " << genPassword << "\nDo you want to copy to clipboard? [ Y ] / [ N ]: ";
+    headerFunction('"'+ genPassword + '"'); 
+    cout << "\nDo you want to copy to clipboard? [ Y ] / [ N ]: ";
     string option;
     cin >> option;
 
     while (option != "Y" && option != "y" && option != "N" && option != "n" ){
-        cout << "Please enter Y or N: ";
+        cout << "Please enter [ Y ] or [ N ]: ";
         cin >> option;
             // use copy to clipboard libary 
     }
@@ -173,25 +197,35 @@ string createNewPassword(){
 void createNewLogin(){
     headerFunction("Create New Login");
 
-    string website = "";
-    cout << "Enter website name";
-    cin >> website;
+    // while menu
+    while(true){
+        string website = "";
+        cout << "Enter website name: ";
+        cin >> website;
 
-    string username = "";
-    cout << "Enter user name";
-    cin >> username;
+        string username = "";
+        cout << "Enter user name: ";
+        cin >> username;
 
-    string password = createNewPassword();
+        string password = createNewPassword(false);
 
-    // Check
-    if(password.empty()) {
-        cout << "Password generation failed. Aborting. \n";
-        return;
+        // Check
+        if(password.empty()) {
+            cout << "Password generation failed. Aborting. \n";
+            return;
+        }
+
+        string encrypted_pass = aes256(1, password);
+
+        // print 
+
+        validateInsertVault(website, username, encrypted_pass); // Insert encrypted password
+        if (true){
+            break;
+        }
     }
 
-    string encrypted_pass = aes256(1, password);
 
-    validateInsertVault(website, username, encrypted_pass); // Insert encrypted password
 }
 
 /*
@@ -200,15 +234,16 @@ void createNewLogin(){
         2) if true, open vault -- if false, re call readPasswordVault -- Q to quit
         3) 
         4) 
+    @return whether login accepted
 */
 bool loginVault(){
     headerFunction("KeyPer - Password Manager");
     string enteredMasterPassword = "";
     cout<< "Enter master password or quit [ Q ]:\n";
-    cout<< "[default password is '000']:\n";
+    cout<< "[default password is '000']:\n\n";
     cin >> enteredMasterPassword;
     if(enteredMasterPassword == masterPassword){
-        cout<< "\nAccess Granted.\n\n";
+        cout<< "\nAccess Granted.\n";
         SQL_attemptWriter(true);
         return true;
     } else if (enteredMasterPassword == "q" || enteredMasterPassword == "Q") {
@@ -224,14 +259,33 @@ bool loginVault(){
 }
 
 /*
-    @brief primary function for opening the password vault
-        1) ask user to confirm their master password
-        2) if true, open vault -- if false, re call readPasswordVault -- Q to quit
-        3) 
-        4) 
+    @brief 
+
+
+
+
 */
 bool resetVault(){
+    // print to screen a WARNING message the user
+    // that this setting will permanently erase their password vault.
+    // have them write "reset" to confirm or "Q" to go back to menu.
+
+    // convert their string to all lowercase
+    // write the below statement:
+
+    // if("reset"){
+    //     deleteData();
+    //      return true
+    // } if else("Q"){
+    //     vault();
+        // return false
+    // } else {
+    //     resetVault()
+    // return false
+    // }
+
     return false;
+
 }
 
 /*
@@ -248,8 +302,8 @@ void vault(){
     cout<<"Select from options below:\n\n";
     cout<<"[ 1 ] Create New Login\n";
     cout<<"[ 2 ] Create New Password\n";
-    cout<<"[ 3 ] Unlock Vault\n";
-    cout<<"[ 4 ] View Access Log\n";
+    cout<<"[ 3 ] Open Vault\n";
+    cout<<"[ 4 ] View Access Log\n\n";
 
     cout<<"[ 9 ] Factory Reset Vault\n";
     cout<<"[ 0 ] Lock Vault\n";
@@ -263,7 +317,7 @@ void vault(){
         createNewLogin();
         vault();
     } else if (option == 2){
-        createNewPassword();
+        createNewPassword(true);
         vault();
     } else if (option == 3){
         SQL_vaultReader();
@@ -271,10 +325,12 @@ void vault(){
     } else if (option == 4){
         SQL_attemptReader();
         vault();
-    } else if (option == 5){
+    } else if (option == 9){
         resetVault();
     } else if (option == 0){
-        loginVault();
+        while (!loginVault()){
+            loginVault();
+        }
     } else {
         headerFunction("Response rejected.");
         vault();
