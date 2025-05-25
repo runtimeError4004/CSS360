@@ -53,7 +53,7 @@ static int callback(void* data, int argc, char** argv, char** azColName)
 
 */
 void SQL_vaultWriter(string website, string username, string password){
-    
+    cout<<"\n/////function incomplete/////\n";
 }
 
 
@@ -64,6 +64,8 @@ void SQL_vaultReader(){
     string query = "SELECT * FROM CREDENTIAL;";
 
     sqlite3_exec(DB, query.c_str(), callback, NULL, NULL);
+    cout<<"\n/////function incomplete/////\n";
+
 }
 
 
@@ -80,7 +82,7 @@ void SQL_attemptWriter(bool accessGranted){
 
     // database function. Insert date, time, accessGranted
 
-    cout<<"function incomplete";
+    cout<<"\n/////function incomplete/////\n";
 }
 
 
@@ -91,6 +93,6 @@ void SQL_attemptWriter(bool accessGranted){
 void SQL_attemptReader(){
 
 
-    cout<<"function incomplete";
+    cout<<"\n/////function incomplete/////\n";
 
 }

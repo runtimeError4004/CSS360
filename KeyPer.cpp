@@ -1,7 +1,7 @@
 #include <iostream>
 #include "db_tables.cpp"
 #include "db_insert.cpp"
-#include "sqlite3.c"
+// #include "sqlite3.c"
 #include <limits>
 
 using namespace std;
@@ -214,11 +214,24 @@ bool loginVault(){
     } else if (enteredMasterPassword == "q" || enteredMasterPassword == "Q") {
         // todo -- quit program
         SQL_attemptWriter(false);
+        exit(0);
     } else {
-        cout<< "Answer rejected.\n";
+        headerFunction("Response rejected.");
         SQL_attemptWriter(false);
         return false;
     }
+    return false;
+}
+
+/*
+    @brief primary function for opening the password vault
+        1) ask user to confirm their master password
+        2) if true, open vault -- if false, re call readPasswordVault -- Q to quit
+        3) 
+        4) 
+*/
+bool resetVault(){
+    return false;
 }
 
 /*
@@ -237,7 +250,10 @@ void vault(){
     cout<<"[ 2 ] Create New Password\n";
     cout<<"[ 3 ] Unlock Vault\n";
     cout<<"[ 4 ] View Access Log\n";
-    cout<<"[ 5 ] Factory Reset Vault\n";
+
+    cout<<"[ 9 ] Factory Reset Vault\n";
+    cout<<"[ 0 ] Lock Vault\n";
+
 
     cout<<"\n";
 
@@ -256,10 +272,11 @@ void vault(){
         SQL_attemptReader();
         vault();
     } else if (option == 5){
-        // no function yet
-        vault();
+        resetVault();
+    } else if (option == 0){
+        loginVault();
     } else {
-        cout<<"\nResponse rejected.\n\n";
+        headerFunction("Response rejected.");
         vault();
     }
 
