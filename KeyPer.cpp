@@ -195,11 +195,13 @@ void validateInsertVault(string website, string username, string password){
                 if (valid == '1'){
                     // display the current username, and let them overwrite it
                     cout << "Current Username: " << username << "\n";
+                    cout << "New Username: ";
                     cin >> username;
                     break;
                 } else if (valid == '2'){
                     // display the current website, and let them overwrite it
                     cout << "Current Website: " << website << "\n";
+                    cout << "New Password: ";
                     cin >> website;
                     break;
                 } else if (valid == '3'){
@@ -216,7 +218,7 @@ void validateInsertVault(string website, string username, string password){
             
         } else {
             cout<<"Invalid response. Please enter Y or N.\n";
-            validateInsertVault(website, username, password);
+            
         }
     }
     
