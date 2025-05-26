@@ -17,6 +17,7 @@ string masterPassword = "000";
 /*
     @brief creates a header for every mode that is entered into
 */
+// TODO(Caeden): i kinda wanna have the dashed lines line up perfectly with the text, definitely a polish thing though
 void headerFunction(string text){
     cout<<"- - - - - - - - - - - - - - - - - -\n";
     cout<<"\t"<< text<< "\n";
@@ -281,36 +282,32 @@ bool loginVault(){
 }
 
 /*
-    @brief 
+    @brief warns and prompts the user to confirm a factory reset before deleting DB data.
 
-
-
-
+    @returns true if vault was reset, false otherwise
 */
-bool resetVault(){
-    // print to screen a WARNING message the user
-    // that this setting will permanently erase their password vault.
-    // have them write "reset" to confirm or "Q" to go back to menu.
+bool resetVault() {
+    headerFunction("WARNING: Factory Reset Vault");
+    cout << "This will permanently erase your password vault and all stored data.\n";
+    cout << "Type 'reset' to confirm or 'Q' to go back to the menu: ";
 
-    // convert their string to all lowercase
-    // write the below statement:
+    string input;
+    cin >> input;
 
-    // if("reset"){
-    //     deleteData();
-    //      return true
-    // } if else("Q"){
-    //     vault();
-        // return false
-    // } else {
-    //     resetVault()
-    // return false
-    // }
+    // Convert input to lowercase
+    for (char &c : input) c = tolower(c);
 
-//  VVVVVVVVVVVVV remove this when done. im auto callling it  
-    deleteData();
-
-    return false;
-
+    if (input == "reset") {
+        deleteData();
+        cout << "Vault has been reset.\n";
+        return true;
+    } else if (input == "q") {
+        return false;
+    } else {
+        // Loop on invalid option
+        cout << "Invalid input.\n";
+        return resetVault();
+    }
 }
 
 void signOut(){
@@ -361,7 +358,12 @@ void menu(){
             SQL_attemptReader();
             menu();
         } else if (option == 9){
-            resetVault();
+            // Return to login vault loop if vault was reset; return to menu loop if canceled
+            if (resetVault()) {
+                main();
+            }else{
+                menu();
+            }
         } else if (option == 0){
             signOut();
         } else {
