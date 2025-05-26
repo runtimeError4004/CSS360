@@ -95,12 +95,32 @@ void SQL_vaultReader(){
     @return null
 */
 void SQL_attemptWriter(bool accessGranted){
-    string date; // get date
-    string time; // get date
+    // Get current date and time
+    time_t now = time(0);
+    tm* ltm = localtime(&now);
 
-    // database function. Insert date, time, accessGranted
+    // This appears to be the easiest way to format Date and Time... thanks, C++!
+    char date[11]; // YYYY-MM-DD
+    char timeStr[9]; // HH:MM:SS
+    strftime(date, sizeof(date), "%Y-%m-%d", ltm);
+    strftime(timeStr, sizeof(timeStr), "%H:%M:%S", ltm);
 
-    cout<<"\n/////function incomplete/////\n";
+    // Prepare SQL statement (this seems to be better SQLite3 practice? im just Google searching this, man)
+    string sql = "INSERT INTO ACCESS_LOG (Valid, Date, Time) VALUES (?, ?, ?);";
+    sqlite3_stmt* stmt;
+
+    if (sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, NULL) == SQLITE_OK) {
+        sqlite3_bind_int(stmt, 1, accessGranted ? 1 : 0);
+        sqlite3_bind_text(stmt, 2, date, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(stmt, 3, timeStr, -1, SQLITE_TRANSIENT);
+
+        if (sqlite3_step(stmt) != SQLITE_DONE) {
+            cerr << "Failed to insert access log: " << sqlite3_errmsg(db) << endl;
+        }
+    } else {
+        cerr << "Failed to prepare insert statement: " << sqlite3_errmsg(db) << endl;
+    }
+    sqlite3_finalize(stmt);
 }
 
 
@@ -109,7 +129,28 @@ void SQL_attemptWriter(bool accessGranted){
     
 */
 void SQL_attemptReader(){
+    string query = "SELECT ID, Valid, Date, Time FROM ACCESS_LOG;";
+    sqlite3_stmt* stmt;
 
+    if (sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, NULL) != SQLITE_OK) {
+        cerr << "Failed to prepare statement: " << sqlite3_errmsg(db) << endl;
+        return;
+    }
+
+    cout << "Access Log Entries:\n";
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        int id = sqlite3_column_int(stmt, 0);
+        int valid = sqlite3_column_int(stmt, 1);
+        const unsigned char* date = sqlite3_column_text(stmt, 2);
+        const unsigned char* time = sqlite3_column_text(stmt, 3);
+
+        cout << "ID: " << id
+             << ", Date: " << (date ? reinterpret_cast<const char*>(date) : "NULL")
+             << ", Time: " << (time ? reinterpret_cast<const char*>(time) : "NULL")
+             << ", Success: " << (valid == 1 ? "Yes" : "No") << endl;
+    }
+
+    sqlite3_finalize(stmt);
 
     cout<<"\n/////function incomplete/////\n";
 

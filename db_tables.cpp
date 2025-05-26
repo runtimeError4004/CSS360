@@ -43,8 +43,8 @@ int create_tables()
 
     string create_log_table = 
     "CREATE TABLE IF NOT EXISTS ACCESS_LOG ("
-    "LogID      INT PRIMARY KEY NOT NULL, "
-    "Valid      INT     NOT NULL, "
+    "ID         INTEGER PRIMARY KEY AUTOINCREMENT, "
+    "Valid      INTEGER NOT NULL, "
     "Date       TEXT    NOT NULL, "
     "Time       TEXT    NOT NULL "
     ");";
