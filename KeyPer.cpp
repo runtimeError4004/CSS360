@@ -40,7 +40,7 @@ void headerFunction(string text){
 */
 void validateInsertVault(string website, string username, string password){
     char valid;
-    
+    int x;
     headerFunction("Confirm Login Info");
     cout<<"Username: ", username;       // [ 1 ]
     cout<<"Website:  ", website;        // [ 2 ]
