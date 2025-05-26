@@ -201,7 +201,7 @@ void validateInsertVault(string website, string username, string password){
                 } else if (valid == '2'){
                     // display the current website, and let them overwrite it
                     cout << "Current Website: " << website << "\n";
-                    cout << "New Password: ";
+                    cout << "New Website: ";
                     cin >> website;
                     break;
                 } else if (valid == '3'){
