@@ -158,7 +158,7 @@ string createNewPassword(bool fromMenu){
 void validateInsertVault(string website, string username, string password){
     
     // please write the loop menu using while true
-
+    
     while (true){
 
         devNote("user input validation loop"); 
@@ -184,33 +184,33 @@ void validateInsertVault(string website, string username, string password){
 
                 // 
 
-                cout << "\nWhat text is invalid? [ 1 ], [ 2 ], or [ 3 ]";
-                cout << "\n[ 1 ] - "<< website;
-                cout << "\n[ 2 ] - "<< username;
-                cout << "\n[ 3 ] - "<< password;
-                cout << "\n;";
+                cout << "What text is invalid? [ 1 ], [ 2 ], or [ 3 ]";
+                cout << "\n[ 1 ] - "<< username;
+                cout << "\n[ 2 ] - "<< website;
+                cout << "\n[ 3 ] - "<< password << "\n";
+                cout << "Enter 1, 2, or 3: ";
 
                 cin>> valid;
-                if ('1'){
-                    // display the current website, and let them overwrite it
-                    cout << "";
-                    cin >> website;
-                    break;
-                } else if ('2'){
+                if (valid == '1'){
                     // display the current un, and let them overwrite it
-                    cout << "";
+                    cout << "Current Username: " << username << "\n";
+                    cin >> username;
+                    break;
+                } else if (valid == '2'){
+                    // display the current website, and let them overwrite it
+                    cout << "Current Website: " << website << "\n";
                     cin >> website;
                     break;
-                } else if ('3'){
-                    createNewPassword(false);
+                } else if (valid == '3'){
+                    std::cout << "Current Password: " << password << "\n";
+                    password = createNewPassword(false);
                     break;
                 } else {
                     // repeat loop 
+                    cout << "Invalid option. Try again. \n";
                     
                 }
             }
-
-            
 
             validateInsertVault(website, username, password);
         } else {
@@ -299,12 +299,15 @@ bool loginVault(){
     @returns true if vault was reset, false otherwise
 */
 bool resetVault() {
+    headerFunction("WARNING: Factory Reset Vault");
+    cout << "This will permanently erase your password vault and all stored data.\n";
+    cout << "Type [ RESET ] to confirm or [ Q ] to go back to the menu: ";
 
-    while(true){
-        headerFunction("WARNING: Factory Reset Vault");
-        cout << "This will permanently erase your password vault and all stored data.\n";
-        cout << "Type [ RESET ] to confirm or [ Q ] to go back to the menu: ";
+    devNote("Reset master password as well");
 
+    // This while loop is broken by the two "reset" and "q" conditionals inside.
+    // It will only loop continuously for as long as the user continues to input invalid responses
+    while (true) {
         string input;
         cin >> input;
 
@@ -313,18 +316,13 @@ bool resetVault() {
 
         if (input == "reset") {
             deleteData();
-            cout << "Vault has been reset.\n";
             return true;
         } else if (input == "q") {
             return false;
         } else {
             cout << "Invalid input.\n";
-            return resetVault();
         }
-        break;
     }
-
-    
 }
 
 void signOut(){
@@ -378,7 +376,14 @@ void menu(){
             // Return to login vault loop if vault was reset; return to menu loop if canceled
             if (resetVault()) {
                 headerFunction("Vault Wiped");
-                loginVault();
+                
+                devNote("Caeden - We should really consider abstracting the loginVault loop + menu into a common function. I don't like the code reuse here.");
+
+                while (!loginVault()){
+                    loginVault();
+                }
+                
+                menu();
             }else{
                 menu();
             }
