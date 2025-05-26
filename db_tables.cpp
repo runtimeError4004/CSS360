@@ -16,7 +16,7 @@ int create_tables()
 ///////////////////////////////////////////////////////////////
     string create_cred_table = 
     "CREATE TABLE IF NOT EXISTS CREDENTIAL ("
-    "ID INT PRIMARY KEY NOT NULL, "
+    "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
     "Website  TEXT    NOT NULL, "
     "Username TEXT    NOT NULL, "
     "Password TEXT     NOT NULL "
@@ -24,7 +24,7 @@ int create_tables()
 
     
     int exit = 0;
-    exit = sqlite3_open("data.db", &DB);
+    exit = sqlite3_open("db_data.db", &DB);
     char* ErrCode;
     exit = sqlite3_exec(DB, create_cred_table.c_str(), NULL, 0, &ErrCode);
 
@@ -33,7 +33,7 @@ int create_tables()
         sqlite3_free(ErrCode);
     }
     else {
-        cout << "Table created Successfully\n";
+        // cout << "DEV - Table created Successfully\n";
     }
 
 
@@ -50,7 +50,7 @@ int create_tables()
     ");";
     
 
-    exit = sqlite3_open("data.db", &DB);
+    exit = sqlite3_open("db_data.db", &DB);
     exit = sqlite3_exec(DB, create_log_table.c_str(), NULL, 0, &ErrCode);
 
     if (exit != SQLITE_OK) {

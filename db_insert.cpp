@@ -8,7 +8,7 @@ using namespace std;
 
     sqlite3* db;
     char* ErrCode;
-    int SQL_QUERY = sqlite3_open("data.db", &db);
+    int SQL_QUERY = sqlite3_open("db_data.db", &db);
 
 /*
 TWO SQL database tables needed
@@ -53,7 +53,17 @@ static int callback(void* data, int argc, char** argv, char** azColName)
 
 */
 void SQL_vaultWriter(string website, string username, string password){
-    // cout<<"\n/////function incomplete/////\n";
+    string query = "INSERT INTO CREDENTIAL (Website, Username, Password) VALUES ('" + 
+    website + "', '" + username+"', '"+ password+"');";
+
+    SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
+
+    if (SQL_QUERY != SQLITE_OK) {
+        cerr << "Error executing WRITE statement: " << sqlite3_errmsg(db) << std::endl;
+        sqlite3_close(db);
+    } else {
+        cout << "DEV - Credential STORED." << endl;
+    }
 
 }
 
@@ -64,15 +74,14 @@ void SQL_vaultWriter(string website, string username, string password){
 void SQL_vaultReader(){
     string query = "SELECT * FROM CREDENTIAL;";
 
-    SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
+    SQL_QUERY = sqlite3_exec(db, query.c_str(), callback, (void*)"CREDENTIAL", NULL); 
 
     if (SQL_QUERY != SQLITE_OK) {
-        std::cerr << "Error executing DELETE statement: " << sqlite3_errmsg(db) << std::endl;
+        std::cerr << "Error executing READING statement: " << sqlite3_errmsg(db) << std::endl;
         sqlite3_close(db);
     }
-    std::cout << "All records deleted from 'users' table." << std::endl;
 
-    sqlite3_exec(db, query.c_str(), callback, NULL, NULL);
+
     // cout<<"\n/////function incomplete/////\n";
 
 }
@@ -106,8 +115,34 @@ void SQL_attemptReader(){
 
 }
 
-bool deleteTables(){
+int SQL_vaultCounter(){
+    string query = "SELECT COUNT(*) FROM CREDENTIAL;";
+
+    SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
+    if (SQL_QUERY != SQLITE_OK) {
+        std::cerr << "Error executing COUNTING statement: " << sqlite3_errmsg(db) << std::endl;
+        sqlite3_close(db);
+    } else {
+        std::cout << "All records deleted from 'users' table:" << std::endl;
+
+    }
 
     
-    // DELETE FROM table_name;
+    return false;
+}
+
+bool deleteData(){
+    string query = "DELETE FROM CREDENTIAL;";
+
+    SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
+    if (SQL_QUERY != SQLITE_OK) {
+        std::cerr << "Error executing READING statement: " << sqlite3_errmsg(db) << std::endl;
+        sqlite3_close(db);
+    } else {
+        std::cout << "All records deleted from 'users' table:" << std::endl;
+
+    }
+
+    
+    return false;
 }

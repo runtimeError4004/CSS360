@@ -29,74 +29,7 @@ void headerFunction(string text){
 /*
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-    @brief
-    
-    @param string website 
-    @param string username 
-    @param string password
 
-    @return 
-*/
-void validateInsertVault(string website, string username, string password){
-    
-    // nested while loop, 
-
-    while (true){
-
-        // 
-
-        
-        headerFunction("Confirm Login Info");
-        cout<<"\nUsername: ", username;       // [ 1 ]
-        cout<<"\nWebsite:  ", website;        // [ 2 ]
-        cout<<"\nPassword: ", password;       // [ 3 ]
-        cout<<"\n Is this valid? [ Y ] / [ N ]";
-
-        char valid;
-        cin>>valid;
-        if (valid == 'y' || valid == 'Y'){
-            SQL_vaultWriter(website, username, password);
-        } else if (valid == 'n' || valid == 'N'){
-            // Create a menu here to ask the user which of the three they want to update
-
-            
-            while (true){
-
-                // 
-
-                cout << "What text is invalid? [ 1 ], [ 2 ], or [ 3 ]";
-                cout << "[ 1 ] - "<< website;
-                cout << "[ 2 ] - "<< username;
-                cout << "[ 3 ] - "<< password;
-
-                cin>> valid;
-                if ('1'){
-                    // display the current website, and let them overwrite it
-
-                } else if ('2'){
-                    // display the current un, and let them overwrite it
-
-                } else if ('3'){
-                    // display the current password, and let them overwrite it
-
-                } else {
-                    // 
-                    
-                }
-            }
-
-            
-
-            validateInsertVault(website, username, password);
-        } else {
-            cout<<"Invalid response\n";
-            validateInsertVault(website, username, password);
-        }
-    }
-    
-    
-}
 
 /*
     @brief Encrypts/decrypts the input data using AES-256.
@@ -148,16 +81,24 @@ string createNewPassword(bool fromMenu){
     string genPassword= "";
     int passwordLen;
 
-    cout<<"How long should your password be? ";
-    cin>>passwordLen;
+    // while (){ please add while conditions to 
+        cout<<"How long should your password be? ";
+        cin>>passwordLen;
 
-    // If Invalid Length
-    if(cin.fail() || passwordLen <= 0 || passwordLen > 128) {
-        cout << "Invalid password length. Aborting.\n";
-        cin.clear(); // Clear fail state of cin
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        return "";
-    }
+        // If Invalid Length
+        if(cin.fail() || passwordLen <= 0 || passwordLen > 128) {
+            cout << "Invalid password length. \n";
+            cin.clear(); // Clear fail state of cin
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return "";
+        }
+
+        // if (){
+        
+        // }
+
+    //}
+
 
     // Seed RNG
     srand(static_cast<unsigned int>(time(0)));
@@ -187,6 +128,79 @@ string createNewPassword(bool fromMenu){
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+    @brief
+    
+    @param string website 
+    @param string username 
+    @param string password
+
+    @return 
+*/
+void validateInsertVault(string website, string username, string password){
+    
+    // please write the loop menu using while true
+
+    while (true){
+
+        // 
+
+        headerFunction("Confirm Login Info");
+            cout << "\nUsername: " << username;  // [ 1 ]
+            cout << "\nWebsite:  " << website;   // [ 2 ]
+            cout << "\nPassword: " << password;  // [ 3 ]
+
+        cout<<"\nIs this valid? [ Y ] / [ N ]: ";
+
+        char valid;
+        cin>>valid;
+        if (valid == 'y' || valid == 'Y'){
+            SQL_vaultWriter(website, username, password);
+        } else if (valid == 'n' || valid == 'N'){
+            // Create a menu here to ask the user which of the three they want to update
+
+            
+            while (true){
+
+                // 
+
+                cout << "What text is invalid? [ 1 ], [ 2 ], or [ 3 ]";
+                cout << "\n[ 1 ] - "<< website;
+                cout << "\n[ 2 ] - "<< username;
+                cout << "\n[ 3 ] - "<< password;
+
+                cin>> valid;
+                if ('1'){
+                    // display the current website, and let them overwrite it
+                    cout << "";
+                    cin >> website;
+                    break;
+                } else if ('2'){
+                    // display the current un, and let them overwrite it
+                    cout << "";
+                    cin >> website;
+                    break;
+                } else if ('3'){
+                    createNewPassword(false);
+                    break;
+                } else {
+                    // repeat loop 
+                    
+                }
+            }
+
+            
+
+            validateInsertVault(website, username, password);
+        } else {
+            cout<<"Invalid response\n";
+            validateInsertVault(website, username, password);
+        }
+    }
+    
+    
+}
 /*
     @brief primary function for creating a new login
         1) insert website name
@@ -198,32 +212,40 @@ void createNewLogin(){
     headerFunction("Create New Login");
 
     // while menu
-    while(true){
+    // while(true){
         string website = "";
         cout << "Enter website name: ";
         cin >> website;
+        cout << website<<"\n";
+
 
         string username = "";
         cout << "Enter user name: ";
         cin >> username;
+        cout << username<<"\n";
+
 
         string password = createNewPassword(false);
 
         // Check
         if(password.empty()) {
-            cout << "Password generation failed. Aborting. \n";
+            cout << "Password generation failed. \n";
             return;
         }
+
+        cout << password<<"\n";
+
 
         string encrypted_pass = aes256(1, password);
 
         // print 
 
         validateInsertVault(website, username, encrypted_pass); // Insert encrypted password
-        if (true){
+        while (true){
+            
             break;
         }
-    }
+    // }
 
 
 }
@@ -284,9 +306,19 @@ bool resetVault(){
     // return false
     // }
 
+//  VVVVVVVVVVVVV remove this when done. im auto callling it  
+    deleteData();
+
     return false;
 
 }
+
+void signOut(){
+    while (!loginVault()){
+        loginVault();
+    }
+}
+
 
 /*
     @brief function loops through all vault functions
@@ -294,47 +326,50 @@ bool resetVault(){
     @param bool has previously correctly entered master password
 
 */
-void vault(){
+void menu(){
     int option = 0;
 
-    headerFunction("Main Menu");
+    while (true){
+        headerFunction("Main Menu");
 
-    cout<<"Select from options below:\n\n";
-    cout<<"[ 1 ] Create New Login\n";
-    cout<<"[ 2 ] Create New Password\n";
-    cout<<"[ 3 ] Open Vault\n";
-    cout<<"[ 4 ] View Access Log\n\n";
+        cout<<"Select from options below:\n\n";
+        cout<<"[ 1 ] Create New Login\n";
+        cout<<"[ 2 ] Create New Password\n";
+        cout<<"[ 3 ] Open Vault\n";
+        cout<<"[ 4 ] View Access Log\n\n";
 
-    cout<<"[ 9 ] Factory Reset Vault\n";
-    cout<<"[ 0 ] Lock Vault\n";
+        cout<<"[ 9 ] Factory Reset Vault\n";
+        cout<<"[ 0 ] Lock Vault\n";
 
 
-    cout<<"\n";
+        cout<<"\n";
 
-    cin>>option;
+        cin>>option;
 
-    if (option == 1){
-        createNewLogin();
-        vault();
-    } else if (option == 2){
-        createNewPassword(true);
-        vault();
-    } else if (option == 3){
-        SQL_vaultReader();
-        vault();
-    } else if (option == 4){
-        SQL_attemptReader();
-        vault();
-    } else if (option == 9){
-        resetVault();
-    } else if (option == 0){
-        while (!loginVault()){
-            loginVault();
+        if (option == 1){
+            createNewLogin();
+            menu();
+        } else if (option == 2){
+            createNewPassword(true);
+            menu();
+        } else if (option == 3){
+            headerFunction("Vault");
+            SQL_vaultReader();
+            menu();
+        } else if (option == 4){
+            headerFunction("Access Log");
+            SQL_attemptReader();
+            menu();
+        } else if (option == 9){
+            resetVault();
+        } else if (option == 0){
+            signOut();
+        } else {
+            headerFunction("Response rejected.");
+            menu();
         }
-    } else {
-        headerFunction("Response rejected.");
-        vault();
     }
+        
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -342,10 +377,13 @@ void vault(){
     main menu caller
 */
 int main() {
+    create_tables();
+
     while (!loginVault()){
         loginVault();
     }
-    vault();
+    
+    menu();
     return 0;
 };
 
