@@ -2,6 +2,7 @@
 using namespace std;
 #include "sqlite3.h"
 
+
 int create_tables()
 {
 
@@ -11,29 +12,42 @@ int create_tables()
 
     I have tried my best to keep the code our own where I can. - Justin
     */
-    sqlite3* DB;
+///////////////////////////////////////////////////////////////
+
+    extern sqlite3* db;
 
 ///////////////////////////////////////////////////////////////
     string create_cred_table = 
     "CREATE TABLE IF NOT EXISTS CREDENTIAL ("
-    "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-    "Website  TEXT    NOT NULL, "
-    "Username TEXT    NOT NULL, "
-    "Password TEXT     NOT NULL "
+    "ID         INTEGER     PRIMARY KEY AUTOINCREMENT, "
+    "Website    TEXT        NOT NULL, "
+    "Username   TEXT        NOT NULL, "
+    "Password   TEXT        NOT NULL "
     ");";
 
-    
-    int exit = 0;
-    exit = sqlite3_open("db_data.db", &DB);
-    char* ErrCode;
-    exit = sqlite3_exec(DB, create_cred_table.c_str(), NULL, 0, &ErrCode);
+    char* ErrCode = nullptr;
+    int exit = sqlite3_exec(db, create_cred_table.c_str(), NULL, 0, &ErrCode);
 
     if (exit != SQLITE_OK) {
         cerr << "Error Create Table" << ErrCode << "\n";
         sqlite3_free(ErrCode);
     }
-    else {
-        // cout << "DEV - Table created Successfully\n";
+
+    string create_log_table = 
+        "CREATE TABLE IF NOT EXISTS ACCESS_LOG ("
+        "ID         INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "Valid      INTEGER NOT NULL, "
+        "Date       TEXT    NOT NULL, "
+        "Time       TEXT    NOT NULL "
+        ");";
+
+    exit = sqlite3_exec(db, create_log_table.c_str(), NULL, 0, &ErrCode);
+
+    if (exit != SQLITE_OK) {
+        cerr << "Error Create Table" << ErrCode << "\n";
+        sqlite3_free(ErrCode);
+    } else {
+        cout<<"DEVNOTE - Table created Successfully";
     }
 
 
@@ -41,7 +55,7 @@ int create_tables()
 ///////////////////////////////////////////////////////////////
 
 
-    string create_log_table = 
+    create_log_table = 
     "CREATE TABLE IF NOT EXISTS ACCESS_LOG ("
     "ID         INTEGER PRIMARY KEY AUTOINCREMENT, "
     "Valid      INTEGER NOT NULL, "
@@ -50,8 +64,7 @@ int create_tables()
     ");";
     
 
-    exit = sqlite3_open("db_data.db", &DB);
-    exit = sqlite3_exec(DB, create_log_table.c_str(), NULL, 0, &ErrCode);
+    exit = sqlite3_exec(db, create_log_table.c_str(), NULL, 0, &ErrCode);
 
     if (exit != SQLITE_OK) {
         cerr << "Error Create Table" << ErrCode << "\n";
@@ -65,7 +78,7 @@ int create_tables()
 
 
     // this comes at the end of the program
-    sqlite3_close(DB);
+    sqlite3_close(db);
     return (0);
 }
 

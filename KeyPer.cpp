@@ -11,19 +11,31 @@ using namespace std;
 // need a random library
 
 
-// whats the best way to store the masterPassword? SQL DB or plain text in this cpp file as I have written?
 string masterPassword = "000";
-
 /*
     @brief creates a header for every mode that is entered into
+    TODO(Caeden): i kinda wanna have the dashed lines line up perfectly with the text, definitely a polish thing though
 */
-// TODO(Caeden): i kinda wanna have the dashed lines line up perfectly with the text, definitely a polish thing though
+// 
 void headerFunction(string text){
     cout<<"- - - - - - - - - - - - - - - - - -\n";
     cout<<"\t"<< text<< "\n";
     cout<<"- - - - - - - - - - - - - - - - - -\n";
 }
 
+/*
+    @brief prints dev notes for future reference
+    this is called every time a dev wants other devs to notice something during compilation
+*/
+void devNote(string text){
+    string out= "[ DEVNOTE / TO DO ] - "; 
+    out+=text;
+
+    cout<<"/ / / / / / / / / / / / / / / / / /\n";
+    cout<<"\t"<< out<< "\n";
+    cout<<"/ / / / / / / / / / / / / / / / / /\n";
+
+}
 ////////////////////////////////////////////////////////////////////////////////
 // SQL stuff https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
 
@@ -83,6 +95,8 @@ string createNewPassword(bool fromMenu){
     int passwordLen;
 
     // while (){ please add while conditions to 
+        devNote("UIUX - program needs a while loop for user input validation");
+    
         cout<<"How long should your password be? ";
         cin>>passwordLen;
 
@@ -121,7 +135,7 @@ string createNewPassword(bool fromMenu){
             // use copy to clipboard libary 
     }
     if (option == "Y" || option == "y") {
-        cout << "[Clipboard functionality not implemented yet]\n";
+        devNote("Clipboard functionality not implemented yet");
     }
         // please unit test
 
@@ -217,9 +231,9 @@ void createNewLogin(){
         string website = "";
         cout << "Enter website name: ";
         cin >> website;
-        cout << website<<"\n";
 
-
+        devNote("erase white space from name");
+    // 
         string username = "";
         cout << "Enter user name: ";
         cin >> username;
@@ -263,19 +277,21 @@ bool loginVault(){
     headerFunction("KeyPer - Password Manager");
     string enteredMasterPassword = "";
     cout<< "Enter master password or quit [ Q ]:\n";
-    cout<< "[default password is '000']:\n\n";
+    cout<< "[ DEVNOTE ] - default password is [ 000 ]:\n\n";
     cin >> enteredMasterPassword;
     if(enteredMasterPassword == masterPassword){
         cout<< "\nAccess Granted.\n";
         SQL_attemptWriter(true);
         return true;
     } else if (enteredMasterPassword == "q" || enteredMasterPassword == "Q") {
-        // todo -- quit program
         SQL_attemptWriter(false);
+        headerFunction(" [ Goodbye ]");
         exit(0);
     } else {
         headerFunction("Response rejected.");
         SQL_attemptWriter(false);
+        devNote("bug - program behaves weird around entering wrong password then correct one");
+        
         return false;
     }
     return false;
@@ -287,27 +303,32 @@ bool loginVault(){
     @returns true if vault was reset, false otherwise
 */
 bool resetVault() {
-    headerFunction("WARNING: Factory Reset Vault");
-    cout << "This will permanently erase your password vault and all stored data.\n";
-    cout << "Type 'reset' to confirm or 'Q' to go back to the menu: ";
 
-    string input;
-    cin >> input;
+    while(true){
+        headerFunction("WARNING: Factory Reset Vault");
+        cout << "This will permanently erase your password vault and all stored data.\n";
+        cout << "Type [ RESET ] to confirm or [ Q ] to go back to the menu: ";
 
-    // Convert input to lowercase
-    for (char &c : input) c = tolower(c);
+        string input;
+        cin >> input;
 
-    if (input == "reset") {
-        deleteData();
-        cout << "Vault has been reset.\n";
-        return true;
-    } else if (input == "q") {
-        return false;
-    } else {
-        // Loop on invalid option
-        cout << "Invalid input.\n";
-        return resetVault();
+        // Convert input to lowercase
+        for (char &c : input) c = tolower(c);
+
+        if (input == "reset") {
+            deleteData();
+            cout << "Vault has been reset.\n";
+            return true;
+        } else if (input == "q") {
+            return false;
+        } else {
+            cout << "Invalid input.\n";
+            return resetVault();
+        }
+        break;
     }
+
+    
 }
 
 void signOut(){
@@ -360,7 +381,8 @@ void menu(){
         } else if (option == 9){
             // Return to login vault loop if vault was reset; return to menu loop if canceled
             if (resetVault()) {
-                main();
+                headerFunction("Vault Wiped");
+                loginVault();
             }else{
                 menu();
             }
@@ -379,6 +401,13 @@ void menu(){
     main menu caller
 */
 int main() {
+
+    int SQL_QUERY = sqlite3_open("db_data.db", &db);
+
+    if (SQL_QUERY) {
+        cerr << "DEVNOTE - Database inaccessable! \n";
+    }
+
     create_tables();
 
     while (!loginVault()){
@@ -386,6 +415,7 @@ int main() {
     }
     
     menu();
+    sqlite3_close(db);
     return 0;
 };
 

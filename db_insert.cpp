@@ -59,10 +59,10 @@ void SQL_vaultWriter(string website, string username, string password){
     SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
 
     if (SQL_QUERY != SQLITE_OK) {
-        cerr << "Error executing WRITE statement: " << sqlite3_errmsg(db) << std::endl;
+        cerr << "DEVNOTE - Error executing WRITE statement: " << sqlite3_errmsg(db) << std::endl;
         sqlite3_close(db);
     } else {
-        cout << "DEV - Credential STORED." << endl;
+        cout << "DEVNOTE - Credential STORED." << endl;
     }
 
 }
@@ -77,12 +77,14 @@ void SQL_vaultReader(){
     SQL_QUERY = sqlite3_exec(db, query.c_str(), callback, (void*)"CREDENTIAL", NULL); 
 
     if (SQL_QUERY != SQLITE_OK) {
-        std::cerr << "Error executing READING statement: " << sqlite3_errmsg(db) << std::endl;
+        std::cerr << "DEVNOTE - Error executing READING statement: " << sqlite3_errmsg(db) << std::endl;
         sqlite3_close(db);
+    }
+    else {
+        // cout << "DEVNOTE - Credential STORED." << endl;
     }
 
 
-    // cout<<"\n/////function incomplete/////\n";
 
 }
 
