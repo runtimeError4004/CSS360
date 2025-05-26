@@ -176,6 +176,7 @@ void validateInsertVault(string website, string username, string password){
         cin>>valid;
         if (valid == 'y' || valid == 'Y'){
             SQL_vaultWriter(website, username, password);
+            break;
         } else if (valid == 'n' || valid == 'N'){
             // Create a menu here to ask the user which of the three they want to update
 
@@ -192,7 +193,7 @@ void validateInsertVault(string website, string username, string password){
 
                 cin>> valid;
                 if (valid == '1'){
-                    // display the current un, and let them overwrite it
+                    // display the current username, and let them overwrite it
                     cout << "Current Username: " << username << "\n";
                     cin >> username;
                     break;
@@ -212,9 +213,9 @@ void validateInsertVault(string website, string username, string password){
                 }
             }
 
-            validateInsertVault(website, username, password);
+            
         } else {
-            cout<<"Invalid response\n";
+            cout<<"Invalid response. Please enter Y or N.\n";
             validateInsertVault(website, username, password);
         }
     }
