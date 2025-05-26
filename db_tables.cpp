@@ -2,6 +2,7 @@
 using namespace std;
 #include "sqlite3.h"
 
+extern sqlite3* db;
 
 int create_tables()
 {
@@ -47,13 +48,10 @@ int create_tables()
         cerr << "Error Create Table" << ErrCode << "\n";
         sqlite3_free(ErrCode);
     } else {
-        cout<<"DEVNOTE - Table created Successfully";
+        // cout<<"DEVNOTE - Table created Successfully\n";
     }
 
-
-
 ///////////////////////////////////////////////////////////////
-
 
     create_log_table = 
     "CREATE TABLE IF NOT EXISTS ACCESS_LOG ("
@@ -71,14 +69,9 @@ int create_tables()
         sqlite3_free(ErrCode);
     }
     else {
-        cout << "Table created Successfully\n";
+        // cout<<"DEVNOTE - Table created Successfully\n";
     }
 
-
-
-
-    // this comes at the end of the program
-    sqlite3_close(db);
     return (0);
 }
 

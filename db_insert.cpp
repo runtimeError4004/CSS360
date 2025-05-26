@@ -2,13 +2,11 @@
 using namespace std;
 #include "sqlite3.h"
 
+extern sqlite3* db;
+// 
 /////////////
 
 //     Some functions source code from https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/ and will be given a citation at the 
-
-    sqlite3* db;
-    char* ErrCode;
-    int SQL_QUERY = sqlite3_open("db_data.db", &db);
 
 /*
 TWO SQL database tables needed
@@ -56,11 +54,10 @@ void SQL_vaultWriter(string website, string username, string password){
     string query = "INSERT INTO CREDENTIAL (Website, Username, Password) VALUES ('" + 
     website + "', '" + username+"', '"+ password+"');";
 
-    SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
+    int SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
 
     if (SQL_QUERY != SQLITE_OK) {
         cerr << "DEVNOTE - Error executing WRITE statement: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
     } else {
         cout << "DEVNOTE - Credential STORED." << endl;
     }
@@ -74,11 +71,10 @@ void SQL_vaultWriter(string website, string username, string password){
 void SQL_vaultReader(){
     string query = "SELECT * FROM CREDENTIAL;";
 
-    SQL_QUERY = sqlite3_exec(db, query.c_str(), callback, (void*)"CREDENTIAL", NULL); 
+    int SQL_QUERY = sqlite3_exec(db, query.c_str(), callback, (void*)"CREDENTIAL", NULL); 
 
     if (SQL_QUERY != SQLITE_OK) {
         std::cerr << "DEVNOTE - Error executing READING statement: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
     }
     else {
         // cout << "DEVNOTE - Credential STORED." << endl;
@@ -108,11 +104,10 @@ void SQL_attemptWriter(bool accessGranted){
 
     string query = "INSERT INTO ACCESS_LOG (Valid, Date, Time) VALUES ('" + string(accessGranted ? "1" : "0") + "', '" + date + "', '" + timeStr + "');";
 
-    SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
+    int SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
 
     if (SQL_QUERY != SQLITE_OK) {
         cerr << "Error executing WRITE statement: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
     }
 }
 
@@ -125,21 +120,19 @@ void SQL_attemptReader(){
     // basically copy/paste of SQL_vaultReader but from a different table...
     string query = "SELECT * FROM ACCESS_LOG;";
 
-    SQL_QUERY = sqlite3_exec(db, query.c_str(), callback, (void*)"ACCESS_LOG", NULL); 
+    int SQL_QUERY = sqlite3_exec(db, query.c_str(), callback, (void*)"ACCESS_LOG", NULL); 
 
     if (SQL_QUERY != SQLITE_OK) {
         std::cerr << "Error executing READING statement: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
     }
 }
 
 int SQL_vaultCounter(){
     string query = "SELECT COUNT(*) FROM CREDENTIAL;";
 
-    SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
+    int SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
     if (SQL_QUERY != SQLITE_OK) {
         std::cerr << "Error executing COUNTING statement: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
     } else {
         std::cout << "All records deleted from 'users' table:" << std::endl;
 
@@ -152,10 +145,9 @@ int SQL_vaultCounter(){
 bool deleteData(){
     string query = "DELETE FROM CREDENTIAL;";
 
-    SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
+    int SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
     if (SQL_QUERY != SQLITE_OK) {
         std::cerr << "Error executing READING statement: " << sqlite3_errmsg(db) << std::endl;
-        sqlite3_close(db);
     } else {
         std::cout << "All records deleted from 'users' table:" << std::endl;
 

@@ -1,10 +1,12 @@
 #include <iostream>
 #include "db_tables.cpp"
 #include "db_insert.cpp"
-// #include "sqlite3.c"
+#include "sqlite3.h"
 #include <limits>
-
 using namespace std;
+
+sqlite3* db = nullptr;
+
 
 // need an encryption library
 // need a SQL library https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
@@ -159,7 +161,7 @@ void validateInsertVault(string website, string username, string password){
 
     while (true){
 
-        // 
+        devNote("user input validation loop"); 
 
         headerFunction("Confirm Login Info");
             cout << "\nUsername: " << username;  // [ 1 ]
