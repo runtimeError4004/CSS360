@@ -55,6 +55,7 @@ void devNote(string text){
     @return the string of encrypted or decrypted text.
 */
 string aes256(bool encrypt, string password){
+    devNote("need unit testing on AES256 to confirm");
     string out;
     if (encrypt){
         // use encrypt library
