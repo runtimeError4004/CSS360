@@ -33,9 +33,9 @@ void devNote(string text){
     string out= "[ DEVNOTE / TO DO ] - "; 
     out+=text;
 
-    cout<<"/ / / / / / / / / / / / / / / / / /\n";
-    cout<<"\t"<< out<< "\n";
-    cout<<"/ / / / / / / / / / / / / / / / / /\n";
+    cout<<"\t\t\t\t\t\t/ / / / / / / / / / / / / / / / / /\n";
+    cout<<"\t\t\t\t\t\t"<< out<< "\n";
+    cout<<"\t\t\t\t\t\t/ / / / / / / / / / / / / / / / / /\n";
 
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -167,6 +167,8 @@ void validateInsertVault(string website, string username, string password){
             cout << "\nUsername: " << username;  // [ 1 ]
             cout << "\nWebsite:  " << website;   // [ 2 ]
             cout << "\nPassword: " << password;  // [ 3 ]
+            cout << "\n";
+
 
         cout<<"\nIs this valid? [ Y ] / [ N ]: ";
 
@@ -182,10 +184,11 @@ void validateInsertVault(string website, string username, string password){
 
                 // 
 
-                cout << "What text is invalid? [ 1 ], [ 2 ], or [ 3 ]";
+                cout << "\nWhat text is invalid? [ 1 ], [ 2 ], or [ 3 ]";
                 cout << "\n[ 1 ] - "<< website;
                 cout << "\n[ 2 ] - "<< username;
                 cout << "\n[ 3 ] - "<< password;
+                cout << "\n;";
 
                 cin>> valid;
                 if ('1'){
@@ -234,13 +237,12 @@ void createNewLogin(){
         cout << "Enter website name: ";
         cin >> website;
 
-        devNote("erase white space from name");
+        devNote("erase white space from website");
     // 
         string username = "";
         cout << "Enter user name: ";
         cin >> username;
-        cout << username<<"\n";
-
+        devNote("erase white space from website");
 
         string password = createNewPassword(false);
 
@@ -250,18 +252,10 @@ void createNewLogin(){
             return;
         }
 
-        cout << password<<"\n";
-
-
         string encrypted_pass = aes256(1, password);
 
-        // print 
-
         validateInsertVault(website, username, encrypted_pass); // Insert encrypted password
-        while (true){
-            
-            break;
-        }
+
     // }
 
 

@@ -59,7 +59,7 @@ void SQL_vaultWriter(string website, string username, string password){
     if (SQL_QUERY != SQLITE_OK) {
         cerr << "DEVNOTE - Error executing WRITE statement: " << sqlite3_errmsg(db) << std::endl;
     } else {
-        cout << "DEVNOTE - Credential STORED." << endl;
+        // cout << "DEVNOTE - Credential STORED." << endl;
     }
 
 }
@@ -80,10 +80,7 @@ void SQL_vaultReader(){
         // cout << "DEVNOTE - Credential STORED." << endl;
     }
 
-
-
 }
-
 
 /*
     @brief inserts date, time, and valid entry for every attempt to enter the vault
@@ -119,6 +116,8 @@ void SQL_attemptWriter(bool accessGranted){
 void SQL_attemptReader(){
     // basically copy/paste of SQL_vaultReader but from a different table...
     string query = "SELECT * FROM ACCESS_LOG;";
+    // string query = "SELECT Valid, Date, Time FROM ACCESS_LOG;";
+
 
     int SQL_QUERY = sqlite3_exec(db, query.c_str(), callback, (void*)"ACCESS_LOG", NULL); 
 
@@ -127,6 +126,7 @@ void SQL_attemptReader(){
     }
 }
 
+// havent set this up yet
 int SQL_vaultCounter(){
     string query = "SELECT COUNT(*) FROM CREDENTIAL;";
 
@@ -137,9 +137,8 @@ int SQL_vaultCounter(){
         std::cout << "All records deleted from 'users' table:" << std::endl;
 
     }
-
     
-    return false;
+    return 0;
 }
 
 bool deleteData(){
@@ -147,7 +146,7 @@ bool deleteData(){
 
     int SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
     if (SQL_QUERY != SQLITE_OK) {
-        std::cerr << "Error executing READING statement: " << sqlite3_errmsg(db) << std::endl;
+        std::cerr << "Error executing DELETE statement: " << sqlite3_errmsg(db) << std::endl;
     } else {
         std::cout << "All records deleted from 'users' table:" << std::endl;
 
