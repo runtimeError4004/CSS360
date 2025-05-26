@@ -158,7 +158,7 @@ string createNewPassword(bool fromMenu){
 void validateInsertVault(string website, string username, string password){
     
     // please write the loop menu using while true
-
+    int x;
     while (true){
 
         devNote("user input validation loop"); 
