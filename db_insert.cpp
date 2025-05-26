@@ -84,6 +84,9 @@ void SQL_vaultReader(){
     std::cout << "All records deleted from 'users' table." << std::endl;
 
     sqlite3_exec(db, query.c_str(), callback, NULL, NULL);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 }
@@ -115,6 +118,9 @@ void SQL_attemptWriter(bool accessGranted){
     }
 =======
     // database function. Insert date, time, accessGranted
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
 
