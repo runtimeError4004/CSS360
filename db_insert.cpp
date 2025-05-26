@@ -79,6 +79,15 @@ void SQL_vaultReader(){
     else {
         // cout << "DEVNOTE - Credential STORED." << endl;
     }
+<<<<<<< Updated upstream
+=======
+    std::cout << "All records deleted from 'users' table." << std::endl;
+
+    sqlite3_exec(db, query.c_str(), callback, NULL, NULL);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 
 }
 
@@ -99,6 +108,7 @@ void SQL_attemptWriter(bool accessGranted){
     strftime(date, sizeof(date), "%Y-%m-%d", ltm);
     strftime(timeStr, sizeof(timeStr), "%H:%M:%S", ltm);
 
+<<<<<<< Updated upstream
     string query = "INSERT INTO ACCESS_LOG (Valid, Date, Time) VALUES ('" + string(accessGranted ? "1" : "0") + "', '" + date + "', '" + timeStr + "');";
 
     int SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
@@ -106,6 +116,12 @@ void SQL_attemptWriter(bool accessGranted){
     if (SQL_QUERY != SQLITE_OK) {
         cerr << "Error executing WRITE statement: " << sqlite3_errmsg(db) << std::endl;
     }
+=======
+    // database function. Insert date, time, accessGranted
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 }
 
 
