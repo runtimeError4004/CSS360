@@ -158,7 +158,7 @@ string createNewPassword(bool fromMenu){
 void validateInsertVault(string website, string username, string password){
     
     // please write the loop menu using while true
-    int x;
+    
     while (true){
 
         devNote("user input validation loop"); 
@@ -183,31 +183,32 @@ void validateInsertVault(string website, string username, string password){
                 // 
 
                 cout << "What text is invalid? [ 1 ], [ 2 ], or [ 3 ]";
-                cout << "\n[ 1 ] - "<< website;
-                cout << "\n[ 2 ] - "<< username;
-                cout << "\n[ 3 ] - "<< password;
+                cout << "\n[ 1 ] - "<< username;
+                cout << "\n[ 2 ] - "<< website;
+                cout << "\n[ 3 ] - "<< password << "\n";
+                cout << "Enter 1, 2, or 3: ";
 
                 cin>> valid;
-                if ('1'){
-                    // display the current website, and let them overwrite it
-                    cout << "";
-                    cin >> website;
-                    break;
-                } else if ('2'){
+                if (valid == '1'){
                     // display the current un, and let them overwrite it
-                    cout << "";
+                    cout << "Current Username: " << username << "\n";
+                    cin >> username;
+                    break;
+                } else if (valid == '2'){
+                    // display the current website, and let them overwrite it
+                    cout << "Current Website: " << website << "\n";
                     cin >> website;
                     break;
-                } else if ('3'){
-                    createNewPassword(false);
+                } else if (valid == '3'){
+                    std::cout << "Current Password: " << password << "\n";
+                    password = createNewPassword(false);
                     break;
                 } else {
                     // repeat loop 
+                    cout << "Invalid option. Try again. \n";
                     
                 }
             }
-
-            
 
             validateInsertVault(website, username, password);
         } else {
