@@ -55,6 +55,7 @@ void devNote(string text){
     @return the string of encrypted or decrypted text.
 */
 string aes256(bool encrypt, string password){
+    devNote("need unit testing on AES256 to confirm");
     string out;
     if (encrypt){
         // use encrypt library
@@ -306,7 +307,6 @@ bool resetVault() {
     cout << "This will permanently erase your password vault and all stored data.\n";
     cout << "Type [ RESET ] to confirm or [ Q ] to go back to the menu: ";
 
-    devNote("Reset master password as well");
 
     // This while loop is broken by the two "reset" and "q" conditionals inside.
     // It will only loop continuously for as long as the user continues to input invalid responses
@@ -326,6 +326,8 @@ bool resetVault() {
             cout << "Invalid input.\n";
         }
     }
+    devNote("Reset master password as well");
+
 }
 
 void signOut(){
