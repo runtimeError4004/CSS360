@@ -1,14 +1,14 @@
 #include <iostream>
-#include "db_tables.cpp"
-#include "db_insert.cpp"
 #include "sqlite3.h"
+#include "db_tables.h"
+#include "db_insert.h"
+#include "master_password.h"
+#include "aes256.h"
 #include <limits>
 using namespace std;
 
 sqlite3* db = nullptr;
 
-
-// need an encryption library
 // need a SQL library https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
 // need a random library
 
@@ -41,45 +41,9 @@ void devNote(string text){
 ////////////////////////////////////////////////////////////////////////////////
 // SQL stuff https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
 
-/*
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-/*
-    @brief Encrypts/decrypts the input data using AES-256.
-    
-    @param bool for whether the text should be encrypted (true) or decrypted (false).
-    @param string The text input to encrypt or decrypt.
 
-    @return the string of encrypted or decrypted text.
-*/
-string aes256(bool encrypt, string password){
-    devNote("need unit testing on AES256 to confirm");
-    string out;
-    if (encrypt){
-        // use encrypt library
-        // encrypt the password
-        
-    } else if (!encrypt) {
-        // reverse encrypt / decrypt the password
-
-    }
-    // update the out string to be the new password here
-    out = password;
-    return out;
-}
-
-/*
-    @brief support function for creating a new login
-        1) ask user for password length
-        2) pull random characters from charArray
-        3) 
-        4) 
-
-    @return the randomly generated password
-
-*/
 string createNewPassword(bool fromMenu){
     // https://www.w3schools.com/cpp/cpp_howto_random_number.asp
 
@@ -256,9 +220,8 @@ void createNewLogin(){
             return;
         }
 
-        string encrypted_pass = aes256(1, password);
 
-        validateInsertVault(website, username, encrypted_pass); // Insert encrypted password
+        validateInsertVault(website, username, password);
 
     // }
 

@@ -1,161 +1,130 @@
 #include <iostream>
+#include <ctime>
+#include "db_insert.h"
+#include "aes256.h"
+#include "master_password.h"
+#include <sqlite3.h>
+
 using namespace std;
-#include "sqlite3.h"
-
 extern sqlite3* db;
-// 
-/////////////
 
-//     Some functions source code from https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/ and will be given a citation at the 
-
-/*
-TWO SQL database tables needed
-
-CREDENTIALS LOGIN
------
-+ string Website
-+ string Username
-+ string Password
-
-ACCESS LOG
------
-+ bool Valid
-+ string Date
-+ string Time
-
-*/
-
-/////////////
-
-//     This function comes DIRECTLY from https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
-static int callback(void* data, int argc, char** argv, char** azColName)
+// Inserts a new credential record, encrypting it with AES-256 and the masterPassword.
+void SQL_vaultWriter(const string& website,
+                     const string& username,
+                     const string& password)
 {
-    int i;
-    fprintf(stderr, "%s: ", (const char*)data);
+    // Build JSON payload
+    string payload = "{\"site\":\"" + website + "\"," \
+                      "\"user\":\"" + username + "\"," \
+                      "\"pass\":\"" + password + "\"}";
 
-    for (i = 0; i < argc; i++) {
-        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+    // Encrypt payload to a hex-encoded blob
+    string blob = aes256(true, masterPassword, payload);
+
+    // Prepare and bind parameters
+    sqlite3_stmt* stmt = nullptr;
+    const char* sql = "INSERT INTO CREDENTIAL (Website, Username, Password) VALUES (?, ?, ?);";
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        cerr << "DEVNOTE - Failed to prepare write statement: " << sqlite3_errmsg(db) << endl;
+        return;
     }
+    sqlite3_bind_text(stmt, 1, website.c_str(), -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 2, username.c_str(), -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 3, blob.c_str(), -1, SQLITE_TRANSIENT);
 
-    printf("\n");
-    return 0;
+    // Execute and finalize
+    if (sqlite3_step(stmt) != SQLITE_DONE) {
+        cerr << "DEVNOTE - Error executing WRITE statement: " << sqlite3_errmsg(db) << endl;
+    }
+    sqlite3_finalize(stmt);
 }
 
-/*
-    @brief writes the user's website, username and password to the SQL database
-    
-
-    @param string website name
-    @param string username
-    @param string password
-
-*/
-void SQL_vaultWriter(string website, string username, string password){
-    string query = "INSERT INTO CREDENTIAL (Website, Username, Password) VALUES ('" + 
-    website + "', '" + username+"', '"+ password+"');";
-
-    int SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
-
-    if (SQL_QUERY != SQLITE_OK) {
-        cerr << "DEVNOTE - Error executing WRITE statement: " << sqlite3_errmsg(db) << std::endl;
-    } else {
-        // cout << "DEVNOTE - Credential STORED." << endl;
+// Reads and decrypts all credential records, printing the JSON payload
+void SQL_vaultReader()
+{
+    const char* sql = "SELECT Website, Username, Password FROM CREDENTIAL;";
+    sqlite3_stmt* stmt = nullptr;
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        cerr << "DEVNOTE - Failed to prepare read statement: " << sqlite3_errmsg(db) << endl;
+        return;
     }
 
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        string site = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+        string user = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        string blob = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+
+        // Decrypt blob to JSON
+        string json = aes256(false, masterPassword, blob);
+
+        cout << "Record: " << json << endl;
+    }
+    sqlite3_finalize(stmt);
 }
 
-
-/*
-    @brief reads the password vault database
-*/
-void SQL_vaultReader(){
-    string query = "SELECT * FROM CREDENTIAL;";
-
-    int SQL_QUERY = sqlite3_exec(db, query.c_str(), callback, (void*)"CREDENTIAL", NULL); 
-
-    if (SQL_QUERY != SQLITE_OK) {
-        std::cerr << "DEVNOTE - Error executing READING statement: " << sqlite3_errmsg(db) << std::endl;
-    }
-    else {
-        // cout << "DEVNOTE - Credential STORED." << endl;
-    }
-    std::cout << "All records deleted from 'users' table." << std::endl;
-
-    sqlite3_exec(db, query.c_str(), callback, NULL, NULL);
-
-}
-
-/*
-    @brief inserts date, time, and valid entry for every attempt to enter the vault
-    
-    @param bool on whether the masterpassword enetered was valid
-
-    @return null
-*/
-void SQL_attemptWriter(bool accessGranted){
-    // Get current date and time
-    // This appears to be the easiest way to format Date and Time... thanks, C++!
+// Logs each vault access attempt (valid or not) with timestamp
+void SQL_attemptWriter(bool accessGranted)
+{
     time_t now = time(0);
     tm* ltm = localtime(&now);
-    char date[11]; // YYYY-MM-DD
-    char timeStr[9]; // HH:MM:SS
+    char date[11];
+    char timeStr[9];
     strftime(date, sizeof(date), "%Y-%m-%d", ltm);
     strftime(timeStr, sizeof(timeStr), "%H:%M:%S", ltm);
 
-    string query = "INSERT INTO ACCESS_LOG (Valid, Date, Time) VALUES ('" + string(accessGranted ? "1" : "0") + "', '" + date + "', '" + timeStr + "');";
-
-    int SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
-
-    if (SQL_QUERY != SQLITE_OK) {
-        cerr << "Error executing WRITE statement: " << sqlite3_errmsg(db) << std::endl;
-    }
-    // database function. Insert date, time, accessGranted
-}
-
-
-/*
-    @brief reads the list of all vault master password attempts from SQL DB
-    
-*/
-void SQL_attemptReader(){
-    // basically copy/paste of SQL_vaultReader but from a different table...
-    string query = "SELECT * FROM ACCESS_LOG;";
-    // string query = "SELECT Valid, Date, Time FROM ACCESS_LOG;";
-
-
-    int SQL_QUERY = sqlite3_exec(db, query.c_str(), callback, (void*)"ACCESS_LOG", NULL); 
-
-    if (SQL_QUERY != SQLITE_OK) {
-        std::cerr << "Error executing READING statement: " << sqlite3_errmsg(db) << std::endl;
+    string query = "INSERT INTO ACCESS_LOG (Valid, Date, Time) VALUES ('" + 
+                   string(accessGranted ? "1" : "0") + "', '" + date + "', '" + timeStr + "');";
+    char* errMsg = nullptr;
+    if (sqlite3_exec(db, query.c_str(), nullptr, nullptr, &errMsg) != SQLITE_OK) {
+        cerr << "DEVNOTE - Error executing attempt write: " << errMsg << endl;
+        sqlite3_free(errMsg);
     }
 }
 
-// havent set this up yet
-int SQL_vaultCounter(){
-    string query = "SELECT COUNT(*) FROM CREDENTIAL;";
+// Reads and prints all access log entries
+void SQL_attemptReader()
+{
+    const char* sql = "SELECT Valid, Date, Time FROM ACCESS_LOG;";
+    sqlite3_stmt* stmt = nullptr;
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        cerr << "DEVNOTE - Failed to prepare attempt read: " << sqlite3_errmsg(db) << endl;
+        return;
+    }
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        int valid = sqlite3_column_int(stmt, 0);
+        const char* date = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        const char* time = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+        cout << "Attempt - Valid: " << valid << ", Date: " << date << ", Time: " << time << endl;
+    }
+    sqlite3_finalize(stmt);
+}
 
-    int SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
-    if (SQL_QUERY != SQLITE_OK) {
-        std::cerr << "Error executing COUNTING statement: " << sqlite3_errmsg(db) << std::endl;
+// Returns the count of credential records
+int SQL_vaultCounter()
+{
+    const char* sql = "SELECT COUNT(*) FROM CREDENTIAL;";
+    sqlite3_stmt* stmt = nullptr;
+    int count = 0;
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) == SQLITE_OK) {
+        if (sqlite3_step(stmt) == SQLITE_ROW) {
+            count = sqlite3_column_int(stmt, 0);
+        }
     } else {
-        std::cout << "All records deleted from 'users' table:" << std::endl;
-
+        cerr << "DEVNOTE - Failed to prepare count: " << sqlite3_errmsg(db) << endl;
     }
-    
-    return 0;
+    sqlite3_finalize(stmt);
+    return count;
 }
 
-bool deleteData(){
-    string query = "DELETE FROM CREDENTIAL;";
-
-    int SQL_QUERY = sqlite3_exec(db, query.c_str(), NULL, 0, NULL);
-    if (SQL_QUERY != SQLITE_OK) {
-        std::cerr << "Error executing DELETE statement: " << sqlite3_errmsg(db) << std::endl;
-    } else {
-        std::cout << "All records deleted from 'users' table:" << std::endl;
-
+// Deletes all credential records
+bool deleteData()
+{
+    const char* sql = "DELETE FROM CREDENTIAL;";
+    char* errMsg = nullptr;
+    if (sqlite3_exec(db, sql, nullptr, nullptr, &errMsg) != SQLITE_OK) {
+        cerr << "DEVNOTE - Error deleting data: " << errMsg << endl;
+        sqlite3_free(errMsg);
+        return false;
     }
-
-    
-    return false;
+    return true;
 }
