@@ -3,14 +3,17 @@
         {
             "type": "cppbuild",
             "label": "C/C++: gcc.exe build active file",
-            "command": "C:\\msys64\\mingw64\\bin\\g++.exe",
+            "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
                 "${file}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "-lsqlite3"                
+                "-lsqlite3",
+                "-static",
+                "-static-libgcc",
+                "-static-libstdc++"
             ],
             "options": {
                 "cwd": "${fileDirname}"
