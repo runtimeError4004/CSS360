@@ -306,65 +306,53 @@ void signOut(){
     @param bool has previously correctly entered master password
 
 */
-void menu(){
+void menu() {
     int option = 0;
-
-    while (true){
+    while (true) {
         headerFunction("Main Menu");
+        cout << "[ 1 ] Create New Login\n"
+             << "[ 2 ] Create New Password\n"
+             << "[ 3 ] Open Vault\n"
+             << "[ 4 ] View Access Log\n"
+             << "[ 9 ] Factory Reset Vault\n"
+             << "[ 0 ] Lock Vault\n\n"
+             << "Enter choice: ";
+        cin >> option;
 
-        cout<<"Select from options below:\n\n";
-        cout<<"[ 1 ] Create New Login\n";
-        cout<<"[ 2 ] Create New Password\n";
-        cout<<"[ 3 ] Open Vault\n";
-        cout<<"[ 4 ] View Access Log\n\n";
-
-        cout<<"[ 9 ] Factory Reset Vault\n";
-        cout<<"[ 0 ] Lock Vault\n";
-
-
-        cout<<"\n";
-
-        cin>>option;
-
-        if (option == 1){
+        if (option == 1) {
             createNewLogin();
-            menu();
-        } else if (option == 2){
+        }
+        else if (option == 2) {
             createNewPassword(true);
-            menu();
-        } else if (option == 3){
+        }
+        else if (option == 3) {
             headerFunction("Vault");
             SQL_vaultReader();
-            menu();
-        } else if (option == 4){
+        }
+        else if (option == 4) {
             headerFunction("Access Log");
             SQL_attemptReader();
-            menu();
-        } else if (option == 9){
-            // Return to login vault loop if vault was reset; return to menu loop if canceled
+        }
+        else if (option == 9) {
             if (resetVault()) {
                 headerFunction("Vault Wiped");
-                
-                devNote("Caeden - We should really consider abstracting the loginVault loop + menu into a common function. I don't like the code reuse here.");
-
-                while (!loginVault()){
-                    loginVault();
-                }
-                
-                menu();
-            }else{
-                menu();
+                while (!loginVault()) {}
             }
-        } else if (option == 0){
-            signOut();
-        } else {
-            headerFunction("Response rejected.");
-            menu();
         }
-    }
-        
+        else if (option == 0) {
+            signOut();
+        }
+        else {
+            headerFunction("Response rejected.");
+        }
 
+        // PAUSE so you can read Vault/Log before the menu reprints
+        cout << "\nPress Enter to return to menu...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
+    }
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
     main menu caller

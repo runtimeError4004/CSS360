@@ -10,57 +10,80 @@ extern sqlite3* db;
 
 // Inserts a new credential record, encrypting it with AES-256 and the masterPassword.
 void SQL_vaultWriter(const string& website,
-                     const string& username,
-                     const string& password)
+    const string& username,
+    const string& password)
 {
-    // Build JSON payload
-    string payload = "{\"site\":\"" + website + "\"," \
-                      "\"user\":\"" + username + "\"," \
-                      "\"pass\":\"" + password + "\"}";
+cout << "[DEBUG] SQL_vaultWriter called\n"
+<< "  site:     " << website  << "\n"
+<< "  username: " << username << "\n";
 
-    // Encrypt payload to a hex-encoded blob
-    string blob = aes256(true, masterPassword, payload);
+// Build JSON payload
+string payload = "{\"site\":\"" + website + "\"," 
+  + "\"user\":\"" + username + "\"," 
+  + "\"pass\":\"" + password + "\"}";
+// Encrypt payload
+string blob = aes256(true, masterPassword, payload);
+cout << "[DEBUG] Encrypted payload (hex): " << blob << "\n";
 
-    // Prepare and bind parameters
-    sqlite3_stmt* stmt = nullptr;
-    const char* sql = "INSERT INTO CREDENTIAL (Website, Username, Password) VALUES (?, ?, ?);";
-    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
-        cerr << "DEVNOTE - Failed to prepare write statement: " << sqlite3_errmsg(db) << endl;
-        return;
-    }
-    sqlite3_bind_text(stmt, 1, website.c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 2, username.c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 3, blob.c_str(), -1, SQLITE_TRANSIENT);
-
-    // Execute and finalize
-    if (sqlite3_step(stmt) != SQLITE_DONE) {
-        cerr << "DEVNOTE - Error executing WRITE statement: " << sqlite3_errmsg(db) << endl;
-    }
-    sqlite3_finalize(stmt);
+const char* sql = 
+"INSERT INTO CREDENTIAL (Website, Username, Password) VALUES (?, ?, ?);";
+sqlite3_stmt* stmt = nullptr;
+if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+cerr << "[ERROR] Failed to prepare write stmt: " << sqlite3_errmsg(db) << "\n";
+return;
 }
+sqlite3_bind_text(stmt, 1, website.c_str(), -1, SQLITE_TRANSIENT);
+sqlite3_bind_text(stmt, 2, username.c_str(), -1, SQLITE_TRANSIENT);
+sqlite3_bind_text(stmt, 3, blob.c_str(),    -1, SQLITE_TRANSIENT);
 
-// Reads and decrypts all credential records, printing the JSON payload
+int rc = sqlite3_step(stmt);
+if (rc != SQLITE_DONE) {
+cerr << "[ERROR] INSERT failed: " << sqlite3_errmsg(db) << "\n";
+} else {
+cout << "[DEBUG] INSERT succeeded.\n";
+}
+sqlite3_finalize(stmt);
+}   
+
+
+
 void SQL_vaultReader()
 {
     const char* sql = "SELECT Website, Username, Password FROM CREDENTIAL;";
     sqlite3_stmt* stmt = nullptr;
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
-        cerr << "DEVNOTE - Failed to prepare read statement: " << sqlite3_errmsg(db) << endl;
+        cerr << "Failed to prepare read: " << sqlite3_errmsg(db) << "\n";
         return;
     }
 
+    int row = 0;
     while (sqlite3_step(stmt) == SQLITE_ROW) {
-        string site = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
-        string user = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
-        string blob = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+        row++;
+        string site = (const char*)sqlite3_column_text(stmt, 0);
+        string user = (const char*)sqlite3_column_text(stmt, 1);
+        const char* blobText = (const char*)sqlite3_column_text(stmt, 2);
+        if (!blobText) {
+            cerr << "[WARN] Row " << row << " missing encrypted data\n";
+            continue;
+        }
 
-        // Decrypt blob to JSON
-        string json = aes256(false, masterPassword, blob);
+        string hexBlob(blobText);
+        cout << "\n[Entry " << row << "]\n"
+             << "Site:     " << site << "\n"
+             << "Username: " << user << "\n"
+             << "Hex blob: " << hexBlob << "\n";
 
-        cout << "Record: " << json << endl;
+        try {
+            string json = aes256(false, masterPassword, hexBlob);
+            cout << "Decrypted data: " << json << "\n";
+        } catch (const exception& e) {
+            cerr << "[ERROR] Decrypt failed: " << e.what() << "\n";
+        }
     }
+
     sqlite3_finalize(stmt);
 }
+
 
 // Logs each vault access attempt (valid or not) with timestamp
 void SQL_attemptWriter(bool accessGranted)
