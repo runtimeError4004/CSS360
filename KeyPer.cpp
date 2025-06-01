@@ -2,11 +2,14 @@
 #include "sqlite3.h"
 #include "db_tables.h"
 #include "db_insert.h"
-#include "master_password.h"
+#include "sha256_util.h"    // NEW: for SHA-256 hashing of the master password
 #include "aes256.h"
+#include "master_password.h" 
 #include <limits>
 using namespace std;
 
+
+std::string masterPlain;  // NEW: holds verified master password during runtime
 sqlite3* db = nullptr;
 
 // need a SQL library https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
@@ -15,7 +18,118 @@ constexpr int MIN_PASSWORD_LEN = 3;
 constexpr int MAX_PASSWORD_LEN = 11;
 
 
-string masterPassword = "000";
+bool masterPasswordSet() {
+    const char* sql = "SELECT PasswordHash FROM MASTER WHERE ID = 1;";
+    sqlite3_stmt* stmt = nullptr;
+    bool exists = false;
+
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) == SQLITE_OK) {
+        if (sqlite3_step(stmt) == SQLITE_ROW) {
+            const unsigned char* hashText = sqlite3_column_text(stmt, 0);
+            if (hashText) exists = true;
+        }
+    } else {
+        cerr << "[ERROR] Cannot check MASTER table: " << sqlite3_errmsg(db) << "\n";
+    }
+    sqlite3_finalize(stmt);
+    return exists;
+}
+
+// Prompt user to create a new master password (3–11 chars), confirm it,
+// then store its SHA-256 hex in MASTER(ID=1). Keeps plaintext in masterPlain.
+void setMasterPassword() {
+    string pw1, pw2;
+    while (true) {
+        cout << "Create a new master password ("
+             << MIN_PASSWORD_LEN << "-" << MAX_PASSWORD_LEN << " chars): ";
+        cin >> pw1;
+        if (pw1.size() < MIN_PASSWORD_LEN || pw1.size() > MAX_PASSWORD_LEN) {
+            cout << "Password length must be between "
+                 << MIN_PASSWORD_LEN << " and " << MAX_PASSWORD_LEN << ".\n";
+            continue;
+        }
+        cout << "Confirm master password: ";
+        cin >> pw2;
+        if (pw1 != pw2) {
+            cout << "Passwords do not match. Try again.\n";
+            continue;
+        }
+        break;
+    }
+
+    // Compute SHA-256 hex of pw1
+    string hashHex = sha256hex(pw1);
+    masterPlain = pw1;  // store plaintext for this session
+
+    // Insert or replace the single MASTER row
+    const char* sql = "INSERT OR REPLACE INTO MASTER (ID, PasswordHash) VALUES (1, ?);";
+    sqlite3_stmt* stmt = nullptr;
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) == SQLITE_OK) {
+        sqlite3_bind_text(stmt, 1, hashHex.c_str(), -1, SQLITE_TRANSIENT);
+        if (sqlite3_step(stmt) != SQLITE_DONE) {
+            cerr << "[ERROR] Failed to write master hash: " << sqlite3_errmsg(db) << "\n";
+        } else {
+            cout << "Master password has been set.\n";
+        }
+    } else {
+        cerr << "[ERROR] Cannot prepare MASTER INSERT: " << sqlite3_errmsg(db) << "\n";
+    }
+    sqlite3_finalize(stmt);
+}
+
+// Prompt user for master password, hash it, compare to stored SHA-256.
+// If correct, save plaintext in masterPlain and return true; else false.
+bool verifyMasterPassword() {
+    string attempt;
+    cout << "Enter master password (or Q to quit): ";
+    cin >> attempt;
+    if (attempt == "Q" || attempt == "q") {
+        sqlite3_close(db);
+        exit(0);
+    }
+    if (attempt.size() < MIN_PASSWORD_LEN || attempt.size() > MAX_PASSWORD_LEN) {
+        cout << "Password length must be between "
+             << MIN_PASSWORD_LEN << " and " << MAX_PASSWORD_LEN << ".\n";
+        return false;
+    }
+
+    // Compute the hash of what the user typed
+    string attemptHash = sha256hex(attempt);
+
+    // Fetch the stored hash from MASTER
+    const char* sql = "SELECT PasswordHash FROM MASTER WHERE ID = 1;";
+    sqlite3_stmt* stmt = nullptr;
+    bool match = false;
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) == SQLITE_OK) {
+        if (sqlite3_step(stmt) == SQLITE_ROW) {
+            const unsigned char* storedHash = sqlite3_column_text(stmt, 0);
+            if (storedHash && attemptHash == reinterpret_cast<const char*>(storedHash)) {
+                match = true;
+            }
+        }
+    } else {
+        cerr << "[ERROR] Cannot prepare MASTER SELECT: " << sqlite3_errmsg(db) << "\n";
+    }
+    sqlite3_finalize(stmt);
+
+    if (!match) {
+        cout << "Incorrect master password.\n";
+        return false;
+    }
+    masterPlain = attempt;  // correct plaintext for this session
+    return true;
+}
+
+
+
+
+
+
+
+
+
+
+
 /*
     @brief creates a header for every mode that is entered into
     TODO(Caeden): i kinda wanna have the dashed lines line up perfectly with the text, definitely a polish thing though
@@ -243,29 +357,7 @@ void createNewLogin(){
         4) 
     @return whether login accepted
 */
-bool loginVault(){
-    headerFunction("KeyPer - Password Manager");
-    string enteredMasterPassword = "";
-    cout<< "Enter master password or quit [ Q ]:\n";
-    cout<< "[ DEVNOTE ] - default password is [ 000 ]:\n\n";
-    cin >> enteredMasterPassword;
-    if(enteredMasterPassword == masterPassword){
-        cout<< "\nAccess Granted.\n";
-        SQL_attemptWriter(true);
-        return true;
-    } else if (enteredMasterPassword == "q" || enteredMasterPassword == "Q") {
-        SQL_attemptWriter(false);
-        headerFunction(" [ Goodbye ]");
-        exit(0);
-    } else {
-        headerFunction("Response rejected.");
-        SQL_attemptWriter(false);
-        devNote("bug - program behaves weird around entering wrong password then correct one");
-        
-        return false;
-    }
-    return false;
-}
+
 
 /*
     @brief warns and prompts the user to confirm a factory reset before deleting DB data.
@@ -301,8 +393,9 @@ bool resetVault() {
 }
 
 void signOut(){
-    while (!loginVault()){
-        loginVault();
+    // Re-authenticate by asking for master password again
+    while (!verifyMasterPassword()) {
+        // keep looping until correct or user quits inside verifyMasterPassword()
     }
 }
 
@@ -343,7 +436,11 @@ void menu() {
         else if (option == 9) {
             if (resetVault()) {
                 headerFunction("Vault Wiped");
-                while (!loginVault()) {}
+                // After wiping, require user to set a new master and then verify it
+                setMasterPassword();
+                while (!verifyMasterPassword()) {
+                    // keep looping
+                }
             }
         }
         else if (option == 0) {
@@ -365,21 +462,31 @@ void menu() {
     main menu caller
 */
 int main() {
-
-    int SQL_QUERY = sqlite3_open("db_data.db", &db);
-
-    if (SQL_QUERY) {
-        cerr << "DEVNOTE - Database inaccessable! \n";
+    // Open (or create) the SQLite database
+    if (sqlite3_open("db_data.db", &db) != SQLITE_OK) {
+        cerr << "DEVNOTE - Database inaccessible! \n";
+        return 1;
     }
 
+    // Ensure CREDENTIAL, ACCESS_LOG, and MASTER tables exist
     create_tables();
 
-    while (!loginVault()){
-        loginVault();
+    // If no master‐password hash exists yet, prompt the user to create one
+    if (!masterPasswordSet()) {
+        setMasterPassword();
     }
-    
+
+    // Prompt and verify until the user enters the correct master password (or quits)
+    while (!verifyMasterPassword()) {
+        // keep looping until correct
+    }
+    // Record a successful vault login in the ACCESS_LOG table
+    SQL_attemptWriter(true);
+
+    // Enter the main menu loop
     menu();
+
     sqlite3_close(db);
     return 0;
-};
+}
 

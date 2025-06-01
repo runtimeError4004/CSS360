@@ -1,8 +1,6 @@
 // master_password.h
-#ifndef MASTER_PASSWORD_H
-#define MASTER_PASSWORD_H
-
+#pragma once
 #include <string>
-extern std::string masterPassword;
 
-#endif
+// This external variable holds the plaintext master password at runtime.
+extern std::string masterPlain;

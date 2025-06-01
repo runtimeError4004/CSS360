@@ -72,6 +72,22 @@ int create_tables()
         // cout<<"DEVNOTE - Table created Successfully\n";
     }
 
+            // NEW: Create MASTER table (stores exactly one SHA-256 hash of the master password)
+            string create_master_table =
+            "CREATE TABLE IF NOT EXISTS MASTER ("
+            " ID           INTEGER PRIMARY KEY CHECK (ID = 1), "
+            " PasswordHash TEXT    NOT NULL"
+            ");";
+
+        exit = sqlite3_exec(db, create_master_table.c_str(), NULL, 0, &ErrCode);
+        if (exit != SQLITE_OK) {
+                cerr << "Error Create MASTER table: " << ErrCode << "\n";
+                sqlite3_free(ErrCode);
+                }
+
+
+
+
     return (0);
 }
 

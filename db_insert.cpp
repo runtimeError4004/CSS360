@@ -22,7 +22,7 @@ string payload = "{\"site\":\"" + website + "\","
   + "\"user\":\"" + username + "\"," 
   + "\"pass\":\"" + password + "\"}";
 // Encrypt payload
-string blob = aes256(true, masterPassword, payload);
+string blob = aes256(true, masterPlain, payload);
 cout << "[DEBUG] Encrypted payload (hex): " << blob << "\n";
 
 const char* sql = 
@@ -74,7 +74,7 @@ void SQL_vaultReader()
              << "Hex blob: " << hexBlob << "\n";
 
         try {
-            string json = aes256(false, masterPassword, hexBlob);
+            string json = aes256(false, masterPlain, hexBlob);
             cout << "Decrypted data: " << json << "\n";
         } catch (const exception& e) {
             cerr << "[ERROR] Decrypt failed: " << e.what() << "\n";
