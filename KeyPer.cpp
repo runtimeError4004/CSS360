@@ -14,8 +14,8 @@ sqlite3* db = nullptr;
 
 // need a SQL library https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
 // need a random library
-constexpr int MIN_PASSWORD_LEN = 3;
-constexpr int MAX_PASSWORD_LEN = 11;
+constexpr int MIN_PASSWORD_LEN = 8;
+constexpr int MAX_PASSWORD_LEN = 25;
 
 
 bool masterPasswordSet() {
