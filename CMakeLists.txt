@@ -18,8 +18,8 @@ CPMAddPackage(
 	OPTIONS       	"CRYPTOPP_BUILD_TESTING OFF" "CRYPTOPP_INSTALL OFF"
 )
 
-# SQLite3 is included in CMake as of 3.14
-find_package(SQLite3 REQUIRED)
+# Download sqlite3 via cpm because I am *TIRED* of these package management issues 
+CPMAddPackage("gh:sjinks/sqlite3-cmake@3.49.1")
 
 # Gather all .cpp files in the directory
 file(GLOB ALL_CPP_FILES "*.cpp")
