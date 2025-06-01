@@ -27,4 +27,17 @@ A) [C++ SQL functions](https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/)
 
 B) [Random Number Generator](https://www.w3schools.com/cpp/cpp_howto_random_number.asp) 
 
+# Compiling From Source
 
+Requires a C++ compiler and [CMake](https://cmake.org/download/)
+
+From a terminal:
+
+- Navigate to the "build" subdirectory: `cd ./build`
+  - **Create this directory if it does not exist.**
+  - The contents of this directory is gitignored and will not be added to source control.
+- Build the CMake project: `cmake ..`
+- Compile and link the project: `cmake --build .`
+- Navigate to the output directory and run the program:
+  - `./KeyPer.exe` (Windows)
+  - `./KeyPer` (macOS, Linux)
