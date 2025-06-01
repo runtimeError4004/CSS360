@@ -35,6 +35,7 @@ From a terminal:
 
 - Navigate to the "build" subdirectory: `cd ./build`
   - **Create this directory if it does not exist.**
+  - **It is recommended to clear the contents of this directory before every new build.**
   - The contents of this directory is gitignored and will not be added to source control.
 - Build the CMake project: `cmake ..`
 - Compile and link the project: `cmake --build .`
