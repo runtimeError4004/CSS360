@@ -11,6 +11,8 @@ sqlite3* db = nullptr;
 
 // need a SQL library https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
 // need a random library
+constexpr int MIN_PASSWORD_LEN = 3;
+constexpr int MAX_PASSWORD_LEN = 11;
 
 
 string masterPassword = "000";
@@ -64,16 +66,21 @@ string createNewPassword(bool fromMenu){
     // while (){ please add while conditions to 
         devNote("UIUX - program needs a while loop for user input validation");
     
-        cout<<"How long should your password be? ";
-        cin>>passwordLen;
+        cout << "How long should your password be ("
+        << MIN_PASSWORD_LEN << "-" << MAX_PASSWORD_LEN << ")? ";
+        cin >> passwordLen;
+
 
         // If Invalid Length
-        if(cin.fail() || passwordLen <= 0 || passwordLen > 128) {
-            cout << "Invalid password length. \n";
-            cin.clear(); // Clear fail state of cin
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            return "";
-        }
+        if (cin.fail() ||
+        passwordLen < MIN_PASSWORD_LEN ||
+        passwordLen > MAX_PASSWORD_LEN) {
+        cout << "Invalid password length. Must be between "
+             << MIN_PASSWORD_LEN << " and " << MAX_PASSWORD_LEN << ".\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        return "";
+    }
 
         // if (){
         
