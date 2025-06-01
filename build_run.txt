@@ -1,0 +1,2 @@
+g++ -std=c++11 KeyPer.cpp db_tables.cpp db_insert.cpp aes256.cpp sha256_util.cpp -I. -I/opt/homebrew/opt/sqlite/include -I/opt/homebrew/opt/cryptopp/include -L/opt/homebrew/opt/sqlite/lib -L/opt/homebrew/opt/cryptopp/lib -lsqlite3 -lcryptopp -o KeyPer && ./KeyPer
+above should be build and run command 
