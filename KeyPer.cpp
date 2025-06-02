@@ -12,17 +12,6 @@ using namespace std;
 std::string masterPlain;  // NEW: holds verified master password during runtime
 sqlite3* db = nullptr;
 
-/*
-    @brief creates a header for every mode that is entered into
-    TODO(Caeden): i kinda wanna have the dashed lines line up perfectly with the text, definitely a polish thing though
-*/
-// 
-void headerFunction(string text){
-    cout<<"- - - - - - - - - - - - - - - - - -\n";
-    cout<<"\t"<< text<< "\n";
-    cout<<"- - - - - - - - - - - - - - - - - -\n";
-}
-
 // need a SQL library https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
 // need a random library
 constexpr int MIN_PASSWORD_LEN = 8;
@@ -45,8 +34,6 @@ bool masterPasswordSet() {
     sqlite3_finalize(stmt);
     return exists;
 }
-
-
 
 // Prompt user to create a new master password (3–11 chars), confirm it,
 // then store its SHA-256 hex in MASTER(ID=1). Keeps plaintext in masterPlain.
@@ -86,7 +73,7 @@ void setMasterPassword() {
         if (sqlite3_step(stmt) != SQLITE_DONE) {
             cerr << "[ERROR] Failed to write master hash: " << sqlite3_errmsg(db) << "\n";
         } else {
-            // cout << "Master password has been set.\n";
+            cout << "Master password has been set.\n";
         }
     } else {
         cerr << "[ERROR] Cannot prepare MASTER INSERT: " << sqlite3_errmsg(db) << "\n";
@@ -101,7 +88,6 @@ bool verifyMasterPassword() {
     cout << "Enter master password (or Q to quit): ";
     cin >> attempt;
     if (attempt == "Q" || attempt == "q") {
-        headerFunction("Good Bye");
         sqlite3_close(db);
         exit(0);
     }
@@ -132,12 +118,9 @@ bool verifyMasterPassword() {
 
     if (!match) {
         cout << "Incorrect master password.\n";
-        SQL_attemptWriter(false);
         return false;
     }
     masterPlain = attempt;  // correct plaintext for this session
-    SQL_attemptWriter(true);
-
     return true;
 }
 
@@ -151,7 +134,16 @@ bool verifyMasterPassword() {
 
 
 
-
+/*
+    @brief creates a header for every mode that is entered into
+    TODO(Caeden): i kinda wanna have the dashed lines line up perfectly with the text, definitely a polish thing though
+*/
+// 
+void headerFunction(string text){
+    cout<<"- - - - - - - - - - - - - - - - - -\n";
+    cout<<"\t"<< text<< "\n";
+    cout<<"- - - - - - - - - - - - - - - - - -\n";
+}
 
 /*
     @brief prints dev notes for future reference
@@ -189,26 +181,32 @@ string createNewPassword(bool fromMenu){
     string genPassword= "";
     int passwordLen;
 
-    while (true){ 
+    // while (){ please add while conditions to 
+        devNote("UIUX - program needs a while loop for user input validation");
     
         cout << "How long should your password be ("
         << MIN_PASSWORD_LEN << "-" << MAX_PASSWORD_LEN << ")? ";
         cin >> passwordLen;
 
+
         // If Invalid Length
         if (cin.fail() ||
-            passwordLen < MIN_PASSWORD_LEN ||
-            passwordLen > MAX_PASSWORD_LEN) {
-            cout << "Invalid password length. Must be between "
-                << MIN_PASSWORD_LEN << " and " << MAX_PASSWORD_LEN << ".\n";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            return "";
-        }
-        else {
-            break;
-        }
+        passwordLen < MIN_PASSWORD_LEN ||
+        passwordLen > MAX_PASSWORD_LEN) {
+        cout << "Invalid password length. Must be between "
+             << MIN_PASSWORD_LEN << " and " << MAX_PASSWORD_LEN << ".\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        return "";
     }
+
+        // if (){
+        
+        // }
+
+    //}
+
+
     // Seed RNG
     srand(static_cast<unsigned int>(time(0)));
 
@@ -316,17 +314,6 @@ void validateInsertVault(string website, string username, string password){
     
     
 }
-
-string removeWhiteSpace(string in){
-    string out;
-    for (int i = 0; i++; i<in.size()){
-        if (in[i] != ' '){
-            out += i;
-        }
-    }
-    return out;
-}
-
 /*
     @brief primary function for creating a new login
         1) insert website name
@@ -335,24 +322,20 @@ string removeWhiteSpace(string in){
         4) store to password vault through SQL_vaultWriter()
 */
 void createNewLogin(){
+    headerFunction("Create New Login");
 
     // while menu
-    while(true){
-        headerFunction("Create New Login");
+    // while(true){
         string website = "";
         cout << "Enter website name: ";
         cin >> website;
-        website = removeWhiteSpace(website);
 
-        // devNote("erase white space from website");
-
+        devNote("erase white space from website");
+    // 
         string username = "";
         cout << "Enter user name: ";
         cin >> username;
-        username = removeWhiteSpace(username);
-
-        // devNote("erase white space from website");
-
+        devNote("erase white space from website");
 
         string password = createNewPassword(false);
 
@@ -362,9 +345,10 @@ void createNewLogin(){
             return;
         }
 
+
         validateInsertVault(website, username, password);
 
-    }
+    // }
 
 
 }
@@ -419,11 +403,8 @@ bool resetVault() {
 
 void signOut(){
     // Re-authenticate by asking for master password again
-    while (true) {
+    while (!verifyMasterPassword()) {
         // keep looping until correct or user quits inside verifyMasterPassword()
-        if (verifyMasterPassword()){
-            break;
-        }
     }
 }
 
@@ -506,11 +487,10 @@ int main() {
 
     // Prompt and verify until the user enters the correct master password (or quits)
     while (!verifyMasterPassword()) {
-        // SQL_attemptWriter(false);
         // keep looping until correct
     }
     // Record a successful vault login in the ACCESS_LOG table
-    // SQL_attemptWriter(true);
+    SQL_attemptWriter(true);
 
     // Enter the main menu loop
     menu();
