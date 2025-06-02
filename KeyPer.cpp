@@ -338,7 +338,7 @@ string removeWhiteSpace(string in){
         3) insert createNewPassword()
         4) store to password vault through SQL_vaultWriter()
 */
-void createNewLogin(){ // cd ~/C++/CSS360
+void createNewLogin(){ 
 
     // while menu
     while(true){
