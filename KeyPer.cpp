@@ -40,6 +40,7 @@ bool masterPasswordSet() {
 void setMasterPassword() {
     string pw1, pw2;
     while (true) {
+        headerFunction("New Account Initiated");
         cout << "Create a new master password ("
              << MIN_PASSWORD_LEN << "-" << MAX_PASSWORD_LEN << " chars): ";
         cin >> pw1;
@@ -53,6 +54,9 @@ void setMasterPassword() {
         if (pw1 != pw2) {
             cout << "Passwords do not match. Try again.\n";
             continue;
+        }
+        else {
+            headerFunction("Vault Created");
         }
         break;
     }
@@ -366,13 +370,16 @@ void createNewLogin(){
 */
 bool resetVault() {
     headerFunction("WARNING: Factory Reset Vault");
-    cout << "This will permanently erase your password vault and all stored data.\n";
-    cout << "Type [ RESET ] to confirm or [ Q ] to go back to the menu: ";
+
 
 
     // This while loop is broken by the two "reset" and "q" conditionals inside.
     // It will only loop continuously for as long as the user continues to input invalid responses
-    while (true) {
+    do {
+
+        cout << "This will permanently erase your password vault and all stored data.\n";
+        cout << "Type [ RESET ] to confirm or [ Q ] to go back to the menu: ";
+
         string input;
         cin >> input;
 
@@ -387,8 +394,10 @@ bool resetVault() {
         } else {
             cout << "Invalid input.\n";
         }
-    }
-    devNote("Reset master password as well");
+    } while (true);
+
+    // devNote("Reset master password as well");
+    setMasterPassword();
 
 }
 

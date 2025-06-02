@@ -13,7 +13,8 @@ void SQL_vaultWriter(const string& website,
     const string& username,
     const string& password)
 {
-cout << "[DEBUG] SQL_vaultWriter called\n"
+cout 
+// << "[DEBUG] SQL_vaultWriter called\n"
 << "  site:     " << website  << "\n"
 << "  username: " << username << "\n";
 
@@ -23,7 +24,8 @@ string payload = "{\"site\":\"" + website + "\","
   + "\"pass\":\"" + password + "\"}";
 // Encrypt payload
 string blob = aes256(true, masterPlain, payload);
-cout << "[DEBUG] Encrypted payload (hex): " << blob << "\n";
+
+//cout << "[DEBUG] Encrypted payload (hex): " << blob << "\n";
 
 const char* sql = 
 "INSERT INTO CREDENTIAL (Website, Username, Password) VALUES (?, ?, ?);";
@@ -40,7 +42,7 @@ int rc = sqlite3_step(stmt);
 if (rc != SQLITE_DONE) {
 cerr << "[ERROR] INSERT failed: " << sqlite3_errmsg(db) << "\n";
 } else {
-cout << "[DEBUG] INSERT succeeded.\n";
+// cout << "[DEBUG] INSERT succeeded.\n";
 }
 sqlite3_finalize(stmt);
 }   
@@ -61,6 +63,8 @@ void SQL_vaultReader()
         row++;
         string site = (const char*)sqlite3_column_text(stmt, 0);
         string user = (const char*)sqlite3_column_text(stmt, 1);
+        
+        
         const char* blobText = (const char*)sqlite3_column_text(stmt, 2);
         if (!blobText) {
             cerr << "[WARN] Row " << row << " missing encrypted data\n";
@@ -99,7 +103,7 @@ void SQL_attemptWriter(bool accessGranted)
                    string(accessGranted ? "1" : "0") + "', '" + date + "', '" + timeStr + "');";
     char* errMsg = nullptr;
     if (sqlite3_exec(db, query.c_str(), nullptr, nullptr, &errMsg) != SQLITE_OK) {
-        cerr << "DEVNOTE - Error executing attempt write: " << errMsg << endl;
+        cerr << "Error executing attempt write: " << errMsg << endl;
         sqlite3_free(errMsg);
     }
 }
