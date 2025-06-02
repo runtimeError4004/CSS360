@@ -269,7 +269,7 @@ void validateInsertVault(string website, string username, string password){
         cin>>valid;
         if (valid == 'y' || valid == 'Y'){
             SQL_vaultWriter(website, username, password);
-            break;
+            return;
         } else if (valid == 'n' || valid == 'N'){
             // Create a menu here to ask the user which of the three they want to update
 
@@ -338,13 +338,14 @@ string removeWhiteSpace(string in){
         3) insert createNewPassword()
         4) store to password vault through SQL_vaultWriter()
 */
-void createNewLogin(){
+void createNewLogin(){ // cd ~/C++/CSS360
 
     // while menu
     while(true){
         headerFunction("Create New Login");
         string website = "";
         cout << "Enter website name: ";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear input buffer
         getline(cin,website);
         website = removeWhiteSpace(website);
 
@@ -364,6 +365,7 @@ void createNewLogin(){
 
 
         validateInsertVault(website, username, password);
+        break;
 
     }
 
