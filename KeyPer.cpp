@@ -106,6 +106,7 @@ bool verifyMasterPassword() {
         exit(0);
     }
     if (attempt.size() < MIN_PASSWORD_LEN || attempt.size() > MAX_PASSWORD_LEN) {
+        SQL_attemptWriter(false);
         cout << "Password length must be between "
              << MIN_PASSWORD_LEN << " and " << MAX_PASSWORD_LEN << ".\n";
         return false;
@@ -203,7 +204,7 @@ string createNewPassword(bool fromMenu){
                 << MIN_PASSWORD_LEN << " and " << MAX_PASSWORD_LEN << ".\n";
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            return "";
+            // return "";
         }
         else {
             break;
@@ -218,20 +219,20 @@ string createNewPassword(bool fromMenu){
         genPassword += charArray[randIndex]; // update this with randomChar
     }
 
-    headerFunction('"'+ genPassword + '"'); 
-    cout << "\nDo you want to copy to clipboard? [ Y ] / [ N ]: ";
-    string option;
-    cin >> option;
+                                                                    // headerFunction(genPassword); 
+                                                                    // // cout << "\nDo you want to copy to clipboard? [ Y ] / [ N ]: ";
+                                                                    // string option;
+                                                                    // cin >> option;
 
-    while (option != "Y" && option != "y" && option != "N" && option != "n" ){
-        cout << "Please enter [ Y ] or [ N ]: ";
-        cin >> option;
-            // use copy to clipboard libary 
-    }
-    if (option == "Y" || option == "y") {
-        devNote("Clipboard functionality not implemented yet");
-    }
-        // please unit test
+                                                                    // while (option != "Y" && option != "y" && option != "N" && option != "n" ){
+                                                                    //     cout << "Please enter [ Y ] or [ N ]: ";
+                                                                    //     cin >> option;
+                                                                    //         // use copy to clipboard libary 
+                                                                    // }
+                                                                    // if (option == "Y" || option == "y") {
+                                                                    //     devNote("Clipboard functionality not implemented yet");
+                                                                    // }
+                                                                    //     // please unit test
 
     return genPassword;
 }
@@ -317,14 +318,17 @@ void validateInsertVault(string website, string username, string password){
     
 }
 
+
+
 string removeWhiteSpace(string in){
-    string out;
-    for (int i = 0; i++; i<in.size()){
-        if (in[i] != ' '){
-            out += i;
-        }
-    }
-    return out;
+    // string out;
+    // for (int i = 0; i++; i<in.size()){
+    //     if (in[i] != ' '){
+    //         out += in[i];
+    //     }
+    // }
+    // return out;
+    return in;
 }
 
 /*
@@ -341,14 +345,15 @@ void createNewLogin(){
         headerFunction("Create New Login");
         string website = "";
         cout << "Enter website name: ";
-        cin >> website;
+        getline(cin,website);
         website = removeWhiteSpace(website);
 
         // devNote("erase white space from website");
 
         string username = "";
         cout << "Enter user name: ";
-        cin >> username;
+        getline(cin, username);
+        
         username = removeWhiteSpace(username);
 
         // devNote("erase white space from website");
@@ -356,11 +361,7 @@ void createNewLogin(){
 
         string password = createNewPassword(false);
 
-        // Check
-        if(password.empty()) {
-            cout << "Password generation failed. \n";
-            return;
-        }
+
 
         validateInsertVault(website, username, password);
 
