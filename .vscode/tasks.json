@@ -13,11 +13,22 @@
                 "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [],
+            "group": "build",
+            "detail": "Builds with CMake."
+        },
+        {
+            "type": "cmake",
+            "label": "CMake: build",
+            "command": "build",
+            "targets": [
+                "[N/A - Select Kit]"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "Builds with CMake."
+            "problemMatcher": [],
+            "detail": "CMake template build task"
         }
     ]
 }
