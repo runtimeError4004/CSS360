@@ -303,7 +303,7 @@ void validateInsertVault(string website, string username, string password){
                     break;
                 } else {
                     // repeat loop 
-                    cout << "Invalid option. Try again. \n";
+                    cout << "Invalid option. \n";
                     
                 }
             }
@@ -311,7 +311,7 @@ void validateInsertVault(string website, string username, string password){
             
         } else {
 
-            cout<<"Invalid response. Please enter Y or N.\n";
+            cout<<"Invalid response. Please enter [ Y ] or [ N ]: \n";
             
         }
     }
