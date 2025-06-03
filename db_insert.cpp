@@ -88,6 +88,60 @@ void SQL_vaultReader()
     sqlite3_finalize(stmt);
 }
 
+void SQL_vaultSearchDelete (string searchKey){
+
+};
+
+void SQL_vaultSearch(string searchKey)
+{
+    const char* sql = "SELECT Website, Username, Password FROM CREDENTIAL WHERE Website = ? OR Username = ?;";
+    sqlite3_stmt* stmt = nullptr;
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        cerr << "Failed to prepare read: " << sqlite3_errmsg(db) << "\n";
+        return;
+    }
+
+    // searching for searchKey in the Website ? placeholder
+    if (sqlite3_bind_text(stmt, 1, searchKey.c_str(), searchKey.length(), SQLITE_TRANSIENT) != SQLITE_OK) {
+        cerr << "Failed to prepare read: " << sqlite3_errmsg(db) << "\n";
+        return;
+    }
+    // searching for searchKey in the Username ? placeholder
+    if (sqlite3_bind_text(stmt, 2, searchKey.c_str(), searchKey.length(), SQLITE_TRANSIENT) != SQLITE_OK) {
+        cerr << "Failed to prepare read: " << sqlite3_errmsg(db) << "\n";
+        return;
+    }
+
+    int row = 0;
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        row++;
+        string site = (const char*)sqlite3_column_text(stmt, 0);
+        string user = (const char*)sqlite3_column_text(stmt, 1);
+        
+        
+        const char* blobText = (const char*)sqlite3_column_text(stmt, 2);
+        if (!blobText) {
+            cerr << "[WARN] Row " << row << " missing encrypted data\n";
+            continue;
+        }
+
+        string hexBlob(blobText);
+        cout << "\n[Entry " << row << "]\n"
+             << "Site:     " << site << "\n"
+             << "Username: " << user << "\n"
+             << "Hex blob: " << hexBlob << "\n";
+
+        try {
+            string json = aes256(false, masterPlain, hexBlob);
+            cout << "Decrypted data: " << json << "\n";
+        } catch (const exception& e) {
+            cerr << "[ERROR] Decrypt failed: " << e.what() << "\n";
+        }
+    }
+
+    sqlite3_finalize(stmt);
+}
+
 
 // Logs each vault access attempt (valid or not) with timestamp
 void SQL_attemptWriter(bool accessGranted)
