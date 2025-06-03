@@ -112,12 +112,12 @@ bool SQL_vaultSearch(std::string searchKey)
       "WHERE Website = ? OR Username = ?;";
     sqlite3_stmt* stmt = nullptr;
 
-    bool recordsFound;
+    bool recordsFound = false;
 
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
         cerr << "[ERROR] Failed to prepare search: " 
              << sqlite3_errmsg(db) << "\n";
-        recordsFound = false;
+        return false;
     }
 
     sqlite3_bind_text(stmt, 1, searchKey.c_str(), searchKey.size(), SQLITE_TRANSIENT);
