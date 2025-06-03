@@ -18,16 +18,15 @@ sqlite3* db = nullptr;
 */
 // 
 void headerFunction(string text){
-    cout<<"- - - - - - - - - - - - - - - - - -\n";
-    cout<<"\t"<< text<< "\n";
-    cout<<"- - - - - - - - - - - - - - - - - -\n";
+    std::cout<<"- - - - - - - - - - - - - - - - - -\n";
+    std::cout<<"\t"<< text<< "\n";
+    std::cout<<"- - - - - - - - - - - - - - - - - -\n";
 }
 
 // need a SQL library https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/
 // need a random library
 constexpr int MIN_PASSWORD_LEN = 8;
 constexpr int MAX_PASSWORD_LEN = 25;
-
 
 bool masterPasswordSet() {
     const char* sql = "SELECT PasswordHash FROM MASTER WHERE ID = 1;";
@@ -54,18 +53,18 @@ void setMasterPassword() {
     string pw1, pw2;
     while (true) {
         headerFunction("New Account Initiated");
-        cout << "Create a new master password ("
+        std::cout << "Create a new master password ("
              << MIN_PASSWORD_LEN << "-" << MAX_PASSWORD_LEN << " chars): ";
-        cin >> pw1;
+        std::cin >> pw1;
         if (pw1.size() < MIN_PASSWORD_LEN || pw1.size() > MAX_PASSWORD_LEN) {
-            cout << "Password length must be between "
+            std::cout << "Password length must be between "
                  << MIN_PASSWORD_LEN << " and " << MAX_PASSWORD_LEN << ".\n";
             continue;
         }
-        cout << "Confirm master password: ";
-        cin >> pw2;
+        std::cout << "Confirm master password: ";
+        std::cin >> pw2;
         if (pw1 != pw2) {
-            cout << "Passwords do not match. Try again.\n";
+            std::cout << "Passwords do not match. Try again.\n";
             continue;
         }
         else {
@@ -99,8 +98,8 @@ void setMasterPassword() {
 bool verifyMasterPassword() {
     // headerFunction("Welcome Back");
     string attempt;
-    cout << "Enter master password (or Q to quit): ";
-    cin >> attempt;
+    std::cout << "Enter master password (or Q to quit): ";
+    std::cin >> attempt;
     if (attempt == "Q" || attempt == "q") {
         headerFunction("Good Bye");
         sqlite3_close(db);
@@ -108,7 +107,7 @@ bool verifyMasterPassword() {
     }
     if (attempt.size() < MIN_PASSWORD_LEN || attempt.size() > MAX_PASSWORD_LEN) {
         SQL_attemptWriter(false);
-        cout << "Password length must be between "
+        std::cout << "Password length must be between "
              << MIN_PASSWORD_LEN << " and " << MAX_PASSWORD_LEN << ".\n";
         return false;
     }
@@ -133,7 +132,7 @@ bool verifyMasterPassword() {
     sqlite3_finalize(stmt);
 
     if (!match) {
-        cout << "Incorrect master password.\n";
+        std::cout << "Incorrect master password.\n";
         SQL_attemptWriter(false);
         return false;
     }
@@ -163,9 +162,9 @@ void devNote(string text){
     string out= "[ DEVNOTE / TO DO ] - "; 
     out+=text;
 
-    cout<<"\t\t\t\t\t\t/ / / / / / / / / / / / / / / / / /\n";
-    cout<<"\t\t\t\t\t\t"<< out<< "\n";
-    cout<<"\t\t\t\t\t\t/ / / / / / / / / / / / / / / / / /\n";
+    std::cout<<"\t\t\t\t\t\t/ / / / / / / / / / / / / / / / / /\n";
+    std::cout<<"\t\t\t\t\t\t"<< out<< "\n";
+    std::cout<<"\t\t\t\t\t\t/ / / / / / / / / / / / / / / / / /\n";
 
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -193,18 +192,18 @@ string createNewPassword(bool fromMenu){
 
     while (true){ 
     
-        cout << "How long should your password be ("
+        std::cout << "How long should your password be ("
         << MIN_PASSWORD_LEN << "-" << MAX_PASSWORD_LEN << ")? ";
-        cin >> passwordLen;
+        std::cin >> passwordLen;
 
         // If Invalid Length
-        if (cin.fail() ||
+        if (std::cin.fail() ||
             passwordLen < MIN_PASSWORD_LEN ||
             passwordLen > MAX_PASSWORD_LEN) {
-            cout << "Invalid password length. Must be between "
+            std::cout << "Invalid password length. Must be between "
                 << MIN_PASSWORD_LEN << " and " << MAX_PASSWORD_LEN << ".\n";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            std::cin.clear();
+            std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
             // return "";
         }
         else {
@@ -258,16 +257,16 @@ void validateInsertVault(string website, string username, string password){
         devNote("user input validation loop"); 
 
         headerFunction("Confirm Login Info");
-            cout << "\nWebsite:  " << website;   // [ 2 ]
-            cout << "\nUsername: " << username;  // [ 1 ]
-            cout << "\nPassword: " << password;  // [ 3 ]
-            cout << "\n";
 
+            std::cout << "\nWebsite:  " << website;   // [ 2 ]
+            std::cout << "\nUsername: " << username;  // [ 1 ]
+            std::cout << "\nPassword: " << password;  // [ 3 ]
+            std::cout << "\n";
 
-        cout<<"\nIs this valid? [ Y ] / [ N ]: ";
+        std::cout<<"\nIs this valid? [ Y ] / [ N ]: ";
 
         char valid;
-        cin>>valid;
+        std::cin>>valid;
         if (valid == 'y' || valid == 'Y'){
             SQL_vaultWriter(website, username, password);
             return;
@@ -279,24 +278,24 @@ void validateInsertVault(string website, string username, string password){
 
                 headerFunction("Update");
 
-                cout << "What text is invalid? [ 1 ], [ 2 ], or [ 3 ]";
-                cout << "\n[ 1 ] - "<< username;
-                cout << "\n[ 2 ] - "<< website;
-                cout << "\n[ 3 ] - "<< password << "\n";
-                cout << "Enter 1, 2, or 3: ";
+                std::cout << "What text is invalid? [ 1 ], [ 2 ], or [ 3 ]";
+                std::cout << "\n[ 1 ] - "<< username;
+                std::cout << "\n[ 2 ] - "<< website;
+                std::cout << "\n[ 3 ] - "<< password << "\n";
+                std::cout << "Enter 1, 2, or 3: ";
 
-                cin>> valid;
+                std::cin>> valid;
                 if (valid == '1'){
                     // display the current username, and let them overwrite it
                     cout << "Current Username: " << username << "\n";
                     cout << "New Username: ";
-                    cin >> username;
+                    std::cin >> username;
                     break;
                 } else if (valid == '2'){
                     // display the current website, and let them overwrite it
                     cout << "Current Website: " << website << "\n";
                     cout << "New Website: ";
-                    cin >> website;
+                    std::cin >> website;
                     break;
                 } else if (valid == '3'){
                     std::cout << "Current Password: " << password << "\n";
@@ -346,16 +345,16 @@ void createNewLogin(){
     while(true){
         headerFunction("Create New Login");
         string website = "";
-        cout << "Enter website name: ";
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear input buffer
-        getline(cin,website);
+        std::cout << "Enter website name: ";
+        std::cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear input buffer
+        getline(std::cin,website);
         // website = removeWhiteSpace(website);
 
         // devNote("erase white space from website");
 
         string username = "";
-        cout << "Enter user name: ";
-        getline(cin, username);
+        std::cout << "Enter user name: ";
+        getline(std::cin, username);
         
         // username = removeWhiteSpace(username);
 
@@ -383,14 +382,14 @@ void showSearchSQLMenu() {
         cout << "[ 0 ] Return to Main Menu\n";
         cout << "Enter your choice: ";
 
-        cin >> choice;
+        std::cin >> choice;
 
         if (choice == 1) {
             headerFunction("Search Vault");
             string searchKey;
             cout << "Search Term: ";  
-            cin.ignore();  // Clear any leftover characters in the buffer
-            getline(cin,searchKey); // Newline was still sitting in the input buffer, getline immediately sees it and thinks it's the end of input.
+            std::cin.ignore();  // Clear any leftover characters in the buffer
+            getline(std::cin,searchKey); // Newline was still sitting in the input buffer, getline immediately sees it and thinks it's the end of input.
             SQL_vaultSearch(searchKey);
                 do {
                     // cout << "[ 1 ] Update\n";
@@ -398,7 +397,7 @@ void showSearchSQLMenu() {
                     cout << "[ 0 ] Return to Main Menu\n";
                     cout << "Enter your choice: ";
 
-                    cin >> choice;
+                    std::cin >> choice;
 
                     // if (choice == 1) {
                     //     // headerFunction("Update Vault");
@@ -413,13 +412,13 @@ void showSearchSQLMenu() {
                             cout << "Type [ Y ] to confirm or [ N ] to go back to the menu: ";
 
                             string input;
-                            cin >> input;
+                            std::cin >> input;
 
                             // Convert input to lowercase
                             for (char &c : input) c = tolower(c);
 
                             if (input == "y") {
-                                devNote("Incomplete!");
+                                // devNote("Incomplete!");
                                 SQL_vaultSearchDelete(searchKey);
                                 return;
                             } else if (input == "n") {
@@ -439,11 +438,10 @@ void showSearchSQLMenu() {
                         continue;
                     }
                 } while(true);
-            } else{
+            if (!SQL_vaultSearch(searchKey)){
                 cout << "No entries found.\n";
             }
 
-            break;
         } else if (choice == 0) {
             cout << "Returning to Main Menu\n";
             return; // Exit to Main Menu
@@ -452,9 +450,6 @@ void showSearchSQLMenu() {
             continue;
         }
     } while (true);
-
-
-
 }
 
 /*
@@ -465,7 +460,6 @@ void showSearchSQLMenu() {
         4) 
     @return whether login accepted
 */
-
 
 /*
     @brief warns and prompts the user to confirm a factory reset before deleting DB data.
