@@ -390,7 +390,8 @@ void showSearchSQLMenu() {
             string searchKey;
             cout << "Search Term: \n";  // ------------ this input is not working! it is being skipped over
             getline(cin,searchKey);
-            SQL_vaultSearch(searchKey);
+            
+            if (SQL_vaultSearch(searchKey)){
                 do {
                     // cout << "[ 1 ] Update\n";
                     cout << "[ 1 ] Delete\n";
@@ -405,6 +406,7 @@ void showSearchSQLMenu() {
                     //     SQL_vaultSearchDelete(searchKey);
                     //     return;
                     // } 
+                    
                     if (choice == 1) {
                         do {
                             cout << "This will permanently erase all of the searched credentials.\n";
@@ -437,6 +439,10 @@ void showSearchSQLMenu() {
                         continue;
                     }
                 } while(true);
+            } else{
+                cout << "No entries found.\n";
+            }
+
             break;
         } else if (choice == 0) {
             cout << "Returning to Main Menu\n";
@@ -556,12 +562,7 @@ void menu() {
         }
         else if (option == 0) {
             signOut();
-        }
-        else if (option == 8) {
-            devNote("This is testing code, please disregard");
-            SQL_vaultSearch("YouTube");
-        }
-        else {
+        } else {
             headerFunction("Response rejected.");
         }
 
