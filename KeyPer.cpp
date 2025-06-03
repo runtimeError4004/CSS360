@@ -311,6 +311,7 @@ void validateInsertVault(string website, string username, string password){
 
             
         } else {
+
             cout<<"Invalid response. Please enter Y or N.\n";
             
         }
@@ -370,6 +371,46 @@ void createNewLogin(){
 
     }
 
+
+}
+
+void showSearchSQLMenu() {
+
+    int choice = 0;
+    do {
+
+        cout << "1) Update\n";
+        cout << "2) Delete\n";
+        cout << "3) Return to Main Menu\n";
+        cout << "Enter your choice (1-3): ";
+
+        cin >> choice;
+
+        if(choice < 1 || choice > 3) {
+
+            cout <<  "Invalid choice. Please enter a number from 1 to 3.\n";
+            continue;
+        
+        }
+
+        if (choice == 1) {
+
+            cout << "Update entry selected. Implement update SQL logic here.\n";
+            // TODO: Add actual update SQL logic
+
+        } else if (choice == 2) {
+
+            cout << "Delete entry selected. Implement delete SQL logic here.\n";
+            // TODO: Add actual delete SQL logic
+
+        } else if (choice == 3) {
+
+            cout << "Returning to Main Menu\n";
+            return; // Exit to Main Menu
+
+        }
+
+    } while(true);
 
 }
 
@@ -446,7 +487,6 @@ void menu() {
              << "[ 2 ] Create New Password\n"
              << "[ 3 ] Open Vault\n"
              << "[ 4 ] View Access Log\n"
-             << "\n"
              << "[ 9 ] Factory Reset Vault\n"
              << "[ 0 ] Lock Vault\n\n"
              << "Enter choice: ";
@@ -465,6 +505,10 @@ void menu() {
         else if (option == 4) {
             headerFunction("Access Log");
             SQL_attemptReader();
+        }
+        else if(option == 5) {
+            headerFunction("Search Menu");
+            showSearchSQLMenu();
         }
         else if (option == 9) {
             if (resetVault()) {
