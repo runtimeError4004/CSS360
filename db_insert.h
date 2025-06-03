@@ -9,7 +9,9 @@ void SQL_vaultWriter(const string& website,
                      const string& username,
                      const string& password);
 void SQL_vaultReader();
+
 void SQL_vaultSearch       (const std::string searchKey);
+void SQL_vaultSearchUpdate (const std::string searchKey); // scrapped
 void SQL_vaultSearchDelete (const std::string searchKey);
 
 

@@ -388,9 +388,55 @@ void showSearchSQLMenu() {
         if (choice == 1) {
             headerFunction("Search Vault");
             string searchKey;
-            cout << "Search Term: \n";
+            cout << "Search Term: \n";  // ------------ this input is not working! it is being skipped over
             getline(cin,searchKey);
             SQL_vaultSearch(searchKey);
+                do {
+                    // cout << "[ 1 ] Update\n";
+                    cout << "[ 1 ] Delete\n";
+                    cout << "[ 0 ] Return to Main Menu\n";
+                    cout << "Enter your choice: ";
+
+                    cin >> choice;
+
+                    // if (choice == 1) {
+                    //     // headerFunction("Update Vault");
+                    //     devNote("Update entry selected. Implement update SQL logic here.\n");
+                    //     SQL_vaultSearchDelete(searchKey);
+                    //     return;
+                    // } 
+                    if (choice == 1) {
+                        do {
+                            cout << "This will permanently erase all of the searched credentials.\n";
+                            cout << "Type [ Y ] to confirm or [ N ] to go back to the menu: ";
+
+                            string input;
+                            cin >> input;
+
+                            // Convert input to lowercase
+                            for (char &c : input) c = tolower(c);
+
+                            if (input == "y") {
+                                devNote("Incomplete!");
+                                SQL_vaultSearchDelete(searchKey);
+                                return;
+                            } else if (input == "n") {
+                                return;
+                            } else {
+                                cout << "Invalid input.\n";
+                            }
+                        } while(true);
+
+                        // devNote("Delete entry selected. Implement delete SQL logic here.\n");
+                    } 
+                    else if (choice == 0) {
+                        cout << "Returning to Main Menu\n";
+                        return; // Exit to Main Menu
+                    } else {
+                        cout <<  "Invalid choice.\n";
+                        continue;
+                    }
+                } while(true);
             break;
         } else if (choice == 0) {
             cout << "Returning to Main Menu\n";
@@ -401,38 +447,7 @@ void showSearchSQLMenu() {
         }
     } while (true);
 
-    do {
 
-        cout << "[ 1 ] Update\n";
-        cout << "[ 2 ] Delete\n";
-        cout << "[ 0 ] Return to Main Menu\n";
-        cout << "Enter your choice: ";
-
-        cin >> choice;
-
-        if (choice == 1) {
-            headerFunction("Update Vault");
-            cout << "Update entry selected. Implement update SQL logic here.\n";
-            // TODO: Add actual update SQL logic
-
-        } else if (choice == 2) {
-
-            cout << "Delete entry selected. Implement delete SQL logic here.\n";
-            // TODO: Add actual delete SQL logic
-
-        } else if (choice == 0) {
-
-            cout << "Returning to Main Menu\n";
-            return; // Exit to Main Menu
-
-        } else {
-
-            cout <<  "Invalid choice.\n";
-            continue;
-        
-        }
-
-    } while(true);
 
 }
 

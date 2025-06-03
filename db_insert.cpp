@@ -102,8 +102,7 @@ void SQL_vaultReader()
     sqlite3_finalize(stmt);
 }
 
-// (Search and delete stubs – unmodified)
-void SQL_vaultSearchDelete(std::string searchKey) { }
+
 
 void SQL_vaultSearch(std::string searchKey)
 {
@@ -151,11 +150,30 @@ void SQL_vaultSearch(std::string searchKey)
 }
 
 void SQL_vaultSearchUpdate (string searchKey){
-
+    // scrap
 };
 
 void SQL_vaultSearchDelete (string searchKey){
 
+
+    
+    const char* sql = 
+      "SELECT Website, Username, Password "
+      "FROM CREDENTIAL "
+      "WHERE Website = ? OR Username = ?;";
+    sqlite3_stmt* stmt = nullptr;
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        cerr << "[ERROR] Failed to prepare search: " 
+             << sqlite3_errmsg(db) << "\n";
+        return;
+    }
+
+    sqlite3_bind_text(stmt, 1, searchKey.c_str(), searchKey.size(), SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 2, searchKey.c_str(), searchKey.size(), SQLITE_TRANSIENT);
+
+
+
+    sqlite3_finalize(stmt);
 };
 
 // Logs each vault access attempt (valid or not) with timestamp
