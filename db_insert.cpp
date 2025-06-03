@@ -76,21 +76,20 @@ void SQL_vaultReader()
              << "Site:     " << site << "\n"
              << "Username: " << user << "\n"
              << "Hex blob: " << hexBlob << "\n";
+             
 
         try {
             string json = aes256(false, masterPlain, hexBlob);
             cout << "Decrypted data: " << json << "\n";
         } catch (const exception& e) {
-            cerr << "[ERROR] Decrypt failed: " << e.what() << "\n";
+            cout << "[ERROR] Decrypt failed: " << e.what() << "\n";
         }
     }
 
     sqlite3_finalize(stmt);
 }
 
-void SQL_vaultSearchDelete (string searchKey){
 
-};
 
 void SQL_vaultSearch(string searchKey)
 {
@@ -142,6 +141,9 @@ void SQL_vaultSearch(string searchKey)
     sqlite3_finalize(stmt);
 }
 
+void SQL_vaultSearchDelete (string searchKey){
+
+};
 
 // Logs each vault access attempt (valid or not) with timestamp
 void SQL_attemptWriter(bool accessGranted)

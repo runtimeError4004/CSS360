@@ -8,8 +8,8 @@ void SQL_vaultWriter(const std::string& website,
                      const std::string& username,
                      const std::string& password);
 void SQL_vaultReader();
-void SQL_vaultSearch (string searchKey);
-void SQL_vaultSearchDelete (string searchKey);
+void SQL_vaultSearch       (const std::string searchKey);
+void SQL_vaultSearchDelete (const std::string searchKey);
 
 
 // Access-log writes / reads

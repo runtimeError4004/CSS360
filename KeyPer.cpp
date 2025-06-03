@@ -277,7 +277,7 @@ void validateInsertVault(string website, string username, string password){
             
             while (true){
 
-                // 
+                headerFunction("Update");
 
                 cout << "What text is invalid? [ 1 ], [ 2 ], or [ 3 ]";
                 cout << "\n[ 1 ] - "<< username;
@@ -377,21 +377,43 @@ void createNewLogin(){
 void showSearchSQLMenu() {
 
     int choice = 0;
-    do {
 
-        cout << "1) Update\n";
-        cout << "2) Delete\n";
-        cout << "3) Return to Main Menu\n";
-        cout << "Enter your choice (1-3): ";
+    do {
+        cout << "[ 1 ] Search \n";
+        cout << "[ 0 ] Return to Main Menu\n";
+        cout << "Enter your choice: ";
 
         cin >> choice;
 
-        if(choice < 1 || choice > 3) {
 
-            cout <<  "Invalid choice. Please enter a number from 1 to 3.\n";
+        if (choice == 1) {
+
+            cout << "Update entry selected. Implement update SQL logic here.\n";
+            // TODO: Add actual update SQL logic
+
+            break;
+
+        } else if (choice == 0) {
+
+            cout << "Returning to Main Menu\n";
+            return; // Exit to Main Menu
+
+        } else {
+            cout <<  "Invalid choice.\n";
             continue;
-        
         }
+        
+    } while (true);
+
+
+    do {
+
+        cout << "[ 1 ] Update\n";
+        cout << "[ 2 ] Delete\n";
+        cout << "[ 0 ] Return to Main Menu\n";
+        cout << "Enter your choice: ";
+
+        cin >> choice;
 
         if (choice == 1) {
 
@@ -403,11 +425,16 @@ void showSearchSQLMenu() {
             cout << "Delete entry selected. Implement delete SQL logic here.\n";
             // TODO: Add actual delete SQL logic
 
-        } else if (choice == 3) {
+        } else if (choice == 0) {
 
             cout << "Returning to Main Menu\n";
             return; // Exit to Main Menu
 
+        } else {
+
+            cout <<  "Invalid choice.\n";
+            continue;
+        
         }
 
     } while(true);
@@ -482,7 +509,7 @@ void signOut(){
 void menu() {
     int option = 0;
     while (true) {
-        headerFunction("Main Menu test");
+        headerFunction("Main Menu");
         cout << "[ 1 ] Create New Login\n"
              << "[ 2 ] Create New Password\n"
              << "[ 3 ] Open Vault\n"
@@ -501,14 +528,11 @@ void menu() {
         else if (option == 3) {
             headerFunction("Vault");
             SQL_vaultReader();
+            showSearchSQLMenu();
         }
         else if (option == 4) {
             headerFunction("Access Log");
             SQL_attemptReader();
-        }
-        else if(option == 5) {
-            headerFunction("Search Menu");
-            showSearchSQLMenu();
         }
         else if (option == 9) {
             if (resetVault()) {
@@ -516,7 +540,7 @@ void menu() {
                 // After wiping, require user to set a new master and then verify it
                 setMasterPassword();
                 while (!verifyMasterPassword()) {
-                    // keep looping
+                    // keep looping until valid
                 }
             }
         }
@@ -526,7 +550,6 @@ void menu() {
         else if (option == 8) {
             devNote("This is testing code, please disregard");
             SQL_vaultSearch("YouTube");
-            signOut();
         }
         else {
             headerFunction("Response rejected.");

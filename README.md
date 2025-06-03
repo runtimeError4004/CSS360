@@ -40,5 +40,6 @@ From a terminal:
 - Build the CMake project: `cmake ..`
 - Compile and link the project: `cmake --build .`
 - Navigate to the output directory and run the program:
+  - `cd ./debug`
   - `./KeyPer.exe` (Windows)
   - `./KeyPer` (macOS, Linux)
