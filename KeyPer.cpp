@@ -258,8 +258,8 @@ void validateInsertVault(string website, string username, string password){
         devNote("user input validation loop"); 
 
         headerFunction("Confirm Login Info");
-            cout << "\nUsername: " << username;  // [ 1 ]
             cout << "\nWebsite:  " << website;   // [ 2 ]
+            cout << "\nUsername: " << username;  // [ 1 ]
             cout << "\nPassword: " << password;  // [ 3 ]
             cout << "\n";
 

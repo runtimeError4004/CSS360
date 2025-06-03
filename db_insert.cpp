@@ -13,10 +13,10 @@ void SQL_vaultWriter(const string& website,
     const string& username,
     const string& password)
 {
-cout 
-// << "[DEBUG] SQL_vaultWriter called\n"
-<< "  site:     " << website  << "\n"
-<< "  username: " << username << "\n";
+// cout 
+// // << "[DEBUG] SQL_vaultWriter called\n"
+// << "  site:     " << website  << "\n"
+// << "  username: " << username << "\n";
 
 // Build JSON payload
 string payload = "{\"site\":\"" + website + "\"," 
@@ -74,13 +74,13 @@ void SQL_vaultReader()
         string hexBlob(blobText);
         cout << "\n[Entry " << row << "]\n"
              << "Site:     " << site << "\n"
-             << "Username: " << user << "\n"
-             << "Hex blob: " << hexBlob << "\n";
+             << "Username: " << user << "\n";
+            //  << "Hex blob: " << hexBlob << "\n";
              
 
         try {
             string json = aes256(false, masterPlain, hexBlob);
-            cout << "Decrypted data: " << json << "\n";
+            cout << "Password: " << json << "\n";
         } catch (const exception& e) {
             cout << "[ERROR] Decrypt failed: " << e.what() << "\n";
         }
