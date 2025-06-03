@@ -386,7 +386,7 @@ void showSearchSQLMenu() {
         cin >> choice;
 
         if (choice == 1) {
-            cout << "Update entry selected. Implement update SQL logic here.\n";
+            headerFunction("Search Vault");
             string searchKey;
             cout << "Search Term: ";
             getline(cin,searchKey);
@@ -411,7 +411,7 @@ void showSearchSQLMenu() {
         cin >> choice;
 
         if (choice == 1) {
-
+            headerFunction("Update Vault");
             cout << "Update entry selected. Implement update SQL logic here.\n";
             // TODO: Add actual update SQL logic
 
