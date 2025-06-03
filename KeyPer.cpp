@@ -388,10 +388,10 @@ void showSearchSQLMenu() {
         if (choice == 1) {
             headerFunction("Search Vault");
             string searchKey;
-            cout << "Search Term: \n";  // ------------ this input is not working! it is being skipped over
-            getline(cin,searchKey);
-            
-            if (SQL_vaultSearch(searchKey)){
+            cout << "Search Term: ";  
+            cin.ignore();  // Clear any leftover characters in the buffer
+            getline(cin,searchKey); // Newline was still sitting in the input buffer, getline immediately sees it and thinks it's the end of input.
+            SQL_vaultSearch(searchKey);
                 do {
                     // cout << "[ 1 ] Update\n";
                     cout << "[ 1 ] Delete\n";
@@ -527,9 +527,8 @@ void menu() {
     while (true) {
         headerFunction("Main Menu");
         cout << "[ 1 ] Create New Login\n"
-             << "[ 2 ] Create New Password\n"
-             << "[ 3 ] Open Vault\n"
-             << "[ 4 ] View Access Log\n"
+             << "[ 2 ] Open Vault\n"
+             << "[ 3 ] View Access Log\n"
              << "[ 9 ] Factory Reset Vault\n"
              << "[ 0 ] Lock Vault\n\n"
              << "Enter choice: ";
@@ -539,14 +538,11 @@ void menu() {
             createNewLogin();
         }
         else if (option == 2) {
-            createNewPassword(true);
-        }
-        else if (option == 3) {
             headerFunction("Vault");
             SQL_vaultReader();
             showSearchSQLMenu();
         }
-        else if (option == 4) {
+        else if (option == 3) {
             headerFunction("Access Log");
             SQL_attemptReader();
         }
