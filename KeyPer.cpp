@@ -310,6 +310,7 @@ void validateInsertVault(string website, string username, string password){
 
             
         } else {
+            
             cout<<"Invalid response. Please enter Y or N.\n";
             
         }
@@ -368,6 +369,54 @@ void createNewLogin(){ // cd ~/C++/CSS360
         break;
 
     }
+
+
+}
+
+void showSearchSQLMenu() {
+
+    int choice = 0;
+    do {
+
+        std::cout << "\n--- SEARCH MENU ---\n";
+        std::cout << "1) Update\n";
+        std::cout << "2) Delete\n";
+        std::cout << "3) Return to Vault\n";
+        std::cout << "4) Return to Main Menu\n";
+        std::cout << "Enter your choice (1-4): ";
+
+        std::cin >> choice;
+
+        if(choice < 1 || choice > 4) {
+
+            std::cout <<  "Invalid choice. Please enter a number from 1 to 4.\n";
+            continue;
+
+            if (choice == 1) {
+
+            std::cout << "Update entry selected. Implement update SQL logic here.\n";
+            // TODO: Add actual update SQL logic
+
+            } else if (choice == 2) {
+
+            std::cout << "Delete entry selected. Implement delete SQL logic here.\n";
+            // TODO: Add actual delete SQL logic
+
+            } else if (choice == 3) {
+
+            std::cout << "Returning to Vault...\n";
+            return; // Exit to Vault
+
+            } else if (choice == 4) {
+                
+            std::cout << "Returning to Main Menu...\n";
+            exit(0); // Or redirect to main menu logic
+            }
+
+        }
+
+
+    } while(true);
 
 
 }
@@ -445,6 +494,7 @@ void menu() {
              << "[ 2 ] Create New Password\n"
              << "[ 3 ] Open Vault\n"
              << "[ 4 ] View Access Log\n"
+             << "[ 5 ] Search Menu\n"
              << "[ 9 ] Factory Reset Vault\n"
              << "[ 0 ] Lock Vault\n\n"
              << "Enter choice: ";
@@ -463,6 +513,10 @@ void menu() {
         else if (option == 4) {
             headerFunction("Access Log");
             SQL_attemptReader();
+        }
+        else if(option == 5) {
+            headerFunction("Search Menu");
+            showSearchSQLMenu();
         }
         else if (option == 9) {
             if (resetVault()) {
