@@ -378,33 +378,33 @@ void showSearchSQLMenu() {
     int choice = 0;
     do {
 
-        std::cout << "1) Update\n";
-        std::cout << "2) Delete\n";
-        std::cout << "3) Return to Main Menu\n";
-        std::cout << "Enter your choice (1-3): ";
+        cout << "1) Update\n";
+        cout << "2) Delete\n";
+        cout << "3) Return to Main Menu\n";
+        cout << "Enter your choice (1-3): ";
 
-        std::cin >> choice;
+        cin >> choice;
 
         if(choice < 1 || choice > 3) {
 
-            std::cout <<  "Invalid choice. Please enter a number from 1 to 3.\n";
+            cout <<  "Invalid choice. Please enter a number from 1 to 3.\n";
             continue;
         
         }
 
         if (choice == 1) {
 
-            std::cout << "Update entry selected. Implement update SQL logic here.\n";
+            cout << "Update entry selected. Implement update SQL logic here.\n";
             // TODO: Add actual update SQL logic
 
         } else if (choice == 2) {
 
-            std::cout << "Delete entry selected. Implement delete SQL logic here.\n";
+            cout << "Delete entry selected. Implement delete SQL logic here.\n";
             // TODO: Add actual delete SQL logic
 
         } else if (choice == 3) {
 
-            std::cout << "Returning to Main Menu\n";
+            cout << "Returning to Main Menu\n";
             return; // Exit to Main Menu
 
         }
