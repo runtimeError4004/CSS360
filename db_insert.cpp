@@ -141,6 +141,10 @@ void SQL_vaultSearch(string searchKey)
     sqlite3_finalize(stmt);
 }
 
+void SQL_vaultSearchUpdate (string searchKey){
+
+};
+
 void SQL_vaultSearchDelete (string searchKey){
 
 };

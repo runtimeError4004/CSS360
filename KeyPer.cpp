@@ -385,26 +385,21 @@ void showSearchSQLMenu() {
 
         cin >> choice;
 
-
         if (choice == 1) {
-
             cout << "Update entry selected. Implement update SQL logic here.\n";
-            // TODO: Add actual update SQL logic
-
+            string searchKey;
+            cout << "Search Term: ";
+            getline(cin,searchKey);
+            SQL_vaultSearch(searchKey);
             break;
-
         } else if (choice == 0) {
-
             cout << "Returning to Main Menu\n";
             return; // Exit to Main Menu
-
         } else {
             cout <<  "Invalid choice.\n";
             continue;
         }
-        
     } while (true);
-
 
     do {
 
