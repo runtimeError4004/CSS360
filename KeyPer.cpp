@@ -522,9 +522,8 @@ void menu() {
     while (true) {
         headerFunction("Main Menu");
         cout << "[ 1 ] Create New Login\n"
-             << "[ 2 ] Create New Password\n"
-             << "[ 3 ] Open Vault\n"
-             << "[ 4 ] View Access Log\n"
+             << "[ 2 ] Open Vault\n"
+             << "[ 3 ] View Access Log\n"
              << "[ 9 ] Factory Reset Vault\n"
              << "[ 0 ] Lock Vault\n\n"
              << "Enter choice: ";
@@ -534,14 +533,11 @@ void menu() {
             createNewLogin();
         }
         else if (option == 2) {
-            createNewPassword(true);
-        }
-        else if (option == 3) {
             headerFunction("Vault");
             SQL_vaultReader();
             showSearchSQLMenu();
         }
-        else if (option == 4) {
+        else if (option == 3) {
             headerFunction("Access Log");
             SQL_attemptReader();
         }
