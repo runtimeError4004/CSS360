@@ -97,6 +97,7 @@ void setMasterPassword() {
 // Prompt user for master password, hash it, compare to stored SHA-256.
 // If correct, save plaintext in masterPlain and return true; else false.
 bool verifyMasterPassword() {
+    // headerFunction("Welcome Back");
     string attempt;
     cout << "Enter master password (or Q to quit): ";
     cin >> attempt;
@@ -348,7 +349,7 @@ void createNewLogin(){
         cout << "Enter website name: ";
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear input buffer
         getline(cin,website);
-        website = removeWhiteSpace(website);
+        // website = removeWhiteSpace(website);
 
         // devNote("erase white space from website");
 
@@ -356,7 +357,7 @@ void createNewLogin(){
         cout << "Enter user name: ";
         getline(cin, username);
         
-        username = removeWhiteSpace(username);
+        // username = removeWhiteSpace(username);
 
         // devNote("erase white space from website");
 
@@ -481,12 +482,11 @@ void signOut(){
 void menu() {
     int option = 0;
     while (true) {
-        headerFunction("Main Menu");
+        headerFunction("Main Menu test");
         cout << "[ 1 ] Create New Login\n"
              << "[ 2 ] Create New Password\n"
              << "[ 3 ] Open Vault\n"
              << "[ 4 ] View Access Log\n"
-             << "[ 5 ] Search Menu\n"
              << "[ 9 ] Factory Reset Vault\n"
              << "[ 0 ] Lock Vault\n\n"
              << "Enter choice: ";
@@ -521,6 +521,11 @@ void menu() {
             }
         }
         else if (option == 0) {
+            signOut();
+        }
+        else if (option == 8) {
+            devNote("This is testing code, please disregard");
+            SQL_vaultSearch("YouTube");
             signOut();
         }
         else {
