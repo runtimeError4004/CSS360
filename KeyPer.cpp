@@ -388,7 +388,7 @@ void showSearchSQLMenu() {
         if (choice == 1) {
             headerFunction("Search Vault");
             string searchKey;
-            cout << "Search Term: ";
+            cout << "Search Term: \n";
             getline(cin,searchKey);
             SQL_vaultSearch(searchKey);
             break;
