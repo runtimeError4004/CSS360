@@ -393,19 +393,11 @@ void showSearchSQLMenu() {
             getline(std::cin,searchKey); // Newline was still sitting in the input buffer, getline immediately sees it and thinks it's the end of input.
             SQL_vaultSearch(searchKey);
                 do {
-                    // cout << "[ 1 ] Update\n";
                     cout << "[ 1 ] Delete\n";
                     cout << "[ 0 ] Return to Main Menu\n";
                     cout << "Enter your choice: ";
 
                     std::cin >> choice;
-
-                    // if (choice == 1) {
-                    //     // headerFunction("Update Vault");
-                    //     devNote("Update entry selected. Implement update SQL logic here.\n");
-                    //     SQL_vaultSearchDelete(searchKey);
-                    //     return;
-                    // } 
                     
                     if (choice == 1) {
                         do {
