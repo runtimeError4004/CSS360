@@ -29,9 +29,19 @@ B) [Random Number Generator](https://www.w3schools.com/cpp/cpp_howto_random_numb
 
 # Compiling From Source
 
-Requires a C++ compiler and [CMake](https://cmake.org/download/)
+## WindowsOS Build:
+- Requires a C++ compiler and [CMake](https://cmake.org/download/)
 
-From a terminal:
+## MacOS Build:
+- Install HomeBrew 
+  - Enter the following command into VSC terminal `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+  - followed by `echo >> /Users/user/.zprofile`,
+    then `echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/user/.zprofile`,
+    and `eval "$(/opt/homebrew/bin/brew shellenv)"`
+  - Finally, enter `brew install cmake`
+  - Verify with `cmake --version`
+
+# From a terminal:
 
 - Navigate to the "build" subdirectory: `cd ./build`
   - **Create this directory if it does not exist.** `mkdir build`
