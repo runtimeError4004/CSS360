@@ -251,6 +251,11 @@ int SQL_vaultCounter()
 // Deletes all credential records
 bool deleteData()
 {
+    return delete_credentials() && delete_access_log();
+}
+
+bool delete_credentials()
+{
     const char* sql = "DELETE FROM CREDENTIAL;";
     char* errMsg = nullptr;
     if (sqlite3_exec(db, sql, nullptr, nullptr, &errMsg) != SQLITE_OK) {
@@ -258,7 +263,11 @@ bool deleteData()
         sqlite3_free(errMsg);
         return false;
     }
-    
+    return true;
+}
+
+bool delete_access_log()
+{
     const char* sql = "DELETE FROM ACCESS_LOG;";
     char* errMsg = nullptr;
     if (sqlite3_exec(db, sql, nullptr, nullptr, &errMsg) != SQLITE_OK) {
