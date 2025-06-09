@@ -170,13 +170,17 @@ void SQL_vaultSearchDelete (string searchKey){
         cerr << "[ERROR] Failed to prepare search: " 
              << sqlite3_errmsg(db) << "\n";
         return;
-    } else {
-        cout<< "Deleted all entries.\n";
-    }
+    } 
 
     sqlite3_bind_text(stmt, 1, searchKey.c_str(), searchKey.size(), SQLITE_TRANSIENT);
     sqlite3_bind_text(stmt, 2, searchKey.c_str(), searchKey.size(), SQLITE_TRANSIENT);
 
+    if (sqlite3_step(stmt) != SQLITE_DONE) {
+        cerr << "[ERROR] Failed to delete entry: "
+             << sqlite3_errmsg(db) << "\n";
+    } else {
+        cout << "Deleted all matching entries.\n";
+    }
 
     sqlite3_finalize(stmt);
 };

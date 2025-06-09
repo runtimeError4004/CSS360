@@ -55,14 +55,14 @@ void setMasterPassword() {
     while (true) {
         headerFunction("New Account Initiated");
         std::cout << "Create a new master password ("
-             << MIN_PASSWORD_LEN << "-" << MAX_PASSWORD_LEN << " chars): ";
+             << MIN_PASSWORD_LEN << "-" << MAX_PASSWORD_LEN << " chars): \n";
         std::cin >> pw1;
         if (pw1.size() < MIN_PASSWORD_LEN || pw1.size() > MAX_PASSWORD_LEN) {
             std::cout << "Password length must be between "
                  << MIN_PASSWORD_LEN << " and " << MAX_PASSWORD_LEN << ".\n";
             continue;
         }
-        std::cout << "Confirm master password: ";
+        std::cout << "Confirm master password: \n";
         std::cin >> pw2;
         if (pw1 != pw2) {
             std::cout << "Passwords do not match. Try again.\n";
@@ -97,9 +97,9 @@ void setMasterPassword() {
 // Prompt user for master password, hash it, compare to stored SHA-256.
 // If correct, save plaintext in masterPlain and return true; else false.
 bool verifyMasterPassword() {
-    // headerFunction("Welcome Back");
+    headerFunction("Login");
     string attempt;
-    std::cout << "Enter master password (or Q to quit): ";
+    std::cout << "Enter master password (or [ Q ] to quit): \n";
     std::cin >> attempt;
     if (attempt == "Q" || attempt == "q") {
         headerFunction("Good Bye");
@@ -255,8 +255,6 @@ void validateInsertVault(string website, string username, string password){
     
     while (true){
 
-        devNote("user input validation loop"); 
-
         headerFunction("Confirm Login Info");
 
             std::cout << "\nWebsite:  " << website;   // [ 2 ]
@@ -264,7 +262,7 @@ void validateInsertVault(string website, string username, string password){
             std::cout << "\nPassword: " << password;  // [ 3 ]
             std::cout << "\n";
 
-        std::cout<<"\nIs this valid? [ Y ] / [ N ]: ";
+        std::cout<<"\nIs this valid? [ Y ] / [ N ]:\n";
 
         char valid;
         std::cin>>valid;
@@ -277,30 +275,35 @@ void validateInsertVault(string website, string username, string password){
             
             while (true){
 
-                headerFunction("Update");
+                headerFunction("Update Values");
 
                 std::cout << "What text is invalid? [ 1 ], [ 2 ], or [ 3 ]";
-                std::cout << "\n[ 1 ] - "<< username;
-                std::cout << "\n[ 2 ] - "<< website;
-                std::cout << "\n[ 3 ] - "<< password << "\n";
-                std::cout << "Enter 1, 2, or 3: ";
+                std::cout << "\n[ 1 ] - "<< website;
+                std::cout << "\n[ 2 ] - "<< username;
+                std::cout << "\n[ 3 ] - "<< password;
+                std::cout << "\n[ 4 ] - "<< "Cancel" << "\n";
+
+                std::cout << "Enter selection:\n";
 
                 std::cin>> valid;
-                if (valid == '1'){
+                if (valid == '2'){
                     // display the current username, and let them overwrite it
                     cout << "Current Username: " << username << "\n";
-                    cout << "New Username: ";
+                    cout << "New Username:\n";
                     std::cin >> username;
                     break;
-                } else if (valid == '2'){
+                } else if (valid == '1'){
                     // display the current website, and let them overwrite it
                     cout << "Current Website: " << website << "\n";
-                    cout << "New Website: ";
+                    cout << "New Website:\n";
                     std::cin >> website;
                     break;
                 } else if (valid == '3'){
                     std::cout << "Current Password: " << password << "\n";
                     password = createNewPassword(false);
+                    break;
+                } 
+                else if (valid == '4'){
                     break;
                 } else {
                     // repeat loop 
@@ -320,19 +323,6 @@ void validateInsertVault(string website, string username, string password){
     
 }
 
-
-
-string removeWhiteSpace(string in){
-    // string out;
-    // for (int i = 0; i++; i<in.size()){
-    //     if (in[i] != ' '){
-    //         out += in[i];
-    //     }
-    // }
-    // return out;
-    return in;
-}
-
 /*
     @brief primary function for creating a new login
         1) insert website name
@@ -346,7 +336,7 @@ void createNewLogin(){
     while(true){
         headerFunction("Create New Login");
         string website = "";
-        std::cout << "Enter website name: ";
+        std::cout << "Enter website name:\n";
         std::cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear input buffer
         getline(std::cin,website);
         // website = removeWhiteSpace(website);
@@ -354,17 +344,10 @@ void createNewLogin(){
         // devNote("erase white space from website");
 
         string username = "";
-        std::cout << "Enter user name: ";
+        std::cout << "Enter user name:\n";
         getline(std::cin, username);
         
-        // username = removeWhiteSpace(username);
-
-        // devNote("erase white space from website");
-
-
         string password = createNewPassword(false);
-
-
 
         validateInsertVault(website, username, password);
         break;
@@ -381,28 +364,30 @@ void showSearchSQLMenu() {
     do {
         cout << "[ 1 ] Search \n";
         cout << "[ 0 ] Return to Main Menu\n";
-        cout << "Enter your choice: ";
+        cout << "Enter choice:\n";
 
         std::cin >> choice;
 
         if (choice == 1) {
             headerFunction("Search Vault");
             string searchKey;
-            cout << "Search Term: ";  
+            cout << "Search Term:\n";  
             std::cin.ignore();  // Clear any leftover characters in the buffer
             getline(std::cin,searchKey); // Newline was still sitting in the input buffer, getline immediately sees it and thinks it's the end of input.
-            SQL_vaultSearch(searchKey);
+            if(SQL_vaultSearch(searchKey)){
                 do {
                     cout << "[ 1 ] Delete\n";
+                    cout << "[ 2 ] Search\n";
                     cout << "[ 0 ] Return to Main Menu\n";
-                    cout << "Enter your choice: ";
+                    cout << "Enter choice:\n";
 
                     std::cin >> choice;
                     
                     if (choice == 1) {
                         do {
+                            headerFunction("Delete records");
                             cout << "This will permanently erase all of the searched credentials.\n";
-                            cout << "Type [ Y ] to confirm or [ N ] to go back to the menu: ";
+                            cout << "Type [ Y ] to confirm or [ N ] to go back to the menu:\n";
 
                             string input;
                             std::cin >> input;
@@ -423,6 +408,9 @@ void showSearchSQLMenu() {
 
                         // devNote("Delete entry selected. Implement delete SQL logic here.\n");
                     } 
+                    else if (choice == 2) {
+                        break;
+                    }
                     else if (choice == 0) {
                         cout << "Returning to Main Menu\n";
                         return; // Exit to Main Menu
@@ -431,8 +419,11 @@ void showSearchSQLMenu() {
                         continue;
                     }
                 } while(true);
+            }
+                
             if (!SQL_vaultSearch(searchKey)){
-                cout << "No entries found.\n";
+                headerFunction("No entries found.");
+                showSearchSQLMenu();
             }
 
         } else if (choice == 0) {
@@ -469,7 +460,7 @@ bool resetVault() {
     do {
 
         cout << "This will permanently erase your password vault and all stored data.\n";
-        cout << "Type [ RESET ] to confirm or [ Q ] to go back to the menu: ";
+        cout << "Type [ RESET ] to confirm or [ Q ] to go back to the menu:\n";
 
         string input;
         cin >> input;
@@ -513,12 +504,13 @@ void menu() {
     int option = 0;
     while (true) {
         headerFunction("Main Menu");
+        cout << "Use the following keybinds [ 1 ] to navigate the menu.\n\n";
         cout << "[ 1 ] Create New Login\n"
              << "[ 2 ] Open Vault\n"
              << "[ 3 ] View Access Log\n"
              << "[ 9 ] Factory Reset Vault\n"
              << "[ 0 ] Lock Vault\n\n"
-             << "Enter choice: ";
+             << "Enter choice:\n";
         cin >> option;
 
         if (option == 1) {
@@ -546,13 +538,13 @@ void menu() {
         else if (option == 0) {
             signOut();
         } else {
-            headerFunction("Response rejected.");
+            headerFunction("Response invalid.");
         }
 
         // PAUSE so you can read Vault/Log before the menu reprints
-        cout << "\nPress Enter to return to menu...";
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cin.get();
+        // cout << "\nPress Enter to return to menu...";
+        // cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        // cin.get();
     }
 }
 
