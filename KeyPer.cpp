@@ -504,7 +504,6 @@ void signOut(){
 
 */
 void menu() {
-    int option = 0;
     while (true) {
         headerFunction("Main Menu");
         cout << "Use the following keybinds [ 1 ] to navigate the menu.\n\n";
@@ -514,7 +513,17 @@ void menu() {
              << "[ 9 ] Factory Reset Vault\n"
              << "[ 0 ] Lock Vault\n\n"
              << "Enter choice:\n";
-        cin >> option;
+
+        // We use a string to take in the entire message at the same time
+        string option_ch = "";
+        cin >> option_ch;
+
+        // Ensure that our input is 1 character long and is a digit 
+        if (option_ch.size() != 1 || !isdigit(option_ch[0])) {
+            headerFunction("Response invalid.");
+            continue;
+        }
+        int option = option_ch[0] - '0';
 
         if (option == 1) {
             createNewLogin();
