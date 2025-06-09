@@ -387,7 +387,8 @@ void showSearchSQLMenu() {
                     if (choice == 1) {
                         do {
                             headerFunction("Delete records");
-                            cout << "This will permanently erase all of the searched credentials.\n";
+                            cout << "This will permanently erase all of the following credentials:\n";
+                            SQL_vaultSearch(searchKey);
                             cout << "Type [ Y ] to confirm or [ N ] to go back to the menu:\n";
 
                             string input;
@@ -401,7 +402,7 @@ void showSearchSQLMenu() {
                                 SQL_vaultSearchDelete(searchKey);
                                 return;
                             } else if (input == "n") {
-                                return;
+                                showSearchSQLMenu();
                             } else {
                                 cout << "\nInvalid input.\n";
                             }
@@ -410,6 +411,8 @@ void showSearchSQLMenu() {
                         // devNote("Delete entry selected. Implement delete SQL logic here.\n");
                     } 
                     else if (choice == 2) {
+                        headerFunction("Vault");
+                        SQL_vaultReader();
                         showSearchSQLMenu();
                     }
                     else if (choice == 0) {
@@ -518,7 +521,6 @@ void menu() {
             createNewLogin();
         }
         else if (option == 2) {
-            headerFunction("Vault");
             SQL_vaultReader();
             showSearchSQLMenu();
         }

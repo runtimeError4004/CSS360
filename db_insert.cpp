@@ -174,6 +174,8 @@ void SQL_vaultSearchDelete (string searchKey){
         return;
     } 
 
+    searchKey = "%" + searchKey + "%";
+
     sqlite3_bind_text(stmt, 1, searchKey.c_str(), searchKey.size(), SQLITE_TRANSIENT);
     sqlite3_bind_text(stmt, 2, searchKey.c_str(), searchKey.size(), SQLITE_TRANSIENT);
 
@@ -250,6 +252,14 @@ int SQL_vaultCounter()
 bool deleteData()
 {
     const char* sql = "DELETE FROM CREDENTIAL;";
+    char* errMsg = nullptr;
+    if (sqlite3_exec(db, sql, nullptr, nullptr, &errMsg) != SQLITE_OK) {
+        cerr << "[ERROR] deleteData failed: " << errMsg << "\n";
+        sqlite3_free(errMsg);
+        return false;
+    }
+    
+    const char* sql = "DELETE FROM ACCESS_LOG;";
     char* errMsg = nullptr;
     if (sqlite3_exec(db, sql, nullptr, nullptr, &errMsg) != SQLITE_OK) {
         cerr << "[ERROR] deleteData failed: " << errMsg << "\n";
