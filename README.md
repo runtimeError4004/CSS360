@@ -27,6 +27,10 @@ A) [C++ SQL functions](https://www.geeksforgeeks.org/sql-using-c-c-and-sqlite/)
 
 B) [Random Number Generator](https://www.w3schools.com/cpp/cpp_howto_random_number.asp) 
 
+# Downloading
+
+Visit the [most recent release](https://github.com/runtimeError4004/CSS360/releases/latest) and follow the instructions to download and run KeyPer.
+
 # Compiling From Source
 
 ## WindowsOS Build:
