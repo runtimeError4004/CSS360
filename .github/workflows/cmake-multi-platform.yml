@@ -23,25 +23,34 @@ jobs:
       #
       # To add more build types (Release, Debug, RelWithDebInfo, etc.) customize the build_type list.
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest, macos-13]
         build_type: [Release]
         c_compiler: [gcc, cl]
         include:
           - os: windows-latest
             c_compiler: cl
             cpp_compiler: cl
+            friendly_name: Windows
           - os: ubuntu-latest
             c_compiler: gcc
             cpp_compiler: g++
+            friendly_name: Linux
           - os: macos-latest
             c_compiler: gcc
             cpp_compiler: g++
+            friendly_name: macOS-AppleSilicon
+          - os: macos-13
+            c_compiler: gcc
+            cpp_compiler: g++
+            friendly_name: macOS-Intel
         exclude:
           - os: windows-latest
             c_compiler: gcc
           - os: ubuntu-latest
             c_compiler: cl
           - os: macos-latest
+            c_compiler: cl
+          - os: macos-13
             c_compiler: cl
 
     steps:
@@ -70,22 +79,22 @@ jobs:
 
     - name: Run tests (Windows)
       if: matrix.os == 'windows-latest'
-      run: "${{ steps.strings.outputs.build-output-dir }}\\${{ matrix.build_type }}\\KeyPer.exe test"
+      run: "${{ steps.strings.outputs.build-output-dir }}\\${{ matrix.build_type }}\\run_tests.exe"
 
     - name: Run tests (macOS / Linux)
       if: matrix.os != 'windows-latest'
-      run: "${{ steps.strings.outputs.build-output-dir }}/KeyPer test"
+      run: "${{ steps.strings.outputs.build-output-dir }}/run_tests"
 
     - name: Archive artifacts (Windows)
       if: matrix.os == 'windows-latest'
       uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.os }}-${{ matrix.build_type }}
-        path: ${{ steps.strings.outputs.build-output-dir }}\${{ matrix.build_type }}
+        path: ${{ steps.strings.outputs.build-output-dir }}\${{ matrix.build_type }}\KeyPer.exe
 
     - name: Archive artifacts (macOS / Linux)
       if: matrix.os != 'windows-latest'
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ matrix.os }}-${{ matrix.build_type }}
+        name: ${{ matrix.friendly_name }}-${{ matrix.build_type }}
         path: ${{ steps.strings.outputs.build-output-dir }}/KeyPer

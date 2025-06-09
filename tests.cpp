@@ -1,11 +1,15 @@
-#include "aes256.h"
-#include "db_insert.h"
-#include "db_tables.h"
-#include "master_password.h"
-#include "sha256_util.h"
-#include <cassert>
 #include <iostream>
+#include "sqlite3.h"
+#include "db_tables.h"
+#include "db_insert.h"
+#include "sha256_util.h"    // NEW: for SHA-256 hashing of the master password
+#include "aes256.h"
+#include "master_password.h"
+#include <limits>
+#include <cassert>
 
+std::string masterPlain;  // NEW: holds verified master password during runtime
+sqlite3* db = nullptr;
 
 // Fixed key for testing
 const string masterPlainPassword = "test_key_1234";
@@ -63,7 +67,7 @@ void testDeleteCredential() {
 
 }
 
-int run_tests() {
+int main() {
     
     testEncryptionRoundTrip();
     testEncryptionOutputDiffers();
@@ -72,7 +76,7 @@ int run_tests() {
     testDeleteCredential();
     testSearchNonExistingCredential();
 
-    cout << "All tests pased \n";
+    cout << "All tests passed \n";
     
     return 0;
 }

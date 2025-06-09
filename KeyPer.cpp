@@ -5,7 +5,6 @@
 #include "sha256_util.h"    // NEW: for SHA-256 hashing of the master password
 #include "aes256.h"
 #include "master_password.h"
-#include "tests.h"
 #include <limits>
 using namespace std;
 
@@ -387,7 +386,8 @@ void showSearchSQLMenu() {
                     if (choice == 1) {
                         do {
                             headerFunction("Delete records");
-                            cout << "This will permanently erase all of the searched credentials.\n";
+                            cout << "This will permanently erase all of the following credentials:\n";
+                            SQL_vaultSearch(searchKey);
                             cout << "Type [ Y ] to confirm or [ N ] to go back to the menu:\n";
 
                             string input;
@@ -401,7 +401,7 @@ void showSearchSQLMenu() {
                                 SQL_vaultSearchDelete(searchKey);
                                 return;
                             } else if (input == "n") {
-                                return;
+                                showSearchSQLMenu();
                             } else {
                                 cout << "\nInvalid input.\n";
                             }
@@ -410,6 +410,8 @@ void showSearchSQLMenu() {
                         // devNote("Delete entry selected. Implement delete SQL logic here.\n");
                     } 
                     else if (choice == 2) {
+                        headerFunction("Vault");
+                        SQL_vaultReader();
                         showSearchSQLMenu();
                     }
                     else if (choice == 0) {
@@ -518,7 +520,6 @@ void menu() {
             createNewLogin();
         }
         else if (option == 2) {
-            headerFunction("Vault");
             SQL_vaultReader();
             showSearchSQLMenu();
         }
@@ -554,14 +555,7 @@ void menu() {
     main menu caller
 */
 
-int main(int argc, char* argv[]) {
-    // Check for "test" flag in command-line arguments to run tests
-    for (int i = 1; i < argc; ++i) {
-        if (std::string(argv[i]) == "test") {
-            return run_tests();
-        }
-    }
-
+int main() {
     // Open (or create) the SQLite database
     if (sqlite3_open("db_data.db", &db) != SQLITE_OK) {
         cerr << "DEVNOTE - Database inaccessible! \n";
