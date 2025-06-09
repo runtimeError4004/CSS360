@@ -106,10 +106,10 @@ void SQL_vaultReader()
 
 bool SQL_vaultSearch(std::string searchKey)
 {
-    const char* sql = 
+    const char* sql =
       "SELECT Website, Username, Password "
       "FROM CREDENTIAL "
-      "WHERE Website = ? OR Username = ?;";
+      "WHERE Website LIKE ? OR Username LIKE ?;";
     sqlite3_stmt* stmt = nullptr;
 
     bool recordsFound = false;
@@ -119,6 +119,8 @@ bool SQL_vaultSearch(std::string searchKey)
              << sqlite3_errmsg(db) << "\n";
         return false;
     }
+
+    searchKey = "%" + searchKey + "%";
 
     sqlite3_bind_text(stmt, 1, searchKey.c_str(), searchKey.size(), SQLITE_TRANSIENT);
     sqlite3_bind_text(stmt, 2, searchKey.c_str(), searchKey.size(), SQLITE_TRANSIENT);
@@ -163,7 +165,7 @@ void SQL_vaultSearchDelete (string searchKey){
     
     const char* sql = 
       "DELETE FROM CREDENTIAL "
-      "WHERE Website = ? OR Username = ?;";
+      "WHERE Website LIKE ? OR Username LIKE ?;";
     sqlite3_stmt* stmt = nullptr;
 
     if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {

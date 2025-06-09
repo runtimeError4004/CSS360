@@ -194,18 +194,16 @@ string createNewPassword(bool fromMenu){
     while (true){ 
     
         std::cout << "How long should your password be ("
-        << MIN_PASSWORD_LEN << "-" << MAX_PASSWORD_LEN << ")? ";
+        << MIN_PASSWORD_LEN << "-" << MAX_PASSWORD_LEN << ")?:\n";
         std::cin >> passwordLen;
 
         // If Invalid Length
-        if (std::cin.fail() ||
-            passwordLen < MIN_PASSWORD_LEN ||
-            passwordLen > MAX_PASSWORD_LEN) {
-            std::cout << "Invalid password length. Must be between "
-                << MIN_PASSWORD_LEN << " and " << MAX_PASSWORD_LEN << ".\n";
+        if (std::cin.fail() || passwordLen < MIN_PASSWORD_LEN || passwordLen > MAX_PASSWORD_LEN) 
+        {
+            headerFunction("Invalid password length");
             std::cin.clear();
             std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            // return "";
+        // return "";
         }
         else {
             break;
@@ -268,6 +266,7 @@ void validateInsertVault(string website, string username, string password){
         std::cin>>valid;
         if (valid == 'y' || valid == 'Y'){
             SQL_vaultWriter(website, username, password);
+            std::cout<<"\nCredential stored.\n\n";
             return;
         } else if (valid == 'n' || valid == 'N'){
             // Create a menu here to ask the user which of the three they want to update
@@ -277,11 +276,11 @@ void validateInsertVault(string website, string username, string password){
 
                 headerFunction("Update Values");
 
-                std::cout << "What text is invalid? [ 1 ], [ 2 ], or [ 3 ]";
+                std::cout << "What text is invalid?:";
                 std::cout << "\n[ 1 ] - "<< website;
                 std::cout << "\n[ 2 ] - "<< username;
                 std::cout << "\n[ 3 ] - "<< password;
-                std::cout << "\n[ 4 ] - "<< "Cancel" << "\n";
+                std::cout << "\n[ 4 ] - "<< "Cancel update" << "\n";
 
                 std::cout << "Enter selection:\n";
 
@@ -374,6 +373,8 @@ void showSearchSQLMenu() {
             cout << "Search Term:\n";  
             std::cin.ignore();  // Clear any leftover characters in the buffer
             getline(std::cin,searchKey); // Newline was still sitting in the input buffer, getline immediately sees it and thinks it's the end of input.
+            cout << "\n";  
+
             if(SQL_vaultSearch(searchKey)){
                 do {
                     cout << "[ 1 ] Delete\n";
@@ -402,14 +403,14 @@ void showSearchSQLMenu() {
                             } else if (input == "n") {
                                 return;
                             } else {
-                                cout << "Invalid input.\n";
+                                cout << "\nInvalid input.\n";
                             }
                         } while(true);
 
                         // devNote("Delete entry selected. Implement delete SQL logic here.\n");
                     } 
                     else if (choice == 2) {
-                        break;
+                        showSearchSQLMenu();
                     }
                     else if (choice == 0) {
                         cout << "Returning to Main Menu\n";
@@ -422,7 +423,7 @@ void showSearchSQLMenu() {
             }
                 
             if (!SQL_vaultSearch(searchKey)){
-                headerFunction("No entries found.");
+                headerFunction("No records found.");
                 showSearchSQLMenu();
             }
 
@@ -474,7 +475,7 @@ bool resetVault() {
         } else if (input == "q") {
             return false;
         } else {
-            cout << "Invalid input.\n";
+            cout << "\nInvalid input.\n";
         }
     } while (true);
 
