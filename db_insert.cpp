@@ -259,11 +259,11 @@ bool deleteData()
         return false;
     }
     
-    const char* sql2 = "DELETE FROM ACCESS_LOG;";
-    char* errMsg2 = nullptr;
-    if (sqlite3_exec(db, sql2, nullptr, nullptr, &errMsg2) != SQLITE_OK) {
-        cerr << "[ERROR] deleteData failed: " << errMsg2 << "\n";
-        sqlite3_free(errMsg2);
+    const char* sql = "DELETE FROM ACCESS_LOG;";
+    char* errMsg = nullptr;
+    if (sqlite3_exec(db, sql, nullptr, nullptr, &errMsg) != SQLITE_OK) {
+        cerr << "[ERROR] deleteData failed: " << errMsg << "\n";
+        sqlite3_free(errMsg);
         return false;
     }
     return true;
