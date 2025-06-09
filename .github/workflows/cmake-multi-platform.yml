@@ -81,7 +81,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.os }}-${{ matrix.build_type }}
-        path: ${{ steps.strings.outputs.build-output-dir }}\${{ matrix.build_type }}
+        path: ${{ steps.strings.outputs.build-output-dir }}\${{ matrix.build_type }}\KeyPer.exe
 
     - name: Archive artifacts (macOS / Linux)
       if: matrix.os != 'windows-latest'
