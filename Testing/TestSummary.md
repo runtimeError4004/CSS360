@@ -23,11 +23,11 @@
 - **Scope:** Usability of CLI menus, error messaging, and ability to run basic password vault operations.  
 - **Status:** Users reported clear prompts and flow. No critical issues noted.  
 - **Last Run:** June 8, 2025
--  
+  
 ------------------------------------------------------------------------------
 ## Detailed Description of Automated Unit Tests
 
-These tests check the basic features of the program:
+Tests check the basic features of the program:
 
 - **testEncryptionRoundTrip()**  
   Checks that when a password is encrypted and then decrypted, it comes back exactly the same.
