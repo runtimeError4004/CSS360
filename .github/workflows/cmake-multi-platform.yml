@@ -70,11 +70,11 @@ jobs:
 
     - name: Run tests (Windows)
       if: matrix.os == 'windows-latest'
-      run: "${{ steps.strings.outputs.build-output-dir }}\\${{ matrix.build_type }}\\KeyPer.exe test"
+      run: "${{ steps.strings.outputs.build-output-dir }}\\${{ matrix.build_type }}\\run_tests.exe"
 
     - name: Run tests (macOS / Linux)
       if: matrix.os != 'windows-latest'
-      run: "${{ steps.strings.outputs.build-output-dir }}/KeyPer test"
+      run: "${{ steps.strings.outputs.build-output-dir }}/run_tests"
 
     - name: Archive artifacts (Windows)
       if: matrix.os == 'windows-latest'

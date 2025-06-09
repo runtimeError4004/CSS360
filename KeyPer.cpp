@@ -5,7 +5,6 @@
 #include "sha256_util.h"    // NEW: for SHA-256 hashing of the master password
 #include "aes256.h"
 #include "master_password.h"
-#include "tests.h"
 #include <limits>
 using namespace std;
 
@@ -554,14 +553,7 @@ void menu() {
     main menu caller
 */
 
-int main(int argc, char* argv[]) {
-    // Check for "test" flag in command-line arguments to run tests
-    for (int i = 1; i < argc; ++i) {
-        if (std::string(argv[i]) == "test") {
-            return run_tests();
-        }
-    }
-
+int main() {
     // Open (or create) the SQLite database
     if (sqlite3_open("db_data.db", &db) != SQLITE_OK) {
         cerr << "DEVNOTE - Database inaccessible! \n";
