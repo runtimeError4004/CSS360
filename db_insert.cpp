@@ -248,12 +248,6 @@ int SQL_vaultCounter()
     return count;
 }
 
-// Deletes all credential records
-bool deleteData()
-{
-    return delete_credentials() && delete_access_log();
-}
-
 bool delete_credentials()
 {
     const char* sql = "DELETE FROM CREDENTIAL;";
@@ -276,4 +270,10 @@ bool delete_access_log()
         return false;
     }
     return true;
+}
+
+// Deletes all credential records
+bool deleteData()
+{
+    return delete_credentials() && delete_access_log();
 }

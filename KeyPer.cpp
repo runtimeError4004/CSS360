@@ -314,7 +314,8 @@ void validateInsertVault(string website, string username, string password){
         } else {
 
             cout<<"Invalid response. Please enter [ Y ] or [ N ]: \n";
-            
+            std::cout.clear();
+            std::cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear input buffer
         }
     }
     
