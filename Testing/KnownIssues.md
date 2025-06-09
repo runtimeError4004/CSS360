@@ -32,22 +32,4 @@ This error occurs when you try to build the project from a directory that doesn'
    .\KeyPer.exe
    ```
 
----
 
-# Test 1
-- 6/8 
-- 
-- 
-- 
-
-# Test 2
-- 6/8 
-- 
-- 
-- 
-
-# Test 3
-- 6/8 
-- 
-- 
-- 
