@@ -24,8 +24,14 @@ CPMAddPackage("gh:sjinks/sqlite3-cmake@3.49.1")
 # Gather all .cpp files in the directory
 file(GLOB ALL_CPP_FILES "*.cpp")
 
-# Set KeyPer.cpp as the main file, remove it from the list of other files
+# Remove KeyPer.cpp from the list of other files
 list(REMOVE_ITEM ALL_CPP_FILES "${CMAKE_CURRENT_SOURCE_DIR}/KeyPer.cpp")
+list(REMOVE_ITEM ALL_CPP_FILES "${CMAKE_CURRENT_SOURCE_DIR}/tests.cpp")  # Don't include tests.cpp in main executable
 
+# Main executable
 add_executable(KeyPer KeyPer.cpp ${ALL_CPP_FILES})
 target_link_libraries(KeyPer PRIVATE cryptopp SQLite3)
+
+# Tests executable
+add_executable(run_tests tests.cpp ${ALL_CPP_FILES})
+target_link_libraries(run_tests PRIVATE cryptopp SQLite3)
