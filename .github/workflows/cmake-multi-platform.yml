@@ -71,9 +71,9 @@ jobs:
     - name:  Run with tests
       run: |
              if [ "$RUNNER_OS" == "Windows" ]; then
-                  export KEYPER_TESTS="1" && ./${{ matrix.build_type }}/KeyPer.exe
+                  export KEYPER_TESTS="1" && ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.build_type }}/KeyPer.exe
              else
-                  export KEYPER_TESTS="1" && ./${{ matrix.build_type }}/KeyPer
+                  export KEYPER_TESTS="1" && ${{ steps.strings.outputs.build-output-dir }}/${{ matrix.build_type }}/KeyPer
              fi
       shell: bash
 
