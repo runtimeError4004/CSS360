@@ -22,8 +22,32 @@
 - **Description:** Conducted with project team members.  
 - **Scope:** Usability of CLI menus, error messaging, and ability to run basic password vault operations.  
 - **Status:** Users reported clear prompts and flow. No critical issues noted.  
-- **Last Run:** June 8, 2025  
+- **Last Run:** June 8, 2025
+-  
+------------------------------------------------------------------------------
+## Detailed Description of Automated Unit Tests
 
+These tests check the basic features of the program:
+
+- **testEncryptionRoundTrip()**  
+  Checks that when a password is encrypted and then decrypted, it comes back exactly the same.
+
+- **testEncryptionOutputDiffers()**  
+  Makes sure that the encrypted password looks different from the original password.
+
+- **testInsertCredential()**  
+  Adds a new login (website, username, password) to the database and checks if it was saved properly.
+
+- **testSearchCredential()**  
+  Adds a login to the database and then checks that searching for that website finds it.
+
+- **testSearchNonExistingCredential()**  
+  Searches for a website that was never added and makes sure it is not found.
+
+- **testDeleteCredential()**  
+  Adds a login, confirms it is there, deletes it, and then confirms it is gone.
+
+-------------------------------------------------------------------------------
 ## Results  
 Core encryption and database functionality validated.  
 Some edge case tests (like empty fields and unusual input handling) untested.
