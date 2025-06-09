@@ -72,12 +72,20 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: "${{ steps.strings.outputs.build-output-dir }}\\${{ matrix.build_type }}\\KeyPer.exe test"
 
-    - name: Run tests (macOS/Linux)
+    - name: Run tests (macOS / Linux)
       if: matrix.os != 'windows-latest'
       run: "${{ steps.strings.outputs.build-output-dir }}/KeyPer test"
 
-    - name: Archive artifacts
+    - name: Archive artifacts (Windows)
+      if: matrix.os == 'windows-latest'
       uses: actions/upload-artifact@v4
       with:
-        name: dist-without-markdown
-        path: ${{ matrix.build_type }}
+        name: ${{ matrix.os }}-${{ matrix.build_type }}
+        path: ${{ steps.strings.outputs.build-output-dir }}\${{ matrix.build_type }}
+
+    - name: Archive artifacts (macOS / Linux)
+      if: matrix.os != 'windows-latest'
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.os }}-${{ matrix.build_type }}
+        path: ${{ steps.strings.outputs.build-output-dir }}/KeyPer
