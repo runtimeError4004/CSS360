@@ -53,3 +53,7 @@ B) [Random Number Generator](https://www.w3schools.com/cpp/cpp_howto_random_numb
   - `cd ./debug`
   - `./KeyPer.exe` (Windows)
   - `./KeyPer` (macOS, Linux)
+
+# Testing
+
+- All test files and documents are stored in the ./Testing
