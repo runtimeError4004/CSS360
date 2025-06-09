@@ -1,7 +1,7 @@
 # Add a file called KnownIssues.txt.  
 ## Briefly list all known issues.
 
-## ⚠️ Known Issue: `Error: could not load cache` when running `cmake --build`
+## Known Issue: `Error: could not load cache` when running `cmake --build`
 ### Description  
 This error occurs when you try to build the project from a directory that doesn't contain the required CMake build files—specifically, the `CMakeCache.txt` file. It typically happens if you accidentally run the configuration command (`cmake ..`) inside a nested subfolder (like `build/debug`) instead of the main `build/` directory.
 ### 🛠️ How to Fix
