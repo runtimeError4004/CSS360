@@ -553,10 +553,13 @@ void menu() {
 /*
     main menu caller
 */
-int main() {
-    // Run tests if KEYPER_TESTS environment variable is set
-    if (getenv("KEYPER_TESTS")) {
-        return run_tests();
+
+int main(int argc, char* argv[]) {
+    // Check for "test" flag in command-line arguments to run tests
+    for (int i = 1; i < argc; ++i) {
+        if (std::string(argv[i]) == "test") {
+            return run_tests();
+        }
     }
 
     // Open (or create) the SQLite database
