@@ -10,6 +10,7 @@
 // Fixed key for testing
 const string masterPlainPassword = "test_key_1234";
 
+// Check that encryption -> decryption returns the original text
 void testEncryptionRoundTrip() {
 
     string plaintext = "TestPassword123!";
@@ -18,6 +19,7 @@ void testEncryptionRoundTrip() {
     assert(decrypted == plaintext);
 
 }
+
 
 void testEncryptionOutputDiffers() {
 
@@ -35,11 +37,40 @@ void testInsertCredential() {
 
 }
 
+void testSearchCredential() {
+
+    SQL_vaultWriter("search.com", "searchUser", "searchPass");
+    bool found = SQL_vaultSearch("search.com");
+    assert(found);
+
+}
+
+void testSearchNonExistingCredential() {
+
+    string searchKey = "fake.com";
+    bool found = SQL_vaultSearch(searchKey);
+    assert(!found);
+
+}
+
+void testDeleteCredential() {
+
+    SQL_vaultWriter("delete.com", "deleteUser", "deletePass");
+    assert(SQL_vaultSearch("delete.com"));
+    SQL_vaultSearchDelete("delete.com");
+    bool found = SQL_vaultSearch("delete.com");
+    assert(!found);
+
+}
+
 int run_tests() {
     
     testEncryptionRoundTrip();
     testEncryptionOutputDiffers();
     testInsertCredential();
+    testSearchCredential();
+    testDeleteCredential();
+    testSearchNonExistingCredential();
 
     cout << "All tests pased \n";
     
