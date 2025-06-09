@@ -5,7 +5,6 @@
 #include "sha256_util.h"    // NEW: for SHA-256 hashing of the master password
 #include "aes256.h"
 #include "master_password.h"
-#include "tests.h"
 #include <limits>
 using namespace std;
 
@@ -555,12 +554,8 @@ void menu() {
 /*
     main menu caller
 */
-int main() {
-    // Run tests if KEYPER_TESTS environment variable is set
-    if (getenv("KEYPER_TESTS")) {
-        return run_tests();
-    }
 
+int main() {
     // Open (or create) the SQLite database
     if (sqlite3_open("db_data.db", &db) != SQLITE_OK) {
         cerr << "DEVNOTE - Database inaccessible! \n";
