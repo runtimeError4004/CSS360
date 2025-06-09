@@ -51,3 +51,5 @@ Tests check the basic features of the program:
 ## Results  
 Core encryption and database functionality validated.  
 Some edge case tests (like empty fields and unusual input handling) untested.
+
+For information on the compilation and test results for the program, see the [latest GitHub Actions run](https://github.com/runtimeError4004/CSS360/actions/runs/15528454428).
